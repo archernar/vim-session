@@ -36,3 +36,13 @@ function! AddToSession(...)
         endfor
         call writefile(keys(l:dict), a:1)
 endfunction
+
+function! RemoveFromSession(...)
+        let l:dict={}
+        let l:body = readfile(a:1)
+        call add(l:body, "" . bufname("%") . "")
+        for l:l in l:body
+            let dict[l:l]='I'
+        endfor
+        call writefile(keys(l:dict), a:1)
+endfunction

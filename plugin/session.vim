@@ -73,7 +73,8 @@ endfunction
 
 function! LoadSessionT(...)
         let l:sz = ""
-        call TeeLeft()
+        " call TeeLeft()
+        exe "vsplit | split | vertical resize 56 | exe '1wincmd w'"
         let l:body = readfile(a:1)
         for l:l in l:body
             if !( l:l =~ "\"" )

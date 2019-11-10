@@ -11,11 +11,12 @@ function! WOW()
         let l:c = 1
         while l:c <= 10 
             if (bufexists(l:c))
-        echom "wow"
-                echom getbufvar(l:c, '&buftype')
+                let readable = filereadable(bufname(l:c))
+                echo bufname(l:c) . " is " . (readable ? "" : "not ") . "a readable file."
             endif
             let l:c += 1
         endwhile 
+
 "         let l:list = map(range(1, winnr('$')), '[v:val, bufname(winbufnr(v:val))]')
 "         let l:list = range(1, winnr('$'))
 "         for l:l in l:list
@@ -86,9 +87,13 @@ function! CaptureSession(...)
         let l:winbody=[]
         while l:c <=255 
             if (bufexists(l:c))
-                if (getbufvar(l:c, '&buftype') == "")
-                    if !(bufname(l:c) == "")
-                       call add(l:body, "" . bufname(l:c) . "")
+                let l:readable = filereadable(bufname(l:c))
+"               echo bufname(l:c) . " is " . (l:readable ? "" : "not ") . "a readable file."
+                if (l:readable)
+                    if (getbufvar(l:c, '&buftype') == "")
+                        if !(bufname(l:c) == "")
+                           call add(l:body, "" . bufname(l:c) . "")
+                        endif
                     endif
                 endif
             endif

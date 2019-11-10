@@ -7,6 +7,7 @@
 
 
 function! WOW(...)
+                echom "wow"
         let l:c = 1
         while l:c <=255 
             if (bufexists(l:c))

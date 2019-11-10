@@ -6,10 +6,10 @@
 " call g:MyCommandMapper("command! CAPEDIT       :e .vimsession")
 
 
-function! WOW(...)
-                echom "wow"
+function! WOW()
+        echom "wow"
         let l:c = 1
-        while l:c <=255 
+        while l:c <= 10 
             if (bufexists(l:c))
                 echom getbufvar(l:c, '&buftype')
             endif

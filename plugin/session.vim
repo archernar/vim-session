@@ -87,8 +87,10 @@ function! LoadSessionT(...)
         let c = 1
         let l:body = readfile(a:1)
         for l:l in l:body
-             call s:GotoWindow(c)
-             exe "e " . l:l
+             if ( WindowExists(c) == 1 )
+                 call s:GotoWindow(c)
+                 exe "e " . l:l
+             endif
              let c = c + 1
         endfor
         call s:WackNoNameBuffer()

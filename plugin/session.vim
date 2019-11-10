@@ -141,6 +141,10 @@ function! CaptureSession(...)
         echom a:1
 endfunction
 
+
+"
+" Under Development
+" 
 function! AddToSession(...)
         let l:dict={}
         let l:body = readfile(a:1)

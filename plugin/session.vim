@@ -41,7 +41,7 @@ function! s:GotoWindow(...)
 endfunction
 
 function! s:WackNoNameBuffer()
-        let c = 1
+        let l:c = 1
         while l:c <= 8
             if (bufexists(l:c))
                     if (bufname(l:c) == "")
@@ -54,15 +54,18 @@ endfunction
 
 function! LoadSession(...)
         let l:sz = ""
+        let l:c = 0
         let l:body = readfile(a:1)
         for l:l in l:body
             if !( l:l =~ "\"" )
                 if !( l:l == "" )
                     exe a:2 . " " . l:l
                     let l:sz = l:sz . l:l . " "
+                    let l:c = l:c + 1
                 endif
             endif
         endfor
+        let l:sz = l:c . " Files: " . l:sz 
         echom l:sz
 endfunction
 
@@ -85,14 +88,14 @@ function! LoadSessionT(...)
             endif
         endfor
 
-        let c = 1
+        let l:c = 1
         let l:body = readfile(a:1)
         for l:l in l:body
              if ( WindowExists(c) == 1 )
-                 call s:GotoWindow(c)
+                 call s:GotoWindow(l:c)
                  exe "e " . l:l
              endif
-             let c = c + 1
+             let l:c = l:c + 1
         endfor
         call s:WackNoNameBuffer()
 

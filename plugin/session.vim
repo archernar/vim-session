@@ -66,6 +66,7 @@ function! LoadSession(...)
             endif
         endfor
         let l:sz = l:c . " Files: " . l:sz 
+        exe "1wincmd w"
         echom l:sz
 endfunction
 

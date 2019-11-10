@@ -6,6 +6,16 @@
 " call g:MyCommandMapper("command! CAPEDIT       :e .vimsession")
 
 
+function! WindowExists(...)
+        let nRet = 0
+        for l:l in range(1, winnr('$'))
+            if (a:1 == l:l) 
+                let nRet = 1
+            endif
+        endfor
+        return nRet
+endfunction
+
 function! WOW()
         for l:l in range(1, winnr('$'))
                     echom l:l
@@ -53,10 +63,6 @@ function! LoadSession(...)
                 endif
             endif
         endfor
-
-
-
-
         echom l:sz
 endfunction
 

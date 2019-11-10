@@ -56,6 +56,12 @@ function! LoadSession(...)
 
         echom l:sz
 endfunction
+
+function! JustT()
+        let l:sz = ""
+        call TeeLeft()
+endfunction
+
 function! LoadSessionT(...)
         let l:sz = ""
         call TeeLeft()

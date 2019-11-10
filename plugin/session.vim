@@ -101,6 +101,7 @@ function! LoadSessionT(...)
              let l:c = l:c + 1
         endfor
         call s:WackNoNameBuffer()
+        exe "1wincmd w"
 
         echom l:sz
 endfunction

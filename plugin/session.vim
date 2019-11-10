@@ -79,7 +79,7 @@ function! LoadSessionT(...)
         let l:sz = ""
         let l:c = 0
         " call TeeLeft()
-        let l:w = winwidth(0) /2
+        let l:w = winwidth(0) / 3
         exe "vsplit | split | vertical resize " . l:w . " | exe '1wincmd w'"
         if (a:0 == 0)
             return

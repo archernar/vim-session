@@ -10,6 +10,7 @@ function! WOW()
         echom "wow"
         let l:c = 1
         while l:c <= 10 
+        echom "wow"
             if (bufexists(l:c))
                 echom getbufvar(l:c, '&buftype')
             endif

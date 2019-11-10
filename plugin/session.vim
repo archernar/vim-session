@@ -7,16 +7,19 @@
 
 
 function! WOW()
-        echom "wow"
-        let l:c = 1
-        while l:c <= 10 
-            if (bufexists(l:c))
-                let readable = filereadable(bufname(l:c))
-                echo bufname(l:c) . " is " . (readable ? "" : "not ") . "a readable file."
-            endif
-            let l:c += 1
-        endwhile 
-
+        for l:l in range(1, winnr('$'))
+                    echom l:l
+        endfor
+"         echom "wow"
+"         let l:c = 1
+"         while l:c <= 10 
+"             if (bufexists(l:c))
+"                 let readable = filereadable(bufname(l:c))
+"                 echo bufname(l:c) . " is " . (readable ? "" : "not ") . "a readable file."
+"             endif
+"             let l:c += 1
+"         endwhile 
+" 
 "         let l:list = map(range(1, winnr('$')), '[v:val, bufname(winbufnr(v:val))]')
 "         let l:list = range(1, winnr('$'))
 "         for l:l in l:list

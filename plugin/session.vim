@@ -76,6 +76,7 @@ endfunction
 
 function! LoadSessionT(...)
         let l:sz = ""
+        let l:c = 0
         " call TeeLeft()
         exe "vsplit | split | vertical resize 56 | exe '1wincmd w'"
         let l:body = readfile(a:1)
@@ -84,9 +85,11 @@ function! LoadSessionT(...)
                 if !( l:l == "" )
                     exe a:3 . " " . l:l
                     let l:sz = l:sz . l:l . " "
+                    let l:c = l:c + 1
                 endif
             endif
         endfor
+        let l:sz = l:c . " Files: " . l:sz 
 
         let l:c = 1
         let l:body = readfile(a:1)

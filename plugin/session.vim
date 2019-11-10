@@ -81,6 +81,9 @@ function! LoadSessionT(...)
         " call TeeLeft()
         let l:w = winwidth(0) /2
         exe "vsplit | split | vertical resize " . l:w . " | exe '1wincmd w'"
+        if (a:0 == 0)
+            return
+        endif
         let l:body = readfile(a:1)
         for l:l in l:body
             if !( l:l =~ "\"" )
@@ -112,7 +115,7 @@ function! CaptureSession(...)
         let l:c=1
         let l:body=[]
         let l:winbody=[]
-        while l:c <=255 
+        while l:c <= 16 
             if (bufexists(l:c))
                 let l:readable = filereadable(bufname(l:c))
 "               echo bufname(l:c) . " is " . (l:readable ? "" : "not ") . "a readable file."

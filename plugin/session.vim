@@ -7,11 +7,18 @@
 
 
 function! WOW(...)
-        let l:list = map(range(1, winnr('$')), '[v:val, bufname(winbufnr(v:val))]')
-        let l:list = range(1, winnr('$'))
-        for l:l in l:list
-                 echom l:l . "  -  " .  bufname(winbufnr(l:l))
-        endfor
+        let l:c = 1
+        while l:c <=255 
+            if (bufexists(l:c))
+                echom getbufvar(l:c, '&buftype')
+            endif
+            let l:c += 1
+        endwhile 
+"         let l:list = map(range(1, winnr('$')), '[v:val, bufname(winbufnr(v:val))]')
+"         let l:list = range(1, winnr('$'))
+"         for l:l in l:list
+"                  echom l:l . "  -  " .  bufname(winbufnr(l:l))
+"         endfor
 endfunction
 function! s:GotoWindow(...)
          exe a:1 . "wincmd w"

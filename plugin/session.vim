@@ -94,14 +94,24 @@ function! JustT()
 endfunction
 
 function! LoadSessionT(...)
-        echom "T"
         let l:sz = ""
         let l:szW = ""
         let l:c = 0
-        exe "vsplit | split | vertical resize " . (winwidth(0) / 3) . " | exe '1wincmd w'"
+
+        let l:splits = "vsplit | split | vertical resize " . (winwidth(0) / 3)"
+        if (a:0 == 4)
+            if (a:4 == "")
+                let l:splits = l:splits . " | exe '1wincmd w'"
+            else
+                let l:splits = a:4  . " | exe '1wincmd w'"
+            endif
+        endif
+        exe l:splits
         if (a:0 == 0)
             return
         endif
+
+
         let l:body = readfile(a:1)
         for l:l in l:body
             if !( l:l =~ "\"" )

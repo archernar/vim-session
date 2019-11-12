@@ -40,18 +40,36 @@ function! s:GotoWindow(...)
          exe a:1 . "wincmd w"
 endfunction
 
+function! s:BufferVisible(...)
+        let l:ret = 0
+        for l:l in range(1, winnr('$'))
+            if (a:1 == winbufnr(l:l))
+                let l:ret = 1
+            endif
+        endfor
+        return l:ret
+endfunction
+
 function! s:WackNoNameBuffer()
         let l:c = 1
-        while l:c <= 8
+        while l:c <= 16 
             if (bufexists(l:c))
                     if (bufname(l:c) == "")
-                       exe "bd " . l:c
+                       if (s:BufferVisible(l:c) == 0)
+                           exe "bd " . l:c
+                       endif
                     endif
             endif
             let l:c += 1
         endwhile 
 endfunction
-
+function! s:FileExists(...)
+        let l:ret = 0
+        if !empty(glob(a:1))
+            let l:ret = 1
+        endif 
+        return l:ret
+endfunction
 function! LoadSession(...)
         let l:sz = ""
         let l:c = 0
@@ -65,7 +83,7 @@ function! LoadSession(...)
                 endif
             endif
         endfor
-        let l:sz = l:c . " Files: " . l:sz 
+        let l:sz = l:c . "F " . l:sz 
         exe "1wincmd w"
         echom l:sz
 endfunction
@@ -76,11 +94,11 @@ function! JustT()
 endfunction
 
 function! LoadSessionT(...)
+        echom "T"
         let l:sz = ""
+        let l:szW = ""
         let l:c = 0
-        " call TeeLeft()
-        let l:w = winwidth(0) / 3
-        exe "vsplit | split | vertical resize " . l:w . " | exe '1wincmd w'"
+        exe "vsplit | split | vertical resize " . (winwidth(0) / 3) . " | exe '1wincmd w'"
         if (a:0 == 0)
             return
         endif
@@ -94,28 +112,29 @@ function! LoadSessionT(...)
                 endif
             endif
         endfor
-        let l:sz = l:c . " Files: " . l:sz 
+        let l:sz = l:c . "F: " . l:sz 
 
         let l:c = 1
-        let l:body = readfile(a:1)
-        for l:l in l:body
-             if ( WindowExists(c) == 1 )
-                 call s:GotoWindow(l:c)
-                 exe "e " . l:l
-             endif
-             let l:c = l:c + 1
-        endfor
-        call s:WackNoNameBuffer()
+        if (1 == 1)
+            let l:body = readfile(a:2)
+            for l:l in l:body
+                 if ( WindowExists(l:c) == 1 )
+                     call s:GotoWindow(l:c)
+                     exe "e " . l:l
+                 endif
+                 let l:c = l:c + 1
+            endfor
+        endif
         exe "1wincmd w"
-
-        echom l:sz
+        echom "T" . l:sz
+        call s:WackNoNameBuffer()
 endfunction
 
 function! CaptureSession(...)
         let l:c=1
         let l:body=[]
         let l:winbody=[]
-        while l:c <= 255 
+        while l:c <= 16 
             if (bufexists(l:c))
                 let l:readable = filereadable(bufname(l:c))
 "               echo bufname(l:c) . " is " . (l:readable ? "" : "not ") . "a readable file."
@@ -130,7 +149,6 @@ function! CaptureSession(...)
             let l:c += 1
         endwhile 
 
-
         for l:l in range(1, winnr('$'))
                     let l:thisbuffername = bufname(winbufnr(l:l))
                     call add(l:winbody, l:thisbuffername)
@@ -138,7 +156,6 @@ function! CaptureSession(...)
         call writefile(l:body, a:1)
         call writefile(l:winbody, ".vimwindows")
 
-        echom a:1
 endfunction
 
 

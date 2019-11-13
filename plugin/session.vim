@@ -2,7 +2,6 @@
 " call g:MyCommandMapper("command! SESSIONLOAD   :call LoadSession('.vimsession', 'e')")
 " call g:MyCommandMapper("command! CAP           :call CaptureSession('.vimsession')")
 " call g:MyCommandMapper("command! CAPLOAD       :call LoadSession('.vimsession','e')")
-" call g:MyCommandMapper("command! CAPADD        :call AddToSession('.vimsession')")
 " call g:MyCommandMapper("command! CAPEDIT       :e .vimsession")
 
 
@@ -170,28 +169,4 @@ function! CaptureSession(...)
         call writefile(l:body, a:1)
         call writefile(l:winbody, ".vimwindows")
 
-endfunction
-
-
-"
-" Under Development
-" 
-function! AddToSession(...)
-        let l:dict={}
-        let l:body = readfile(a:1)
-        call add(l:body, "" . bufname("%") . "")
-        for l:l in l:body
-            let dict[l:l]='I'
-        endfor
-        call writefile(keys(l:dict), a:1)
-endfunction
-
-function! RemoveFromSession(...)
-        let l:dict={}
-        let l:body = readfile(a:1)
-        call add(l:body, "" . bufname("%") . "")
-        for l:l in l:body
-            let dict[l:l]='I'
-        endfor
-        call writefile(keys(l:dict), a:1)
 endfunction

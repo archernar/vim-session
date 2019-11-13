@@ -99,7 +99,7 @@ function! LoadSessionT(...)
         let l:szW = ""
         let l:c = 0
 
-        let l:splits = "vsplit | split | vertical resize " . (winwidth(0) / 3)"
+        let l:splits = "vsplit | split | vertical resize " . (winwidth(0) / 4)"
         if (a:0 == 4)
             if (a:4 == "")
                 let l:splits = l:splits . " | exe '1wincmd w'"

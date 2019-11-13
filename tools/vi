@@ -1,0 +1,59 @@
+#!/usr/bin/ksh
+Tmp="/tmp/$$"
+TmpDir="/tmp/dir$$"
+trap 'rm -f "$Tmp" >/dev/null 2>&1' 0
+trap "exit 2" 1 2 3 13 15
+rm $Tmp  >/dev/null 2>&1
+#echo $VIMSESSION" does not exist"
+
+
+VIMSESSION=./.vimsession
+if [ $# -eq 0 ] ; then
+        if [ -e "$VIMSESSION" ]; then
+             vim -c SESSIONLOAD
+        else
+             vim -c MRU
+        fi
+
+else
+
+        if [ "$1" == "tt" ] ; then
+           vi -c SESSIONLOADT
+           exit
+        fi
+        if [ "$1" == "tee" ] ; then
+           vi -c TEE
+           exit
+        fi
+        if [ "$1" == "TEE" ] ; then
+           vi -c TEE
+           exit
+        fi
+        if [ "$1" == "TEELEFT" ] ; then
+           vi -c TEELEFT
+           exit
+        fi
+        if [ "$1" == "22" ] ; then
+           vi -c TWOTWO
+           exit
+        fi
+        if [ "$1" == "2" ] ; then
+           vi -c TWO
+           exit
+        fi
+        if [ "$1" == "3" ] ; then
+           vi -c THREE
+           exit
+        fi
+        if [ "$1" == "4" ] ; then
+           vi -c FOUR
+           exit
+        fi
+        if [ "$1" == "x" ] ; then
+            vim
+        else
+            # vim -o $1 $2 $3 $4
+            vim $1 $2 $3 $4
+        fi
+
+fi

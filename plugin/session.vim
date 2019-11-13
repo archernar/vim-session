@@ -85,6 +85,7 @@ function! LoadSession(...)
         endfor
         let l:sz = l:c . "F " . l:sz 
         exe "1wincmd w"
+        call s:WackNoNameBuffer()
         echom l:sz
 endfunction
 
@@ -126,16 +127,19 @@ function! LoadSessionT(...)
 
         let l:c = 1
         if (1 == 1)
-            let l:body = readfile(a:2)
-            for l:l in l:body
-                 if ( WindowExists(l:c) == 1 )
-                     call s:GotoWindow(l:c)
-                     exe "e " . l:l
-                 endif
-                 let l:c = l:c + 1
-            endfor
+            let l:readable = filereadable(".vimwindows")
+            if ( l:readable )
+                let l:body = readfile(a:2)
+                for l:l in l:body
+                     if ( WindowExists(l:c) == 1 )
+                         call s:GotoWindow(l:c)
+                         exe "e " . l:l
+                     endif
+                     let l:c = l:c + 1
+                endfor
+            endif
+            exe "1wincmd w"
         endif
-        exe "1wincmd w"
         echom "T" . l:sz
         call s:WackNoNameBuffer()
 endfunction

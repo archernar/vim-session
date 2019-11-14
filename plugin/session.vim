@@ -127,24 +127,24 @@ function! LoadSessionT(...)
                 endif
             endfor
             let l:sz = l:c . "F: " . l:sz 
-        endif
 
-        let l:c = 1
-        if (1 == 1)
-            let l:readable = filereadable(".vimwindows")
-            if ( l:readable )
-                let l:body = readfile(a:2)
-                for l:l in l:body
-                     if ( WindowExists(l:c) == 1 )
-                         call s:GotoWindow(l:c)
-                         exe "e " . l:l
-                     endif
-                     let l:c = l:c + 1
-                endfor
+            let l:c = 1
+            if (1 == 1)
+                let l:readable = filereadable(".vimwindows")
+                if ( l:readable )
+                    let l:body = readfile(a:2)
+                    for l:l in l:body
+                         if ( WindowExists(l:c) == 1 )
+                             call s:GotoWindow(l:c)
+                             exe "e " . l:l
+                         endif
+                         let l:c = l:c + 1
+                    endfor
+                endif
+                exe "1wincmd w"
             endif
-            exe "1wincmd w"
         endif
-        echom "T" . l:sz
+        echom "T " . l:sz
         call s:WackNoNameBuffer()
 endfunction
 

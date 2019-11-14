@@ -29,8 +29,6 @@ fi
 
 
 if [ "$LOCAL" == "" ] ; then
-     cp $HOME/scm/vim-firstbin/vit .
-     cp $HOME/scm/vim-firstbin/vi  .
      IP=192.168.1.1
      fping -c1 -t300 $IP 2>/dev/null 1>/dev/null
      if [ $? -eq 0 ] ; then

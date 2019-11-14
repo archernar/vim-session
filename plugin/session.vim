@@ -112,17 +112,22 @@ function! LoadSessionT(...)
         endif
 
 
-        let l:body = readfile(a:1)
-        for l:l in l:body
-            if !( l:l =~ "\"" )
-                if !( l:l == "" )
-                    exe a:3 . " " . l:l
-                    let l:sz = l:sz . l:l . " "
-                    let l:c = l:c + 1
+        let l:sz = "No " . a:1
+        let l:readable = filereadable(a:1)
+        if ( l:readable )
+            let l:sz = ""
+            let l:body = readfile(a:1)
+            for l:l in l:body
+                if !( l:l =~ "\"" )
+                    if !( l:l == "" )
+                        exe a:3 . " " . l:l
+                        let l:sz = l:sz . l:l . " "
+                        let l:c = l:c + 1
+                    endif
                 endif
-            endif
-        endfor
-        let l:sz = l:c . "F: " . l:sz 
+            endfor
+            let l:sz = l:c . "F: " . l:sz 
+        endif
 
         let l:c = 1
         if (1 == 1)

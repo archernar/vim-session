@@ -133,7 +133,6 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'jeetsukumaran/vim-buffergator'
 Plugin 'vim-scripts/grep.vim'      " https://github.com/vim-scripts/grep.vim
 Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-obsession'
 Bundle 'Lokaltog/vim-monotone.git'
 Bundle 'owickstrom/vim-colors-paramount'
 

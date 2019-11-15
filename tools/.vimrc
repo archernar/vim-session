@@ -1,4 +1,4 @@
-"=============================================================================
+"1============================================================================
 "=    W e l c o m e   t o   m y  V I M R C                                   =
 "=============================================================================
 " Notes
@@ -150,11 +150,13 @@ Bundle 'owickstrom/vim-colors-paramount'
 "Plugin 'mhinz/vim-startify'
 "Plugin 'yegappan/mru'
                                   " *******************************************************************
+                                  " *******************************************************************
+                                  " *******************************************************************
 call vundle#end()                 " Vundle END 
 endif                             " Vundle END
                                   " *******************************************************************
-source /home/mestes/.vim/bundle/vim-utils/plugin/string.vim
-source /home/mestes/.vim/bundle/vim-map/plugin/map.vim
+source ~/.vim/bundle/vim-utils/plugin/string.vim
+source ~/.vim/bundle/vim-map/plugin/map.vim
                                   
                                   " *******************************************************************
 filetype plugin indent on         " required, to ignore plugin indent changes, instead use: 
@@ -170,11 +172,6 @@ call g:SetMyKeyMapperMode("STD")
 " *****************************************************************************************************
                                   " Utility Functions
                                   " *******************************************************************
-function! DQ(...)
-    let l:sz = substitute(a:1, "<cr>", "", "g")
-    let l:sz = substitute(l:sz, ":", "", "g")
-    return "\'" . l:sz . "\'"
-endfunction
 
 function! SaveQuitAll()
      execute "w"
@@ -183,69 +180,6 @@ endfunction
 
 function! QuitAll()
      execute "qall!"
-endfunction
-
-function! DeSpace()
-     execute "%s/^     / /ge"
-     execute "%s/^     / /ge"
-     execute "%s/^     / /ge"
-     execute "%s/^     / /ge"
-     execute "%s/^     / /ge"
-
-     execute "%s/^    / /ge"
-     execute "%s/^    / /ge"
-     execute "%s/^    / /ge"
-     execute "%s/^    / /ge"
-     execute "%s/^    / /ge"
-
-     execute "%s/^   / /ge"
-     execute "%s/^   / /ge"
-     execute "%s/^   / /ge"
-     execute "%s/^   / /ge"
-     execute "%s/^   / /ge"
-
-     execute "%s/^  / /ge"
-     execute "%s/^  / /ge"
-     execute "%s/^  / /ge"
-     execute "%s/^  / /ge"
-     execute "%s/^  / /ge"
-
-     execute "%s/^ //ge"
-endfunction
-function! TrimLeft(s1)
-     let l:szPart = substitute(a:s1, "^ *", "", "")
-     return l:szPart
-endfunction
-function! TrimRight(s1)
-     let l:szPart = substitute(l:szPart, " *$", "", "")
-     return l:szPart
-endfunction
-function! Trim(s1)
-     let l:szPart = substitute(a:s1, "^ *", "", "")
-     let l:szPart = substitute(l:szPart, " *$", "", "")
-     return l:szPart
-endfunction
-function! Trimmer(s1,s2)
-     let l:szPart = substitute(a:s1,     a:s2,  "", "")
-     let l:szPart = substitute(l:szPart, "^ *", "", "")
-     let l:szPart = substitute(l:szPart, " *$", "", "")
-     return l:szPart
-endfunction
-function! Pad(s,amt)
-        return a:s . repeat(' ',a:amt - len(a:s))
-endfunction
-function! PrePad(s,amt,...)
-        if a:0 > 0
-             let char = a:1
-        else
-             let char = ' '
-        endif
-        return repeat(char,a:amt - len(a:s)) . a:s
-endfunction
-
-function! CenterPad(...)
-        let l:n = (((s:LW-strlen(a:1)) / 2) + strlen(a:1)) - 0
-        return PrePad(a:1, l:n)
 endfunction
 
 function! CallMan(...)
@@ -291,17 +225,6 @@ function! VimKeyMap()
      redir END
 endfunction
 
-function! RandomString()
-    let l:szAlpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    let l:c = 1
-    let l:szOut = ""
-    while l:c <= 8
-         let l:rrr = str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:]) % 24 
-         let l:szOut = l:szOut . l:szAlpha[rrr] 
-         let l:c += 1
-    endwhile 
-    return l:szOut
-endfunction
 function! Ls()
     ls
 endfunction
@@ -326,106 +249,6 @@ function! Four()
 endfunction
                                   " *******************************************************************
                                   " END: Utility Functions
-" *****************************************************************************************************
-" 
-" CTRL-W r	Rotate windows downwards/rightwards.  The first window becomes
-" 		the second one, the second one becomes the third one, etc.
-" 		The last window becomes the first window.  The cursor remains
-" 		in the same window.
-" 		This only works within the row or column of windows that the
-" 		current window is in.
-" 
-" CTRL-W R	Rotate windows upwards/leftwards.  The second window becomes
-" 		the first one, the third one becomes the second one, etc.  The
-" 		first window becomes the last window.  The cursor remains in
-" 		the same window.
-" 		This only works within the row or column of windows that the
-" 		current window is in.
-" 
-" CTRL-W x	Without count: Exchange current window with next one.  If there
-" 		is no next window, exchange with previous window.
-" 		With count: Exchange current window with Nth window (first
-" 		window is 1).  The cursor is put in the other window.
-" 		When vertical and horizontal window splits are mixed, the
-" 		exchange is only done in the row or column of windows that the
-" 		current window is in.
-" 
-" The following commands can be used to change the window layout.  For example,
-" when there are two vertically split windows, CTRL-W K will change that in
-" horizontally split windows.  CTRL-W H does it the other way around.
-" 
-" 						*CTRL-W_K*
-" CTRL-W K	Move the current window to be at the very top, using the full
-" 		width of the screen.  This works like closing the current
-" 		window and then creating another one with ":topleft split",
-" 		except that the current window contents is used for the new
-" 		window.
-" 
-" 						*CTRL-W_J*
-" CTRL-W J	Move the current window to be at the very bottom, using the
-" 		full width of the screen.  This works like closing the current
-" 		window and then creating another one with ":botright split",
-" 		except that the current window contents is used for the new
-" 		window.
-" 
-" 						*CTRL-W_H*
-" CTRL-W H	Move the current window to be at the far left, using the
-" 		full height of the screen.  This works like closing the
-" 		current window and then creating another one with
-" 		":vert topleft split", except that the current window contents
-" 		is used for the new window.
-" 		{not available when compiled without the |+vertsplit| feature}
-" 
-" 						*CTRL-W_L*
-" CTRL-W L	Move the current window to be at the far right, using the full
-" 		height of the screen.  This works like closing the
-" 		current window and then creating another one with
-" 		":vert botright split", except that the current window
-" 		contents is used for the new window.
-" 		{not available when compiled without the |+vertsplit| feature}
-" 
-" 						*CTRL-W_T*
-" CTRL-W T	Move the current window to a new tab page.  This fails if
-" 		there is only one window in the current tab page.
-" 		When a count is specified the new tab page will be opened
-" 		before the tab page with this index.  Otherwise it comes after
-" 		the current tab page.
-" 
-
-function! NewWindow(...)
-        " H is Left  L is Right  K is Top  J is Bottom
-        vnew
-        let l:sz = tolower(a:1)
-        if (l:sz == "left")
-             wincmd H
-        endif
-        if (l:sz == "right")
-             wincmd L
-        endif
-        if (l:sz == "top")
-             wincmd K
-        endif
-        if (l:sz == "bottom")
-             wincmd J
-        endif
-        setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
-        nnoremap <silent> <buffer> q :close<cr>
-        nnoremap <silent> <buffer> = :vertical resize +20<cr>
-        nnoremap <silent> <buffer> + :vertical resize -20<cr>
-        nnoremap <silent> <buffer> b :vertical resize +20<cr>
-        nnoremap <silent> <buffer> s :vertical resize -20<cr>
-        call cursor(1, 1)
-        execute "vertical resize " . a:2
-        if ( a:0 > 2)
-            execute "nnoremap <silent> <buffer> " . a:3 . "<cr>"
-        endif
-        if ( a:0 > 3)
-            execute "nnoremap <silent> <buffer> " . a:4 . "<cr>"
-        endif
-        if ( a:0 > 4)
-            execute "nnoremap <silent> <buffer> " . a:5 . "<cr>"
-        endif
-endfunction
 function! Testa()
         let body=[]
         call add(body, 'NArleyOne')
@@ -459,7 +282,7 @@ function! Test()
 "              quickfix      quickfix buffer, contains list of errors |:cwindow| or list of locations |:lwindow|
 "              help          help buffer (you are not supposed to set this manually)
 " 
-        call NewWindow("Bottom",33)
+        call g:NewWindow("Bottom",33)
         call PutBufferList()
 endfunction
 
@@ -585,7 +408,7 @@ function! MyTTLDump()
         call LeftWindowBuffer()
         nnoremap <silent> <buffer> q :close<cr>
         let l:nn=1
-        call setline(l:nn, CenterPad("Things to Learn"))
+        call setline(l:nn, g:CenterPad("Things to Learn"))
         let l:nn=2
 	for l:item in g:MyTTLList
           call setline(l:nn, l:item)
@@ -747,7 +570,7 @@ function! MyCheatsheetDump()
                     let l:szPart2 = strpart(l:szKey, n)
                     let l:szPart1 = Trimmer(l:szPart1, ",,," )
                     let l:szPart2 = Trimmer(l:szPart2, ",,," )
-                    let l:line=Pad(l:szPart1,(s:LW/2)-3) . " | " . l:szPart2
+                    let l:line=g:Pad(l:szPart1,(g:LW/2)-3) . " | " . l:szPart2
                else
                     let l:line=l:szKey
                endif
@@ -756,7 +579,7 @@ function! MyCheatsheetDump()
           endif
           let l:n = match(l:line,'-------')
           if (l:n == -1 )
-               let l:line = strpart(l:line, 0, s:LW-2)
+               let l:line = strpart(l:line, 0, g:LW-2)
           endif
           call setline(l:nn, l:line)
           let l:nn= l:nn + 1
@@ -765,8 +588,8 @@ function! MyCheatsheetDump()
         nnoremap <silent> <buffer> <Enter> :call MyCheatsheetEnter()<cr>
 "       setlocal readonly nomodifiable
 endfunction
-let s:LW = 110
-let s:barline = repeat('-', s:LW)
+let g:LW = 110
+let s:barline = repeat('-', g:LW)
 " *****************************************************************************************************
                                   " TTL Items
                                   " *******************************************************************
@@ -785,12 +608,12 @@ call g:TTL("VMODE S<char>      Surround current selection")
 " *****************************************************************************************************
                                   " My Cheat Sheet Items
                                   " *******************************************************************
-call g:MyCheatsheet(CenterPad(""))
-call g:MyCheatsheet(CenterPad("My Cheat Sheet"))
-call g:MyCheatsheet(CenterPad(" "))
+call g:MyCheatsheet(g:CenterPad(""))
+call g:MyCheatsheet(g:CenterPad("My Cheat Sheet"))
+call g:MyCheatsheet(g:CenterPad(" "))
 call g:MyCheatsheet(s:barline)
-call g:MyCheatsheet(CenterPad("i3wm"))
-call g:MyCheatsheet(CenterPad(" "))
+call g:MyCheatsheet(g:CenterPad("i3wm"))
+call g:MyCheatsheet(g:CenterPad(" "))
 call g:MyCheatsheet("Controlling i3")
 call g:MyCheatsheet("$mod+Shift+r            Reload i3")
 call g:MyCheatsheet("$mod+Shift+e            Exit i3")
@@ -827,8 +650,8 @@ call g:MyCheatsheet("$mod+d                  Open dmenu")
 
 call g:MyCheatsheet(s:barline)
 
-call g:MyCheatsheet(CenterPad("Plaintext Text Objects - Words"))
-call g:MyCheatsheet(CenterPad("<number><command><text object or motion>"))
+call g:MyCheatsheet(g:CenterPad("Plaintext Text Objects - Words"))
+call g:MyCheatsheet(g:CenterPad("<number><command><text object or motion>"))
 call g:CS("aw   a word (with white space)",           "iw   inner word")
 call g:CS("ab   a block from [( to ]) (with braces)", "ib   inner block")
 call g:CS("ap   a paragraph (with white space)",      "ip   inner paragraph")
@@ -855,7 +678,7 @@ call g:MyCheatsheet("dj  delete down a line (current and one below      ,,,    d
 call g:MyCheatsheet(s:barline)
 call g:MyCheatsheet("                     d/rails delete up until the first of 'rails'")
 call g:MyCheatsheet(s:barline)
-call g:MyCheatsheet(CenterPad("Motions"))
+call g:MyCheatsheet(g:CenterPad("Motions"))
 call g:MyCheatsheet("h,l  move left/right by character                  ,,,    w   move forward one (w)ord")
 call g:MyCheatsheet("b    move (b)ackward one word                      ,,,    e   move forward to the (e)nd of a word")
 call g:MyCheatsheet("aw   a word (surrounding white space)              ,,,    iw  inner word (not surrounding white space)")
@@ -867,7 +690,7 @@ call g:MyCheatsheet("]]    Next section                                 ,,, [[  
 call g:MyCheatsheet("0     Front of line                                ,,, ^    Front of line (first non-blank)")
 call g:MyCheatsheet("%     Matching brace/bracket/paren/tag             ,,, $    End of line")
 
-call g:MyCheatsheet(CenterPad("Variable Scope"))
+call g:MyCheatsheet(g:CenterPad("Variable Scope"))
 call g:MyCheatsheet("nothing      In a function: local to a function; otherwise: global")
 call g:MyCheatsheet("buffer  b:   Local to the current buffer           ,,,window   w:   Local to the current window")
 call g:MyCheatsheet("vim     v:   Global, predefined by Vim             ,,,tabpage  t:   Local to the current tab page")
@@ -875,11 +698,11 @@ call g:MyCheatsheet("global  g:   Global                                ,,,local
 call g:MyCheatsheet("script  s:   Local to |:src|'ed Vim script         ,,,fun-arg  a:   Function argument (inside a function)")
 call g:MyCheatsheet(s:barline)
 
-call g:MyCheatsheet(CenterPad("Commands"))
+call g:MyCheatsheet(g:CenterPad("Commands"))
 call g:MyCheatsheet("COM", "call CommanderList()")
 call g:MyCheatsheet("COM", "call CommanderListEdit()")
 call g:MyCheatsheet(s:barline)
-call g:MyCheatsheet(CenterPad("Documents"))
+call g:MyCheatsheet(g:CenterPad("Documents"))
 call g:MyCheatsheet("PDF","~/pdfs/vim-sq.pdf", "The Vim Tutorial and Reference")
 call g:MyCheatsheet("PDF","~/vimdocs/gnuplot4_6.pdf", "GnuPlot 4.6 Documentation")
 call g:MyCheatsheet("PDF","~/vimdocs/progit.pdf","Pro Git Book")
@@ -900,7 +723,7 @@ call g:MyCheatsheet(s:barline)
                                   " Command Words/Aliases
                                   " *******************************************************************
 call g:MyCheatsheet(s:barline)
-call g:MyCheatsheet(CenterPad("My Commands"))
+call g:MyCheatsheet(g:CenterPad("My Commands"))
 call g:SetMyKeyMapperMode("SES")
 
 
@@ -1374,7 +1197,7 @@ function! EditInTempBuffer(...)
 endfunction
 function! MakeTempBuffer()
     let s:current_buffer_file_path = expand("%")
-    let s:output_buffer_name = RandomString()
+    let s:output_buffer_name = g:RandomString()
     let s:output_buffer_filetype = "output"
     if !exists("s:buf_nr") || !bufexists(s:buf_nr)
         silent execute 'botright new ' . s:output_buffer_name
@@ -1708,9 +1531,9 @@ func! s:snipfileItem(...)
              let l:f2 = split(l:file,"/")[-1]
              let l:f2 = l:file
              let l:f1 = g:strreplace(l:f1,'xxxxxxxxxwdd.','XX')
-             "call g:MyCommandItemMapper(Pad(a:1,6) . " " . Pad(toupper(split(l:f1,"/")[-1]),l:t) . " :e " . l:f2 )
+             "call g:MyCommandItemMapper(g:Pad(a:1,6) . " " . g:Pad(toupper(split(l:f1,"/")[-1]),l:t) . " :e " . l:f2 )
                      let l:szKey = "ITEM" . g:MyCommandItemCT 
-                     let g:MyCommandItemDict[ l:szKey ] = Pad(a:1,6) . " :e " . l:f2 
+                     let g:MyCommandItemDict[ l:szKey ] = g:Pad(a:1,6) . " :e " . l:f2 
                      let g:MyCommandItemCT = g:MyCommandItemCT +1
         endfor
     endif
@@ -1916,7 +1739,7 @@ function! g:DD0(...)
     " Create Window/Buffer Part
         let l:len = s:Max(l:len, 38)
         let g:thatwin = winnr()
-        call NewWindow("Left", l:len, "<Enter> :call g:DD4('e')","s :call g:DD4('vnew')", "b :call g:DD4('split')")
+        call g:NewWindow("Left", l:len, "<Enter> :call g:DD4('e')","s :call g:DD4('vnew')", "b :call g:DD4('split')")
         echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"
     " Display Part
         setlocal cursorline

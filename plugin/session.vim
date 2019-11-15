@@ -130,7 +130,7 @@ function! LoadSessionT(...)
 
             let l:c = 1
             if (1 == 1)
-                let l:readable = filereadable(".vimwindows")
+                let l:readable = filereadable(a:2)
                 if ( l:readable )
                     let l:body = readfile(a:2)
                     for l:l in l:body
@@ -171,7 +171,7 @@ function! CaptureSession(...)
                     let l:thisbuffername = bufname(winbufnr(l:l))
                     call add(l:winbody, l:thisbuffername)
         endfor
-        call writefile(l:body, a:1)
-        call writefile(l:winbody, ".vimwindows")
-
+        call writefile(l:body,    (a:0 > 0) ? a:1 : ".vimsession")
+        call writefile(l:winbody, (a:0 > 1) ? a:2 : ".vimwindows")
+        echom "session written"
 endfunction

@@ -165,7 +165,7 @@ let g:MyKeyDictCT = 1000
 let g:MyCommandItemDict = {} 
 let g:MyCommandItemCT = 1000 
 let g:MyKeyMapperMode = "" 
-runtime plugin/vimmap.vim
+"runtime plugin/vimmap.vim
 call g:SetMyKeyMapperMode("STD")
 " *****************************************************************************************************
                                   " Utility Functions
@@ -1143,6 +1143,10 @@ function! PolyModeMapReset()
           nnoremap <silent> <PageUp>   <pageup>
           nnoremap <silent> <PageDown> <pagedown>
           nnoremap <silent> <Delete>   <delete>
+          call g:MyKeyMapper("nnoremap <silent> = :vertical resize +2<cr>","Vertical Resize +")
+          call g:MyKeyMapper("nnoremap <silent> + :vertical resize -2<cr>","Vertical Resize -")
+          call g:MyKeyMapper("nnoremap <silent> - :resize +2<cr>","Horozontal Resize +")
+          call g:MyKeyMapper("nnoremap <silent> _ :resize -2<cr>","Horozontal Resize -")
 endfunction
 call PolyModeMapReset()
 
@@ -1603,20 +1607,20 @@ let g:loaded_matchparen=1
 
 function! JSnip(t)
     let s:szIn = input('value >> ')
-    execute "e /home/mestes/scm/figg/templates/" . a:t
+    execute "e ~/scm/figg/templates/" . a:t
     execute "%s/NNAME/" . s:szIn . "/g"
     normal ggyG
     bdelete!
     normal p
 endfunction
 function! JSnipSimple(t)
-    execute "e /home/mestes/scm/figg/templates/" . a:t
+    execute "e ~/scm/figg/templates/" . a:t
     normal ggyG
     bdelete!
     normal p
 endfunction
 function! Snipper(t)
-    execute "e /home/mestes/scm/figg/templates/" . a:t
+    execute "e ~/scm/figg/templates/" . a:t
     normal ggyG
     bdelete!
     normal p
@@ -1953,11 +1957,5 @@ if has("autocmd")
    \| exe "normal! g'\"" | endif
 endif
 
-
-
-nnoremap <silent> = :vertical resize +10<cr>
-nnoremap <silent> + :vertical resize -10<cr>
-nnoremap <silent> - :resize +2<cr>
-nnoremap <silent> _ :resize -2<cr>
 
 

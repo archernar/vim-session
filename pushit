@@ -18,15 +18,14 @@ done
 ANON=`date`
 print $ANON
 print "Local Deployment..."
-# cp plugin/$FILE /home/mestes/.vim/bundle/$REPO/plugin/$FILE
-# cp ~/firstbin/vit tools/vit
-# cp ~/firstbin/vi  tools/vi
-# cp ~/.vimrc       tools/.vimrc 
+cp plugin/$FILE /home/mestes/.vim/bundle/$REPO/plugin/$FILE
+cp ~/firstbin/vit tools/vit
+cp ~/firstbin/vi  tools/vi
+cp ~/.vimrc       tools/.vimrc 
 
 if [ "$PUSHITLOCAL" == "LOCAL" ] ; then
      LOCAL="LOCAL"
 fi
-
 
 if [ "$LOCAL" == "" ] ; then
      IP=192.168.1.1

@@ -5,7 +5,7 @@
 " call g:MyCommandMapper("command! CAPEDIT       :e .vimsession")
 
 
-function! WindowExists(...)
+function! s:WindowExists(...)
         let nRet = 0
         for l:l in range(1, winnr('$'))
             if (a:1 == l:l) 
@@ -14,31 +14,6 @@ function! WindowExists(...)
         endfor
         return nRet
 endfunction
-
-function! WOW()
-        for l:l in range(1, winnr('$'))
-                    echom l:l
-        endfor
-"         echom "wow"
-"         let l:c = 1
-"         while l:c <= 10 
-"             if (bufexists(l:c))
-"                 let readable = filereadable(bufname(l:c))
-"                 echo bufname(l:c) . " is " . (readable ? "" : "not ") . "a readable file."
-"             endif
-"             let l:c += 1
-"         endwhile 
-" 
-"         let l:list = map(range(1, winnr('$')), '[v:val, bufname(winbufnr(v:val))]')
-"         let l:list = range(1, winnr('$'))
-"         for l:l in l:list
-"                  echom l:l . "  -  " .  bufname(winbufnr(l:l))
-"         endfor
-endfunction
-function! s:GotoWindow(...)
-         exe a:1 . "wincmd w"
-endfunction
-
 function! s:BufferVisible(...)
         let l:ret = 0
         for l:l in range(1, winnr('$'))
@@ -62,13 +37,6 @@ function! s:WackNoNameBuffer()
             let l:c += 1
         endwhile 
 endfunction
-function! s:FileExists(...)
-        let l:ret = 0
-        if !empty(glob(a:1))
-            let l:ret = 1
-        endif 
-        return l:ret
-endfunction
 function! LoadSession(...)
         let l:sz = ""
         let l:c = 0
@@ -77,8 +45,8 @@ function! LoadSession(...)
             if !( l:l =~ "\"" )
                 if !( l:l == "" )
                     exe a:2 . " " . l:l
-                    let l:sz = l:sz . l:l . " "
-                    let l:c = l:c + 1
+                    let l:sz .= l:l . " "
+                    let l:c += 1
                 endif
             endif
         endfor
@@ -88,10 +56,6 @@ function! LoadSession(...)
         echom l:sz
 endfunction
 
-function! JustT()
-        let l:sz = ""
-        call TeeLeft()
-endfunction
 
 function! LoadSessionT(...)
         let l:sz = ""
@@ -111,7 +75,6 @@ function! LoadSessionT(...)
             return
         endif
 
-
         let l:sz = "No " . a:1
         let l:readable = filereadable(a:1)
         if ( l:readable )
@@ -122,7 +85,7 @@ function! LoadSessionT(...)
                     if !( l:l == "" )
                         exe a:3 . " " . l:l
                         let l:sz = l:sz . l:l . " "
-                        let l:c = l:c + 1
+                        let l:c += 1
                     endif
                 endif
             endfor
@@ -134,11 +97,11 @@ function! LoadSessionT(...)
                 if ( l:readable )
                     let l:body = readfile(a:2)
                     for l:l in l:body
-                         if ( WindowExists(l:c) == 1 )
-                             call s:GotoWindow(l:c)
+                         if ( s:WindowExists(l:c) == 1 )
+                             exe l:c . "wincmd w"
                              exe "e " . l:l
                          endif
-                         let l:c = l:c + 1
+                         let l:c += 1
                     endfor
                 endif
                 exe "1wincmd w"

@@ -29,7 +29,7 @@ fi
 print "# vim-session" > README.md
 print "Simple Vim session management" >> README.md
 print "" >> README.md
-print "Example Integration" >> README.md
+print "## Example Integration" >> README.md
 print "" >> README.md
 cat tools/vit | gawk '{print "    " $0}' >> README.md
 

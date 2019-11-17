@@ -1,7 +1,7 @@
 # vim-session
 Simple Vim session management
 
-Example Integration
+## Example Integration
 
     #!/usr/bin/ksh
     Tmp="/tmp/$$"

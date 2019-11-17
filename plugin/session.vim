@@ -128,8 +128,7 @@ function! CaptureSession(...)
         endwhile 
 
         for l:l in range(1, winnr('$'))
-                    let l:thisbuffername = bufname(winbufnr(l:l))
-                    call add(l:winbody, l:thisbuffername)
+                    call add(l:winbody, bufname(winbufnr(l:l))
         endfor
         call writefile(l:body,    (a:0 > 0) ? a:1 : ".vimsession")
         call writefile(l:winbody, (a:0 > 1) ? a:2 : ".vimwindows")

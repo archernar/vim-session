@@ -26,6 +26,15 @@ cp ~/.vimrc       tools/.vimrc
 if [ "$PUSHITLOCAL" == "LOCAL" ] ; then
      LOCAL="LOCAL"
 fi
+print "# vim-session" > README.md
+print "Simple Vim session management" >> README.md
+print "" >> README.md
+print "Example Integration" >> README.md
+print "" >> README.md
+cat tools/vit >> README.md
+
+
+
 
 if [ "$LOCAL" == "" ] ; then
      IP=192.168.1.1
@@ -36,6 +45,7 @@ if [ "$LOCAL" == "" ] ; then
           git add tools/vi
           git add tools/.vimrc
           git add pushit
+          git add README.md
           git commit -m "Update"
           git push -u origin master
      fi

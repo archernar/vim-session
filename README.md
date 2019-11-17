@@ -17,6 +17,9 @@ Simple Vim session management
     while getopts "abcersthmx:" arg
     do
     	case $arg in
+                f) vim -c "call LoadSessionT('$VIMSESSION','$VIMSESSION','e','')"
+                   exit 0
+                   ;;
                 a) vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','vsplit')"
                    exit 0
                    ;;

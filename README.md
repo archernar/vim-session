@@ -3,7 +3,7 @@ Simple Vim session management
 
 ## Example Integration:  vit
 
-    #!/usr/bin/ksh
+    #!/bin/bash
     Tmp="/tmp/$$"
     TmpDir="/tmp/dir$$"
     trap 'rm -f "$Tmp" >/dev/null 2>&1' 0
@@ -85,7 +85,7 @@ Simple Vim session management
     
 ## Example Integration: simple model
 
-    #!/usr/bin/ksh
+    #!/bin/bash
     Tmp="/tmp/$$"
     TmpDir="/tmp/dir$$"
     trap 'rm -f "$Tmp" >/dev/null 2>&1' 0

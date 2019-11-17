@@ -3,7 +3,7 @@
 " call g:MyCommandMapper("command! CAP           :call CaptureSession('.vimsession')")
 " call g:MyCommandMapper("command! CAPLOAD       :call LoadSession('.vimsession','e')")
 " call g:MyCommandMapper("command! CAPEDIT       :e .vimsession")
-
+command! DNB  :call  s:DeleteNoNameBuffer()<cr>
 
 function! s:WindowExists(...)
         let nRet = 0

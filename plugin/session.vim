@@ -81,8 +81,7 @@ function! LoadSessionT(...)
                 if !( l:l =~ "\"" )
                     if !( l:l == "" )
                         exe a:3 . " " . l:l
-                        let l:lfile = split(l:l,"/")[-1]
-                        let l:sz = l:sz . l:lfile . " "
+                        let l:sz = l:sz . split(l:l,"/")[-1] . " "
                         let l:c += 1
                     endif
                 endif

@@ -1,7 +1,7 @@
 # vim-session
 Simple Vim session management
 
-## Example Integration
+## Example Integration:  vit
 
     #!/usr/bin/ksh
     Tmp="/tmp/$$"
@@ -83,7 +83,7 @@ Simple Vim session management
         vim $1 $2 $3 $4
     fi
     
-## Example Integration
+## Example Integration: simple model
 
     #!/usr/bin/ksh
     Tmp="/tmp/$$"

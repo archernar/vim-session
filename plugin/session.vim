@@ -63,13 +63,19 @@ function! LoadSessionT(...)
         let l:c = 0
 
         let l:splits = "vsplit | split | vertical resize " . (winwidth(0) / 4)"
-        if (a:0 == 4)
-            if (a:4 == "")
-                let l:splits = l:splits . " | exe '1wincmd w'"
-            else
-                let l:splits = a:4  . " | exe '1wincmd w'"
-            endif
+        if (a:0 > 3)
+            let l:splits = ((a:4 == "") ? l:splits : a:4) . " | exe '1wincmd w'"
         endif
+
+
+"         let l:splits = "vsplit | split | vertical resize " . (winwidth(0) / 4)"
+"         if (a:0 == 4)
+"             if (a:4 == "")
+"                 let l:splits = l:splits . " | exe '1wincmd w'"
+"             else
+"                 let l:splits = a:4  . " | exe '1wincmd w'"
+"             endif
+"         endif
         exe l:splits
         if (a:0 == 0)
             return
@@ -122,7 +128,7 @@ function! CaptureSession(...)
                 if (l:readable)
                     if (getbufvar(l:c, '&buftype') == "")
                         if !(bufname(l:c) == "")
-                           call add(l:body, "" . bufname(l:c) . "")
+                           call add(l:body, bufname(l:c))
                         endif
                     endif
                 endif

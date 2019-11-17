@@ -32,6 +32,9 @@ print "" >> README.md
 print "## Example Integration" >> README.md
 print "" >> README.md
 cat tools/vit | gawk '{print "    " $0}' >> README.md
+print "## Example Integration" >> README.md
+print "" >> README.md
+cat tools/vi | gawk '{print "    " $0}' >> README.md
 
 
 

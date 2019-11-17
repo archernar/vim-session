@@ -83,3 +83,27 @@ Simple Vim session management
         vim $1 $2 $3 $4
     fi
     
+## Example Integration
+
+    #!/usr/bin/ksh
+    Tmp="/tmp/$$"
+    TmpDir="/tmp/dir$$"
+    trap 'rm -f "$Tmp" >/dev/null 2>&1' 0
+    trap "exit 2" 1 2 3 13 15
+    rm $Tmp  >/dev/null 2>&1
+    
+    VIMSESSIONDEFAULT=~/.vimsessiondefault
+    VIMSESSION=.vimsession
+    VIMWINDOWS=.vimwindows
+    
+    # vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','vsplit')"
+    
+    if [ $# -eq 0 ] ; then
+            if [ -e "$VIMSESSION" ]; then
+                 vim -c "call LoadSession('.vimsession','e')"
+            else
+                 vim -c MRU
+            fi
+    else
+            vim $1 $2 $3 $4
+    fi

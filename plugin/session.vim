@@ -3,7 +3,7 @@
 " call g:MyCommandMapper("command! CAP           :call CaptureSession('.vimsession')")
 " call g:MyCommandMapper("command! CAPLOAD       :call LoadSession('.vimsession','e')")
 " call g:MyCommandMapper("command! CAPEDIT       :e .vimsession")
-command! DNB  :call  s:DeleteNoNameBuffer()<cr>
+command! DNB  :call  s:DeleteNoNameBuffer()
 
 function! s:WindowExists(...)
         let nRet = 0
@@ -25,6 +25,7 @@ function! s:BufferVisible(...)
 endfunction
 
 function! s:DeleteNoNameBuffer()
+        echom "DNB"
         let l:c = 1
         while l:c <= 16 
             if (bufexists(l:c))

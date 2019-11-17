@@ -24,7 +24,7 @@ function! s:BufferVisible(...)
         return l:ret
 endfunction
 
-function! s:WackNoNameBuffer()
+function! s:DeleteNoNameBuffer()
         let l:c = 1
         while l:c <= 16 
             if (bufexists(l:c))
@@ -52,7 +52,7 @@ function! LoadSession(...)
         endfor
         let l:sz = l:c . "F " . l:sz 
         exe "1wincmd w"
-        call s:WackNoNameBuffer()
+        call s:DeleteNoNameBuffer()
         echom l:sz
 endfunction
 
@@ -105,7 +105,7 @@ function! LoadSessionT(...)
             endif
         endif
         echom "T " . l:sz
-        call s:WackNoNameBuffer()
+        call s:DeleteNoNameBuffer()
 endfunction
 
 function! CaptureSession(...)

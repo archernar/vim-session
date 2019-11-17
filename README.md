@@ -14,7 +14,7 @@ Simple Vim session management
     VIMSESSION=.vimsession
     VIMWINDOWS=.vimwindows
     
-    while getopts "abcersthmx:" arg
+    while getopts "fabcersthmx:" arg
     do
     	case $arg in
                 f) vim -c "call LoadSessionT('$VIMSESSION','$VIMSESSION','e','')"

@@ -1,11 +1,7 @@
-" call g:MyCommandMapper("command! SESSION       :call CaptureSession('.vimsession')")
-" call g:MyCommandMapper("command! SESSIONLOAD   :call LoadSession('.vimsession', 'e')")
 " call g:MyCommandMapper("command! CAP           :call CaptureSession('.vimsession')")
 " call g:MyCommandMapper("command! CAPLOAD       :call LoadSession('.vimsession','e')")
 " call g:MyCommandMapper("command! CAPEDIT       :e .vimsession")
 command! DNB  :call  s:DeleteNoNameBuffer()
-i
-let g:MAXSESSIONBUFFERS=16
 
 function! s:WindowExists(...)
         let nRet = 0
@@ -28,7 +24,7 @@ endfunction
 
 function! s:DeleteNoNameBuffer()
         let l:c = 1
-        while l:c <= g:MAXSESSIONBUFFERS
+        while l:c <= 16
             if (bufexists(l:c))
                     if (bufname(l:c) == "")
                        if (s:BufferVisible(l:c) == 0)
@@ -114,7 +110,7 @@ function! CaptureSession(...)
         let l:c=1
         let l:body=[]
         let l:winbody=[]
-        while l:c <= g:MAXSESSIONBUFFERS 
+        while l:c <= 16
             if (bufexists(l:c))
                 let l:readable = filereadable(bufname(l:c))
 "               echo bufname(l:c) . " is " . (l:readable ? "" : "not ") . "a readable file."

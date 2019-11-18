@@ -17,7 +17,7 @@ Simple Vim session management
     while getopts "fabcersthmx:" arg
     do
     	case $arg in
-                f) cp '$VIMSESSION' '$VIMSESSION'
+                f) cp "$VIMSESSION" "$VIMWINDOWS"
                    vim -c "call LoadSessionT('$VIMSESSION','$VIMSESSION','e','')"
                    exit 0
                    ;;

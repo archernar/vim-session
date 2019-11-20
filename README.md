@@ -14,6 +14,11 @@ Simple Vim session management
     VIMSESSION=.vimsession
     VIMWINDOWS=.vimwindows
     
+    print() {
+        echo "$1"
+    }
+    
+    
     while getopts "fabcersthmx:" arg
     do
     	case $arg in
@@ -60,19 +65,21 @@ Simple Vim session management
                    exit 0
                    ;;
                 h) print "vit"
-                   print " -a  layout a"
-                   print " -b  layout b"
-                   print " -c  layout c"
-                   print " -e  Edit ./.vimsession ./.vimwindows"
-                   print " -m  Simple Mode with MRU"
-                   print " -h  Help"
-                   print " -r  Remove ./.vimsession and ./.vimwindows"
-                   print " -s  Simple Mode:Open in a single window"
-                   print " -t  T Window Mode: Just open T window panes"
-                   print " -x  <layout>"
+                   print "  -a  side/side window layout"
+                   print "  -b  up/down window layout"
+                   print "  -c  up/mid/down window layout"
+                   print "  -e  Edit ./.vimsession ./.vimwindows"
+                   print "  -f  copy ./.vimsession to ./.vimwindows (and call vit)"
+                   print "  -m  Simple Mode with MRU"
+                   print "  -h  Help"
+                   print "  -r  Remove ./.vimsession and ./.vimwindows"
+                   print "  -s  Simple Mode:Open in a single window"
+                   print "  -t  Only Windows Mode: Just open blank windows"
                    print ""
-                   print "     layouts:"
-                   print "     a - side/side, b - up/down c - up/mid/down"
+                   print "  -x  <layout>"
+                   print ""
+                   print "      layouts:"
+                   print "      a - side/side, b - up/down c - up/mid/down"
                    print ""
                    exit 0
                    ;;

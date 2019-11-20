@@ -851,9 +851,11 @@ function! BiModeSet(...)
           let g:BiModeState = 1 
           call g:MyKeyMapper("nnoremap <F1> :bnext<cr>", "Next Buffer")
           call g:MyKeyMapper("nnoremap <leader><F1>  <Nop>","Nothing")
-          call g:MyKeyMapper("nnoremap <F2> :bnext<cr>", "Next Buffer")
+
+          call g:MyKeyMapper("nnoremap <F2> :bprev<cr>", "Previous Buffer")
           call g:MyKeyMapper("nnoremap <leader><F2>  <Nop>","Nothing")
-          call g:MyKeyMapper("nnoremap <F3> :bnext<cr>", "Next Buffer")
+
+          call g:MyKeyMapper("nnoremap <F3> <Nop>","Nothing")
           call g:MyKeyMapper("nnoremap <leader><F3>  <Nop>","Nothing")
      endif
      if (a:1 == 0)
@@ -862,7 +864,7 @@ function! BiModeSet(...)
           call g:MyKeyMapper("nnoremap <F1> <C-W>w",     "Next Window")
           call g:MyKeyMapper("nnoremap <leader><F1>  :botright  new<CR>","Split Window Down")
 
-          call g:MyKeyMapper("nnoremap <F2> <C-W>w",     "Next Window")
+          call g:MyKeyMapper("nnoremap <F2> <C-W>W",     "Previous Window")
           call g:MyKeyMapper("nnoremap <leader><F2>  :botright  new<CR>","Split Window Down")
 
           call g:MyKeyMapper("nnoremap <F3> <C-W>w",     "Next Window")
@@ -1085,6 +1087,10 @@ endfunction
                                   " *******************************************************************
 function! RepoList()
         call LeftWindowBuffer("", "r !curl -s 'https://api.github.com/users/archernar/repos?per_page=100' | grep ssh_url")
+endfunction
+function! GetUrl()
+        exe "!curl -s 'https://api.github.com/users/archernar/repos?per_page=100' | grep ssh_url > /tmp/zed"
+        execute "redraw!"
 endfunction
 " *****************************************************************************************************
                                   " Commander Functions

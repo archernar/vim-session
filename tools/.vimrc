@@ -1516,7 +1516,7 @@ endfunction
                                   " Command Mapper
                                   " *******************************************************************
 
-func! s:snipfileItem(...)
+func! s:SnipfileItem(...)
     let l:t = -1
     let l:l = -1
     let l:c = 0 
@@ -1536,7 +1536,7 @@ func! s:snipfileItem(...)
              let l:f1 = l:file
              let l:f2 = split(l:file,"/")[-1]
              let l:f2 = l:file
-             let l:f1 = g:strreplace(l:f1,'xxxxxxxxxwdd.','XX')
+             let l:f1 = g:Strreplace(l:f1,'xxxxxxxxxwdd.','XX')
              "call g:MyCommandItemMapper(g:Pad(a:1,6) . " " . g:Pad(toupper(split(l:f1,"/")[-1]),l:t) . " :e " . l:f2 )
                      let l:szKey = "ITEM" . g:MyCommandItemCT 
                      let g:MyCommandItemDict[ l:szKey ] = g:Pad(a:1,6) . " :e " . l:f2 
@@ -1545,50 +1545,50 @@ func! s:snipfileItem(...)
     endif
 endfunc
 
-func! g:setupsniplocal(...)
+func! g:Setupsniplocal(...)
     call  g:MyCommandItemMapperReset()
-    call  s:snipfileItem("FILE", a:1)
+    call  s:SnipfileItem("FILE", a:1)
 endfunc
-func! g:setupsnip()
+func! g:Setupsnip()
     call  g:MyCommandItemMapperReset()
-    call  s:snipfileItem("FILE", "./*.java")
-    call  s:snipfileItem("FILE", "~/.vim/Snips/*.java")
-    call  s:snipfileItem("FILE", "~/.vim/Snips/*.txt")
+    call  s:SnipfileItem("FILE", "./*.java")
+    call  s:SnipfileItem("FILE", "~/.vim/Snips/*.java")
+    call  s:SnipfileItem("FILE", "~/.vim/Snips/*.txt")
     call g:SetMyKeyMapperMode("SNIPTXT")
      for l:file in split(glob('~/.vim/Snips/*.txt'), '\n')
           let l:f1 = l:file
-          let l:f1 = g:strreplace(l:f1,'.','')
+          let l:f1 = g:Strreplace(l:f1,'.','')
           let l:f2 = split(l:file,"/")[-1]
           call g:MyCommandMapper("command! " . toupper(split(l:f1,"/")[-1]) . " :call Snp('" . l:f2 .    "','')")
      endfor
 endfunc
 
-func! s:setupsnip2()
+func! s:Setupsnip2()
     call g:SetMyKeyMapperMode("SNIP")
     for l:file in split(glob('~/.vim/Snips/*.java'), '\n')
          let l:f1 = l:file
-         let l:f1 = g:strreplace(l:f1,'.','')
+         let l:f1 = g:Strreplace(l:f1,'.','')
          let l:f2 = split(l:file,"/")[-1]
          call g:MyCommandMapper("command! " . toupper(split(l:f1,"/")[-1]) . " :call Snp('" . l:f2 .    "','')")
     endfor
     call g:SetMyKeyMapperMode("SNIPTXT")
     for l:file in split(glob('~/.vim/Snips/*.txt'), '\n')
          let l:f1 = l:file
-         let l:f1 = g:strreplace(l:f1,'.','')
+         let l:f1 = g:Strreplace(l:f1,'.','')
          let l:f2 = split(l:file,"/")[-1]
          call g:MyCommandMapper("command! " . toupper(split(l:f1,"/")[-1]) . " :call Snp('" . l:f2 .    "','')")
     endfor
     call g:SetMyKeyMapperMode("SNIPEJ")
     for l:file in split(glob('./*.java'), '\n')
          let l:f1 = l:file
-         let l:f1 = g:strreplace(l:f1,'.','')
+         let l:f1 = g:Strreplace(l:f1,'.','')
          let l:f2 = split(l:file,"/")[-1]
          call g:MyCommandMapper("command! " . toupper(split(l:f1,"/")[-1]) . " :e " . "./" . l:f2 )
     endfor
     call g:SetMyKeyMapperMode("SNIPET")
     for l:file in split(glob('./*.txt'), '\n')
          let l:f1 = l:file
-         let l:f1 = g:strreplace(l:f1,'.','')
+         let l:f1 = g:Strreplace(l:f1,'.','')
          let l:f2 = split(l:file,"/")[-1]
          call g:MyCommandMapper("command! " . toupper(split(l:f1,"/")[-1]) . " :e " . "./" . l:f2 )
     endfor
@@ -1596,12 +1596,12 @@ func! s:setupsnip2()
     for l:file in split(glob('~/.vim/Snips/*.java'), '\n')
          let l:f1 = l:file
          let l:f2 = l:file
-         let l:f1 = g:strreplace(l:f1,'.','XX')
+         let l:f1 = g:Strreplace(l:f1,'.','XX')
          call g:MyCommandNoMap("command! " . toupper(split(l:f1,"/")[-1]) . " :e " . l:f2 )
     endfor
 endfunc
 
-call g:setupsnip()
+call g:Setupsnip()
 call g:MyCommandMapper("command! PWD     :!pwd")
 " call g:MyCommandMapper("command! KSH     :call  SnipperStuff('KSH.txt','')")
 " call g:MyCommandMapper("command! PSETONE :call  SnipperStuff('PSetOne.txt','')")
@@ -1721,7 +1721,7 @@ endfunction
 
 " cexpr system('javac -nowarn -cp ~/classes -d ~/classes ' . shellescape(expand('%:p')))
 " Set desired java options below
-" silent let l:cmd = "java -d64  " . "" . g:strreplace(expand("%:r"),"./","") . " " . arg
+" silent let l:cmd = "java -d64  " . "" . g:Strreplace(expand("%:r"),"./","") . " " . arg
 
 function! g:DD0(...)
     let l:Dict = {} 

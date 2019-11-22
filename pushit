@@ -36,7 +36,8 @@ print "## Example Integration: simple model" >> README.md
 print "" >> README.md
 cat tools/vi | gawk '{print "    " $0}' >> README.md
 
-
+print "## session.vim" >> README.md
+cat plugin/session.vim | gawk '{print "    " $0}' | markdown >> README.md
 
 
 if [ "$LOCAL" == "" ] ; then

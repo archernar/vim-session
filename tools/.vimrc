@@ -286,6 +286,13 @@ function! Test()
         call PutBufferList()
 endfunction
 
+" function! Funcky()
+"         call g:NewWindow("Right",33)
+"         exe !gawk "'/^function/{$1="";sub(/^ /,\"\", $0);print "\" " $0}' %"
+" endfunction
+
+
+
 call g:MyCommandMapper("command! OBIE          :Obsess .obsessionsession")
 call g:MyCommandMapper("command! SESSION       :call CaptureSession('.vimsession')")
 call g:MyCommandMapper("command! SESSIONLOAD   :call LoadSession('.vimsession', 'e')")
@@ -1775,7 +1782,7 @@ nnoremap <leader><F7> :call g:setupsniplocal("./*.java")<cr>:call MyDictionaryDu
 nnoremap <leader><F7> :call g:DD0("./*.*")<cr>
 call g:MyCommandMapper("command! GREP   :call Greppyon(1)")
 
-
+nnoremap <F3> :w<CR>:1<cr>i<cr><esc>k:r !gawk '/^function/{$1="";sub(/^ /,"", $0);print "\" " $0}' %<CR>:1<cr>dd
 
 
 " *****************************************************************************************************

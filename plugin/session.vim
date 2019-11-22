@@ -61,6 +61,7 @@ function! LoadSessionT(...)
         let l:c = 0
 
         let l:splits = "vsplit | split | vertical resize " . (winwidth(0) / 4)"
+        let l:splits = $VINWIN
         if (a:0 > 3)
             let l:splits = ((a:4 == "") ? l:splits : a:4) . " | exe '1wincmd w'"
         endif

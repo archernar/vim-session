@@ -1,7 +1,7 @@
 # vim-session
 Simple Vim session management
 
-## Example Integration:  vit
+## Example Integration:  vit (Adv. model)
 
     #!/bin/bash
     Tmp="/tmp/$$"
@@ -94,7 +94,7 @@ Simple Vim session management
         vim $1 $2 $3 $4
     fi
     
-## Example Integration: simple model
+## Example Integration: vi (simple model)
 
     #!/bin/bash
     Tmp="/tmp/$$"

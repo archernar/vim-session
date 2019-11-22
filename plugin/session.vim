@@ -1,8 +1,9 @@
-" call g:MyCommandMapper("command! CAP           :call CaptureSession('.vimsession')")
-" call g:MyCommandMapper("command! CAPLOAD       :call LoadSession('.vimsession','e')")
-" call g:MyCommandMapper("command! CAPEDIT       :e .vimsession")
-command! DNB  :call  s:DeleteNoNameBuffer()
-
+" ====================================================================================
+" Required Environment Variables
+"
+" export VIMWIN="vsplit | split | vertical resize 33"
+"
+" ====================================================================================
 function! s:WindowExists(...)
         let nRet = 0
         for l:l in range(1, winnr('$'))
@@ -60,8 +61,8 @@ function! LoadSessionT(...)
         let l:szW = ""
         let l:c = 0
 
-        let l:splits = "vsplit | split | vertical resize " . (winwidth(0) / 4)"
-        let l:splits = $VIMWIN
+        let l:splits = ($VIMWINX == "") ? "vsplit | split | vertical resize 33" : $VIMWINX
+
         if (a:0 > 3)
             let l:splits = ((a:4 == "") ? l:splits : a:4) . " | exe '1wincmd w'"
         endif

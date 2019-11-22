@@ -19,9 +19,9 @@ ANON=`date`
 print $ANON
 print "Local Deployment..."
 cp plugin/$FILE /home/mestes/.vim/bundle/$REPO/plugin/$FILE
-cp ~/firstbin/vit tools/vit
-cp ~/firstbin/vi  tools/vi
-cp ~/.vimrc       tools/.vimrc 
+cp tools/vit ~/firstbin/vit
+cp tools/vi  ~/firstbin/vi
+cp ~/.vimrc   tools/.vimrc 
 
 if [ "$PUSHITLOCAL" == "LOCAL" ] ; then
      LOCAL="LOCAL"
@@ -32,6 +32,7 @@ print "" >> README.md
 print "## Example Integration:  vit" >> README.md
 print "" >> README.md
 cat tools/vit | gawk '{print "    " $0}' >> README.md
+
 print "## Example Integration: simple model" >> README.md
 print "" >> README.md
 cat tools/vi | gawk '{print "    " $0}' >> README.md

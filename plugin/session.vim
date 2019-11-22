@@ -61,7 +61,7 @@ function! LoadSessionT(...)
         let l:szW = ""
         let l:c = 0
 
-        let l:splits = ($VIMWINX == "") ? "vsplit | split | vertical resize 33" : $VIMWINX
+        let l:splits = ($VIMWIN == "") ? "vsplit | split | vertical resize 33" : $VIMWIN
 
         if (a:0 > 3)
             let l:splits = ((a:4 == "") ? l:splits : a:4) . " | exe '1wincmd w'"

@@ -34,11 +34,11 @@ Simple Vim session management
                 c) vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','split | split')"
                    exit 0
                    ;;
-                r) rm ./.vimsession
-                   rm ./.vimwindows
+                r) rm $VIMSESSION
+                   rm $VIMWINDOWS
                    exit 0
                    ;;
-                s) vim -c "call LoadSession('.vimsession','e')"
+                s) vim -c "call LoadSession('$VIMSESSION','e')"
                    exit 0
                    ;;
                 x) 
@@ -60,7 +60,7 @@ Simple Vim session management
                 t) vim -c "call LoadSessionT()"
                    exit 0
                    ;;
-                e) vim  ./.vimsession ./.vimwindows
+                e) vim  $VIMSESSION $VIMWINDOWS
                    exit 0
                    ;;
                 h) print "vit"
@@ -122,6 +122,12 @@ Simple Vim session management
 " Required Environment Variables
 "
 " export VIMWIN="vsplit | split | vertical resize 33"
+" export VIMSESSION=.vimsession
+" export VIMWINDOWS=.vimwindows
+"
+" To capture sessions, define a vim command of the form
+"
+" command! SESSION  :call CaptureSession('$VIMSESSION')
 "
 " ====================================================================================
 function! s:WindowExists(...)
@@ -145,7 +151,7 @@ endfunction
 
 function! s:DeleteNoNameBuffer()
     let l:c = 1
-    while l:c &lt;= 256 
+    while l:c &lt;= 64 
         if (bufexists(l:c))
             if (bufname(l:c) == "")
                 if (s:BufferVisible(l:c) == 0)
@@ -234,7 +240,7 @@ function! CaptureSession(...)
     let l:c=1
     let l:body=[]
     let l:winbody=[]
-    while l:c &lt;= 256 
+    while l:c &lt;= 64 
         if (bufexists(l:c))
             let l:readable = filereadable(bufname(l:c))
             if (l:readable)

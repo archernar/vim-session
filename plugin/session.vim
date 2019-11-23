@@ -2,6 +2,12 @@
 " Required Environment Variables
 "
 " export VIMWIN="vsplit | split | vertical resize 33"
+" export VIMSESSION=.vimsession
+" export VIMWINDOWS=.vimwindows
+"
+" To capture sessions, define a vim command of the form
+"
+" command! SESSION  :call CaptureSession('$VIMSESSION')
 "
 " ====================================================================================
 function! s:WindowExists(...)
@@ -25,7 +31,7 @@ endfunction
 
 function! s:DeleteNoNameBuffer()
     let l:c = 1
-    while l:c <= 256 
+    while l:c <= 64 
         if (bufexists(l:c))
             if (bufname(l:c) == "")
                 if (s:BufferVisible(l:c) == 0)
@@ -114,7 +120,7 @@ function! CaptureSession(...)
     let l:c=1
     let l:body=[]
     let l:winbody=[]
-    while l:c <= 256 
+    while l:c <= 64 
         if (bufexists(l:c))
             let l:readable = filereadable(bufname(l:c))
             if (l:readable)

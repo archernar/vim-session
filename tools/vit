@@ -29,11 +29,11 @@ do
             c) vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','split | split')"
                exit 0
                ;;
-            r) rm ./.vimsession
-               rm ./.vimwindows
+            r) rm $VIMSESSION
+               rm $VIMWINDOWS
                exit 0
                ;;
-            s) vim -c "call LoadSession('.vimsession','e')"
+            s) vim -c "call LoadSession('$VIMSESSION','e')"
                exit 0
                ;;
             x) 
@@ -55,7 +55,7 @@ do
             t) vim -c "call LoadSessionT()"
                exit 0
                ;;
-            e) vim  ./.vimsession ./.vimwindows
+            e) vim  $VIMSESSION $VIMWINDOWS
                exit 0
                ;;
             h) print "vit"

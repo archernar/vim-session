@@ -18,7 +18,6 @@ Simple Vim session management
         echo "$1"
     }
     
-    
     while getopts "fabcersthmx:" arg
     do
     	case $arg in

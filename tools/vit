@@ -13,7 +13,6 @@ print() {
     echo "$1"
 }
 
-
 while getopts "fabcersthmx:" arg
 do
 	case $arg in

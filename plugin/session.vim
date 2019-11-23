@@ -25,7 +25,7 @@ endfunction
 
 function! s:DeleteNoNameBuffer()
     let l:c = 1
-    while l:c <= 16
+    while l:c <= 256 
         if (bufexists(l:c))
             if (bufname(l:c) == "")
                 if (s:BufferVisible(l:c) == 0)
@@ -114,7 +114,7 @@ function! CaptureSession(...)
     let l:c=1
     let l:body=[]
     let l:winbody=[]
-    while l:c <= 16
+    while l:c <= 256 
         if (bufexists(l:c))
             let l:readable = filereadable(bufname(l:c))
             if (l:readable)

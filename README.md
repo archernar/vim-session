@@ -156,22 +156,27 @@ function! s:DeleteNoNameBuffer()
         let l:c += 1
     endwhile 
 endfunction
+
+
 function! LoadSession(...)
     let l:sz = ""
     let l:c = 0
-    let l:body = readfile(a:1)
-    for l:l in l:body
-        if !( l:l =~ "\"" )
-            if !( l:l == "" )
-                exe a:2 . " " . l:l
-                let l:sz .= l:l . " "
-                let l:c += 1
+    let l:sz = "No " . a:1
+    if (filereadable(a:1))
+        let l:body = readfile(a:1)
+        for l:l in l:body
+            if !( l:l =~ "\"" )
+                if !( l:l == "" )
+                    exe a:2 . " " . l:l
+                    let l:sz .= l:l . " "
+                    let l:c += 1
+                endif
             endif
-        endif
-    endfor
-    let l:sz = l:c . "F " . l:sz 
-    exe "1wincmd w"
-    call s:DeleteNoNameBuffer()
+        endfor
+        let l:sz = l:c . "F " . l:sz 
+        exe "1wincmd w"
+        call s:DeleteNoNameBuffer()
+    endif
     echom l:sz
 endfunction
 
@@ -192,8 +197,7 @@ function! LoadSessionT(...)
     endif
 
     let l:sz = "No " . a:1
-    let l:readable = filereadable(a:1)
-    if ( l:readable )
+    if (filereadable(a:1))
         let l:sz = ""
         let l:body = readfile(a:1)
         for l:l in l:body
@@ -209,8 +213,7 @@ function! LoadSessionT(...)
 
         let l:c = 1
         if (1 == 1)
-            let l:readable = filereadable(a:2)
-            if ( l:readable )
+            if (filereadable(a:2))
                 let l:body = readfile(a:2)
                 for l:l in l:body
                      if ( s:WindowExists(l:c) == 1 )

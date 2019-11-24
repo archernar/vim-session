@@ -236,6 +236,7 @@ function! LoadSessionT(...)
             if !( l:l =~ "\"" )
                 if !( l:l == "" )
                     exe l:filecmd . " " . l:l
+                    nnoremap &lt;silent&gt; &lt;buffer&gt; q qa
                     let l:sz = l:sz . split(l:l,"/")[-1] . " "
                     let l:c += 1
                 endif

@@ -130,6 +130,10 @@ Simple Vim session management
 " command! SESSION  :call CaptureSession('$VIMSESSION')
 "
 " ====================================================================================
+" ------------------------------------------
+" s:WindowExists(...)
+" a:1 is the window  number
+" ------------------------------------------
 function! s:WindowExists(...)
     let nRet = 0
     for l:l in range(1, winnr('$'))
@@ -139,7 +143,12 @@ function! s:WindowExists(...)
     endfor
     return nRet
 endfunction
+" ------------------------------------------
+" s:BufferVisible(...)
+" a:1 is the buffer number
+" ------------------------------------------
 function! s:BufferVisible(...)
+    " a:1 is the buffer number
     let l:ret = 0
     for l:l in range(1, winnr('$'))
         if (a:1 == winbufnr(l:l))
@@ -148,7 +157,6 @@ function! s:BufferVisible(...)
     endfor
     return l:ret
 endfunction
-
 function! s:DeleteNoNameBuffer()
     let l:c = 1
     while l:c &lt;= 64 
@@ -162,9 +170,14 @@ function! s:DeleteNoNameBuffer()
         let l:c += 1
     endwhile 
 endfunction
-
-
-function! LoadSession(...)
+" ------------------------------------------
+" LoadSession(...)
+" a:1 is the session file filename
+" a:2 is the command to apply to files
+"     default is 'e'
+" ------------------------------------------
+function! LoadSession(...)                 
+    let l:filecmd = (a:0 &gt; 1) ? a:2 : "e")
     let l:sz = ""
     let l:c = 0
     let l:sz = "No " . a:1
@@ -173,7 +186,7 @@ function! LoadSession(...)
         for l:l in l:body
             if !( l:l =~ "\"" )
                 if !( l:l == "" )
-                    exe a:2 . " " . l:l
+                    exe l:filecmd . " " . l:l
                     let l:sz .= l:l . " "
                     let l:c += 1
                 endif

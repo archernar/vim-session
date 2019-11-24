@@ -176,8 +176,8 @@ endfunction
 " a:2 is the command to apply to files
 "     default is 'e'
 " ------------------------------------------
-function! LoadSession(...)                 
-    let l:filecmd = (a:0 &gt; 1) ? a:2 : "e")
+function! LoadSession(...)
+    let l:filecmd = (a:0 &gt; 1) ? a:2 : "e"
     let l:sz = ""
     let l:c = 0
     let l:sz = "No " . a:1
@@ -200,12 +200,25 @@ function! LoadSession(...)
 endfunction
 
 
+" ------------------------------------------
+" LoadSessionT(...)
+" a:1 is the session file filename
+" a:2 is the window file filename
+" a:3 is the command to apply to files
+"     def: 'e'
+" a:4 a set of split commands
+"     def: vsplit | split | vert resize 33
+"
+" Env Var VIMWIN optionally contains the
+" default split setup string
+" ------------------------------------------
 function! LoadSessionT(...)
+    let l:filecmd = (a:0 &gt; 2) ? a:3 : "e"
     let l:sz = ""
     let l:szW = ""
     let l:c = 0
 
-    let l:splits = ($VIMWIN == "") ? "vsplit | split | vertical resize 33" : $VIMWIN
+    let l:splits = ($VIMWIN == "") ? "vsplit | split | vert resize 33" : $VIMWIN
     if (a:0 &gt; 3)
         let l:splits = ((a:4 == "") ? l:splits : a:4)
     endif
@@ -222,7 +235,7 @@ function! LoadSessionT(...)
         for l:l in l:body
             if !( l:l =~ "\"" )
                 if !( l:l == "" )
-                    exe a:3 . " " . l:l
+                    exe l:filecmd . " " . l:l
                     let l:sz = l:sz . split(l:l,"/")[-1] . " "
                     let l:c += 1
                 endif
@@ -249,6 +262,13 @@ function! LoadSessionT(...)
     call s:DeleteNoNameBuffer()
 endfunction
 
+" ------------------------------------------
+" CaptureSession(...)
+" a:1 is the session file filename
+"     def: .vimsession
+" a:2 is the window file filename
+"     def: .vimwindows
+" ------------------------------------------
 function! CaptureSession(...)
     let l:c=1
     let l:body=[]

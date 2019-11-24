@@ -127,7 +127,9 @@ Simple Vim session management
 "
 " To capture sessions, define a vim command of the form
 "
-" command! SESSION  :call CaptureSession('$VIMSESSION')
+" command! SESSION  :call CaptureSession('$VIMSESSION', '$VIMWINDOWS')   or
+" command! SESSION  :call CaptureSession('$VIMSESSION')   or
+" command! SESSION  :call CaptureSession()
 "
 " ====================================================================================
 " ------------------------------------------

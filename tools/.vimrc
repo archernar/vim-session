@@ -1328,6 +1328,41 @@ function! Redir(cmd)
         call setline(1, split(output, "\n"))
 endfunction
 
+function! Redir2(...)
+        call g:NewWindow("Bottom",8)
+        redir => output
+        silent execute a:1
+        redir END
+        nnoremap <silent> <buffer> q :close<cr>
+        call setline(1, split(output, "\n"))
+        resize 8
+endfunction
+command! -nargs=1 B silent call Redir2(<f-args>)
+function! Redir3(...)
+        call g:NewWindow("Right",18)
+        if a:1 =~ '^!'
+           execute "let output = system('" . substitute(a:1, '^!', '', '') . "')"
+        else
+            redir => output
+            silent execute a:1
+            redir END
+        endif
+        nnoremap <silent> <buffer> q :close<cr>
+        call setline(1, split(output, "\n"))
+        vertical resize 44 
+endfunction
+command! -nargs=1 BR silent call Redir3(<f-args>)
+function! RedirEchoRtp()
+        let output = ""
+        call g:NewWindow("Bottom",8)
+        redir => output
+        silent execute "echom &rtp"
+        redir END
+        nnoremap <silent> <buffer> q :close<cr>
+        call setline(1, split(output, ","))
+        resize 12 
+endfunction
+command! RTP silent call RedirEchoRtp()
 
 " https://stackoverflow.com/questions/11176159/how-to-jump-to-start-end-of-visual-selection
 "
@@ -1773,6 +1808,11 @@ function! g:DD4(...)
 endfunction
 
 
+function! g:DDD10()
+call g:NewWindow("Bottom",33)
+    exe "ls"
+endfunction
+"redir @">|silent call s:LS()|redir END|enew|put
 
 nnoremap <F5> :call ProgramCompile()<cr>
 nnoremap <F6> :call ProgramRun()<cr>

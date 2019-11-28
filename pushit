@@ -26,6 +26,9 @@ cp ~/.vimrc   tools/.vimrc
 if [ "$PUSHITLOCAL" == "LOCAL" ] ; then
      LOCAL="LOCAL"
 fi
+
+print "Building README.md"
+
 print "# vim-session" > README.md
 print "Simple Vim session management" >> README.md
 print "" >> README.md

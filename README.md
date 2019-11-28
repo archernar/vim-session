@@ -2,7 +2,7 @@
 Simple Vim session management
 
 ## Screen Shot
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png "Session.vim")
 
 ## Example Integration:  vit (Adv. model)
 

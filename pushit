@@ -34,7 +34,7 @@ print "Simple Vim session management" >> README.md
 print "" >> README.md
 
 print "## Screen Shot" >> README.md
-print  "![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png \"Logo Title Text 1\")" >> README.md
+print  "![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png \"Session.vim\")" >> README.md
 print "" >> README.md
 
 print "## Example Integration:  vit (Adv. model)" >> README.md

@@ -58,6 +58,7 @@ if [ "$LOCAL" == "" ] ; then
           git add tools/vit
           git add tools/vi
           git add tools/.vimrc
+          git add images/session.png
           git add pushit
           git add README.md
           git commit -m "Update"

@@ -16,6 +16,7 @@ Simple Vim session management
     VIMSESSIONDEFAULT=~/.vimsessiondefault
     VIMSESSION=.vimsession
     VIMWINDOWS=.vimwindows
+    VIMLAYOUT=.vimlayout
     
     print() {
         echo "$1"
@@ -37,8 +38,9 @@ Simple Vim session management
                 c) vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','split | split')"
                    exit 0
                    ;;
-                r) rm $VIMSESSION
-                   rm $VIMWINDOWS
+                r) rm -f $VIMSESSION
+                   rm -f $VIMWINDOWS
+                   rm -f $VIMLAYOUT
                    exit 0
                    ;;
                 s) vim -c "call LoadSession('$VIMSESSION','e')"

@@ -8,6 +8,7 @@ rm $Tmp  >/dev/null 2>&1
 VIMSESSIONDEFAULT=~/.vimsessiondefault
 VIMSESSION=.vimsession
 VIMWINDOWS=.vimwindows
+VIMLAYOUT=.vimlayout
 
 print() {
     echo "$1"
@@ -29,8 +30,9 @@ do
             c) vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','split | split')"
                exit 0
                ;;
-            r) rm $VIMSESSION
-               rm $VIMWINDOWS
+            r) rm -f $VIMSESSION
+               rm -f $VIMWINDOWS
+               rm -f $VIMLAYOUT
                exit 0
                ;;
             s) vim -c "call LoadSession('$VIMSESSION','e')"

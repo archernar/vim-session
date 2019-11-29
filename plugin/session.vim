@@ -1,7 +1,6 @@
 " ====================================================================================
 " Required Environment Variables
 "
-" export VIMWIN="vsplit | split | vertical resize 33"
 " export VIMSESSION=.vimsession
 " export VIMWINDOWS=.vimwindows
 "
@@ -91,19 +90,32 @@ endfunction
 " a:4 a set of split commands
 "     def: vsplit | split | vert resize 33
 "
-" Env Var VIMWIN optionally contains the
-" default split setup string
 " ------------------------------------------
 function! LoadSessionT(...)
     let l:filecmd = (a:0 > 2) ? a:3 : "e"
+    let l:splits = ""
     let l:sz = ""
     let l:szW = ""
     let l:c = 0
 
-    let l:splits = ($VIMWIN == "") ? "vsplit | split | vert resize 33" : $VIMWIN
+
+"     let l:splits = "vsplit | split | vertical resize " . (system("tput cols")/2)
+    let l:splits = "vsplit | split | vertical resize 53"
+
+    if (filereadable(".vimlayout"))
+        let l:splits = ""
+        let l:delim = ""
+        let l:layout = readfile(".vimlayout")
+        for l:l in l:layout
+            let l:splits .= (l:delim . l:l)
+            let l:delim = " | "
+        endfor
+    endif
+
     if (a:0 > 3)
         let l:splits = ((a:4 == "") ? l:splits : a:4)
     endif
+
     exe l:splits . " | exe '1wincmd w'"
 
     if (a:0 == 0)

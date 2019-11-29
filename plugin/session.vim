@@ -98,8 +98,6 @@ function! LoadSessionT(...)
     let l:szW = ""
     let l:c = 0
 
-
-"     let l:splits = "vsplit | split | vertical resize " . (system("tput cols")/2)
     let l:splits = "vsplit | split | vertical resize 53"
 
     if (filereadable(".vimlayout"))

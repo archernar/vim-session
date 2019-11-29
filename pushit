@@ -37,6 +37,9 @@ print "## Screen Shot" >> README.md
 print  "![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png \"Session.vim\")" >> README.md
 print "" >> README.md
 
+print "## session.vim" >> README.md
+cat plugin/session.vim | gawk '{print "    " $0}' | markdown >> README.md
+
 print "## Example Integration:  vit (Adv. model)" >> README.md
 print "" >> README.md
 cat tools/vit | gawk '{print "    " $0}' >> README.md
@@ -45,8 +48,6 @@ print "## Example Integration: vi (simple model)" >> README.md
 print "" >> README.md
 cat tools/vi | gawk '{print "    " $0}' >> README.md
 
-print "## session.vim" >> README.md
-cat plugin/session.vim | gawk '{print "    " $0}' | markdown >> README.md
 
 
 

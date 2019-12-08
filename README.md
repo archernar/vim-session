@@ -147,11 +147,13 @@ function! LoadSessionT(...)
             if (filereadable(a:2))
                 let l:body = readfile(a:2)
                 for l:l in l:body
-                     if ( s:WindowExists(l:c) == 1 )
-                         exe l:c . "wincmd w"
-                         exe "e " . l:l
-                     endif
-                     let l:c += 1
+                    if !(l:l == "")
+                             if ( s:WindowExists(l:c) == 1 )
+                                 exe l:c . "wincmd w"
+                                 exe "e " . l:l
+                             endif
+                             let l:c += 1
+                    endif
                 endfor
             endif
             exe "1wincmd w"

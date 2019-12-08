@@ -1337,7 +1337,22 @@ function! Redir2(...)
         call setline(1, split(output, "\n"))
         resize 8
 endfunction
-command! -nargs=1 B silent call Redir2(<f-args>)
+function! Redir2a(...)
+        call g:NewWindow("Bottom",8)
+        if a:1 =~ '^!'
+           execute "let output = system('" . substitute(a:1, '^!', '', '') . "')"
+        else
+            redir => output
+            silent execute a:1
+            redir END
+        endif
+        nnoremap <silent> <buffer> q :close<cr>
+        call setline(1, split(output, "\n"))
+        resize 8
+endfunction
+command! -nargs=1 B silent call Redir2a(<f-args>)
+
+
 function! Redir3(...)
         call g:NewWindow("Right",18)
         if a:1 =~ '^!'
@@ -1352,6 +1367,18 @@ function! Redir3(...)
         vertical resize 44 
 endfunction
 command! -nargs=1 BR silent call Redir3(<f-args>)
+function! Redir4()
+        let l:sz = "grep -n ^func " . @%  . " | grep Two"
+        " silent execute "let output = system('" . "grep -n ^func " . @%  . "')"
+        silent execute "let output = system('" . l:sz  . "')"
+        call g:NewWindow("Right",18)
+        nnoremap <silent> <buffer> q :close<cr>
+        call setline(1, split(output, "\n"))
+        vertical resize 44 
+endfunction
+command! BF silent call Redir4()
+
+
 function! RedirEchoRtp()
         let output = ""
         call g:NewWindow("Bottom",8)
@@ -1810,7 +1837,7 @@ endfunction
 
 function! g:DDD10()
 call g:NewWindow("Bottom",33)
-    exe "ls"
+    exe "!ls .vimsession"
 endfunction
 "redir @">|silent call s:LS()|redir END|enew|put
 

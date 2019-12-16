@@ -1,6 +1,6 @@
-"1============================================================================
-"=    W e l c o m e   t o   m y  V I M R C                                   =
-"=============================================================================
+" *****************************************************************************************************
+                "  W e l c o m e   t o   m y  V I M R C
+                " *************************************************************************************
 " Notes
 " There are several name spaces for variables.
 " 
@@ -14,11 +14,21 @@
 " |function-argument|  a:	  Function argument (only inside a function).
 " |vim-variable|       v:	  Global, predefined by Vim.
 " nnoremap <F4> :new<cr>:-1read $HOME/.vim/ksh.top<CR>
-"=============================================================================
-
 " *****************************************************************************************************
-                                  " External Environments Variables
-                                  " *******************************************************************
+function! Head()
+   let l:one="\" ***************************************************************************************************"
+   let l:two="\"               * "
+   let l:three="\"               *************************************************************************************"
+   let l:szIn = input('header text >> ')
+   let l:currentLine   = getline(".")
+   echom l:szIn
+   call setline(l:currentLine+1, l:one)
+   call setline(l:currentLine+2, l:two . l:szIn)
+   call setline(l:currentLine+3, l:three)
+endfunction
+" *****************************************************************************************************
+                " External Environments Variables
+                " *************************************************************************************
 " VIM_VIMTIPS                     - Full pathname of the vimtips file
 " VIM_COMMANDER                   - Full pathname of the vim commander file
 " VIM_PDFLIB                      - Folder name of PDF library
@@ -48,8 +58,8 @@ set laststatus=2                  " Always display the status line, even if only
 set undodir=~/.vim/undodir
 set undofile
 " *****************************************************************************************************
-                                  " Indent and Tab  Setup
-                                  " *******************************************************************
+                " Indent and Tab  Setup
+                " *************************************************************************************
 " There are in fact four main methods available for indentation, each one
 " overrides the previous if it is enabled, or non-empty for 'indentexpr':
 " 'autoindent'	uses the indent from the previous line.
@@ -66,8 +76,8 @@ set shiftwidth=4                  " Indent settings for using 4 spaces instead o
 set softtabstop=4                 " with this setup.
 set expandtab
 " *****************************************************************************************************
-                                  " Syntax Highlighting
-                                  " *******************************************************************
+                " Syntax Highlighting
+                " *************************************************************************************
 syntax off
 
 set confirm                       " Instead of failing a command because of unsaved changes, raise a dialogue asking to save changed files.
@@ -372,6 +382,7 @@ nnoremap <silent> <leader><F4> :CtrlPBuffer<cr>
                                   " *******************************************************************
 nnoremap <leader>] *
 nnoremap <Leader>' diwi""<ESC>hp<ESC>
+let g:NERDTreeNodeDelimiter = "\u00a0"
 call g:MyKeyMapper("nnoremap <Leader>nt :NERDTreeToggle<cr>","NERDTree Toggle")
 call g:MyKeyMapper("nnoremap <Leader>p  :PluginUpdate<cr>","Vundle Update")
 call g:MyKeyMapper("nnoremap <Leader>d  :! rm -rf /tmp/dotfiles;git clone http://github.com/archernar/dotfiles.git /tmp/dotfiles;<cr>","fetch .vimrc update")
@@ -1792,6 +1803,7 @@ endfunction
 " Set desired java options below
 " silent let l:cmd = "java -d64  " . "" . g:Strreplace(expand("%:r"),"./","") . " " . arg
 
+call g:MyCommandMapper("command! DIR   :call g:DD0(\"./*.*\")")
 function! g:DD0(...)
     let l:Dict = {} 
     let l:DictCT = 1000 
@@ -1812,7 +1824,9 @@ function! g:DD0(...)
         endfor
             let l:Dict["ITEM" . l:DictCT] = l:len
     " Create Window/Buffer Part
-        let l:len = s:Max(l:len, 38)
+        let l:cols = 38
+        let l:cols = &columns / 3
+        let l:len = s:Max(l:len, l:cols)
         let g:thatwin = winnr()
         call g:NewWindow("Left", l:len, "<Enter> :call g:DD4('e')","s :call g:DD4('vnew')", "b :call g:DD4('split')")
         echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"
@@ -1824,13 +1838,14 @@ function! g:DD0(...)
           let l:nn= l:nn + 1
 	endfor
         set nowrap
+        resize 55
 endfunc
 function! g:DD4(...)
      let l:sz   = getline(".")
      if (strlen(l:sz) > 0)
          silent execute "q"
          exe g:thatwin . "wincmd w"
-         silent execute a:1 . " " . l:sz
+         silent execute a:1 . " " . "\"" . l:sz . "\""
      endif
 endfunction
 

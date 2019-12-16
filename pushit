@@ -50,11 +50,6 @@ cat tools/vi | gawk '{print "    " $0}' >> README.md
 
 
 
-
-if [ "$LOCAL" == "" ] ; then
-     IP=192.168.1.1
-     fping -c1 -t300 $IP 2>/dev/null 1>/dev/null
-     if [ $? -eq 0 ] ; then
           git add plugin/$FILE
           git add tools/vit
           git add tools/vi
@@ -63,6 +58,11 @@ if [ "$LOCAL" == "" ] ; then
           git add pushit
           git add README.md
           git commit -m "Update"
+
+if [ "$LOCAL" == "" ] ; then
+     IP=192.168.1.1
+     fping -c1 -t300 $IP 2>/dev/null 1>/dev/null
+     if [ $? -eq 0 ] ; then
           git push -u origin master
      fi
 fi

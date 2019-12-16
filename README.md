@@ -214,9 +214,18 @@ endfunction
         echo "$1"
     }
     
-    while getopts "fabcersthmx:" arg
+    while getopts "nfabcersthmx:" arg
     do
     	case $arg in
+                 n) if [ -a "./vimnosplits" ] ; then
+                         rm -rf "./vimnosplits"
+                         print "splits"
+                    else
+                         touch "./vimnosplits"
+                         print "no splits"
+                    fi
+                    exit 0
+                    ;;
                 f) cp "$VIMSESSION" "$VIMWINDOWS"
                    vim -c "call LoadSessionT('$VIMSESSION','$VIMSESSION','e','')"
                    exit 0
@@ -267,6 +276,7 @@ endfunction
                    print "  -e  Edit ./.vimsession ./.vimwindows"
                    print "  -f  copy ./.vimsession to ./.vimwindows (and call vit)"
                    print "  -m  Simple Mode with MRU"
+                   print "  -n  Toggle no-splits flag"
                    print "  -h  Help"
                    print "  -r  Remove ./.vimsession and ./.vimwindows"
                    print "  -s  Simple Mode:Open in a single window"
@@ -285,7 +295,11 @@ endfunction
     shift $(($OPTIND - 1))
     
     if [ $# -eq 0 ]; then
-        vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','')"
+              if [ -a "./vimnosplits" ] ; then
+                   vim -c "call LoadSession('$VIMSESSION','e')"
+              else
+                  vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','')"
+              fi
     else
         vim $1 $2 $3 $4
     fi

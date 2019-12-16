@@ -209,6 +209,7 @@ endfunction
     VIMSESSION=.vimsession
     VIMWINDOWS=.vimwindows
     VIMLAYOUT=.vimlayout
+    VIMNOSPLITS=.vimnosplits
     
     print() {
         echo "$1"
@@ -217,11 +218,11 @@ endfunction
     while getopts "nfabcersthmx:" arg
     do
     	case $arg in
-                 n) if [ -a "./vimnosplits" ] ; then
-                         rm -rf "./vimnosplits"
+                 n) if [ -a "$VIMNOSPLITS" ] ; then
+                         rm -rf "$VIMNOSPLITS"
                          print "splits"
                     else
-                         touch "./vimnosplits"
+                         touch "$VIMNOSPLITS"
                          print "no splits"
                     fi
                     exit 0
@@ -295,7 +296,7 @@ endfunction
     shift $(($OPTIND - 1))
     
     if [ $# -eq 0 ]; then
-              if [ -a "./vimnosplits" ] ; then
+              if [ -a "$VIMNOSPLITS" ] ; then
                    vim -c "call LoadSession('$VIMSESSION','e')"
               else
                   vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','')"

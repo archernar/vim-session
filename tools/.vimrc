@@ -765,7 +765,7 @@ call g:MyCommandMapper("command! CE      :call CommanderListEdit()")
 call g:MyCommandMapper("command! TEST    :call Test()")
 call g:MyCommandMapper("command! XXCSD   :call CallMan('LeftWindowBuffer()', 'MyCommandsheetDump()')")
 call g:MyCommandMapper("command! CSD     :call XMan('botright new', 'MyCommandsheetDump()')")
-call g:MyCommandMapper("command! SNIPS   :topleft vnew ~/snips.java")
+call g:MyCommandMapper("command! SNIPS   :call g:DD0(\"~/.vim/Snips/*\")"          )
 call g:MyCommandMapper("command! REPOS   :call RepoList()")
 call g:MyCommandMapper("command! TEE     :call Tee()")
 call g:MyCommandMapper("command! TEELEFT :call TeeLeft()")
@@ -1803,7 +1803,6 @@ endfunction
 " Set desired java options below
 " silent let l:cmd = "java -d64  " . "" . g:Strreplace(expand("%:r"),"./","") . " " . arg
 
-call g:MyCommandMapper("command! DIR   :call g:DD0(\"./*.*\")")
 function! g:DD0(...)
     let l:Dict = {} 
     let l:DictCT = 1000 
@@ -1824,11 +1823,11 @@ function! g:DD0(...)
         endfor
             let l:Dict["ITEM" . l:DictCT] = l:len
     " Create Window/Buffer Part
-        let l:cols = 38
         let l:cols = &columns / 3
         let l:len = s:Max(l:len, l:cols)
+        let l:cols = 38
         let g:thatwin = winnr()
-        call g:NewWindow("Left", l:len, "<Enter> :call g:DD4('e')","s :call g:DD4('vnew')", "b :call g:DD4('split')")
+        call g:NewWindow("Left", l:cols, "<Enter> :call g:DD4('e')","s :call g:DD4('vnew')", "b :call g:DD4('split')")
         echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"
     " Display Part
         setlocal cursorline
@@ -1838,14 +1837,15 @@ function! g:DD0(...)
           let l:nn= l:nn + 1
 	endfor
         set nowrap
-        resize 55
+        resize 155
 endfunc
 function! g:DD4(...)
      let l:sz   = getline(".")
      if (strlen(l:sz) > 0)
          silent execute "q"
          exe g:thatwin . "wincmd w"
-         silent execute a:1 . " " . "\"" . l:sz . "\""
+         echom "execute " . a:1 . " " . "" . l:sz . ""
+         silent execute a:1 . " " . "" . l:sz . ""
      endif
 endfunction
 

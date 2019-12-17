@@ -51,6 +51,7 @@ cat tools/vi | gawk '{print "    " $0}' >> README.md
 
 
           git add plugin/$FILE
+          git add plugin/dir.vim
           git add tools/vit
           git add tools/vi
           git add tools/.vimrc

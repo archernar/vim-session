@@ -45,7 +45,7 @@ endfunc
 function! g:MyDirAction(...)
      let l:sz   = getline(".")
      if (strlen(l:sz) > 0)
-         if ( isdirectory(l:sz) > 0 )
+         if ( isdirectory(l:sz) == 0 )
              silent execute "q"
              exe g:thatwin . "wincmd w"
              echom "execute " . a:1 . " " . "" . l:sz . ""

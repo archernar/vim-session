@@ -19,6 +19,7 @@ ANON=`date`
 print $ANON
 print "Local Deployment..."
 cp plugin/$FILE /home/mestes/.vim/bundle/$REPO/plugin/$FILE
+cp plugin/dir.vim /home/mestes/.vim/bundle/$REPO/plugin/dir.vim
 cp tools/vit ~/firstbin/vit
 cp tools/vi  ~/firstbin/vi
 cp ~/.vimrc   tools/.vimrc 

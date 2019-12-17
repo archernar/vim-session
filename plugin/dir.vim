@@ -52,7 +52,7 @@ function! g:MyDirAction(...)
              silent execute a:1 . " " . "" . l:sz . ""
          else
              silent execute "q"
-             call g:MyDir(l:sz)
+             call g:MyDir(l:sz . "/*")
          endif
      endif
 endfunction

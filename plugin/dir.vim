@@ -36,7 +36,7 @@ function! g:MyDir(...)
         setlocal cursorline
         let l:nn=1
 	for key in sort(keys(l:Dict))
-          call setline(l:nn, l:Dict[key] . "")
+          call setline(l:nn, l:Dict[key] . " - ". isdirectory(l:Dict[key]) )
           let l:nn= l:nn + 1
 	endfor
         set nowrap

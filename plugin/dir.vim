@@ -50,6 +50,9 @@ function! g:MyDirAction(...)
              exe g:thatwin . "wincmd w"
              echom "execute " . a:1 . " " . "" . l:sz . ""
              silent execute a:1 . " " . "" . l:sz . ""
+         else
+             silent execute "q"
+             call g:MyDir(l:sz)
          endif
      endif
 endfunction

@@ -30,7 +30,7 @@ function! g:MyDir(...)
         let l:len = s:Max(l:len, l:cols)
         let l:cols = 38
         let g:thatwin = winnr()
-        call g:NewWindow("Left", l:cols, "<Enter> :call s:MyDirAction('e')","s :call s:MyDirAction('vnew')", "b :call s:MyDirAction('split')")
+        call g:NewWindow("Left", l:cols, "<Enter> :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
         echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"
     " Display Part
         setlocal cursorline
@@ -42,7 +42,7 @@ function! g:MyDir(...)
         set nowrap
         resize 155
 endfunc
-function! s:MyDirAction(...)
+function! g:MyDirAction(...)
      let l:sz   = getline(".")
      if (strlen(l:sz) > 0)
          silent execute "q"

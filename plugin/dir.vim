@@ -92,7 +92,7 @@ function! g:MyDir(...)
           if (isdirectory(l:sz) == 0)
                let l:type="f"
           endif
-          call setline(l:nn, line(".") . " " . l:type . " " . l:sz )
+          call setline(l:nn, l:type . " " . l:sz )
           let l:nn= l:nn + 1
 	endfor
         set nowrap
@@ -101,23 +101,25 @@ endfunc
 function! g:MyDirAction(...)
      let l:sz   = DirToken(getline("."))
      echom ">> " . l:sz
-     if (strlen(l:sz) > 0)
-         if (l:sz == "..")
-             silent execute "q"
-             let l:sz = DirSetUp()
-             call g:MyDir(g:DirSet . "/*")
-             echom g:DirSet  
-             return
-         endif
-         if ( isdirectory(l:sz) == 0 )
-             silent execute "q"
-             exe g:thatwin . "wincmd w"
-             echom "execute " . a:1 . " " . "" . l:sz . ""
-             silent execute a:1 . " " . "" . l:sz . ""
-         else
-             silent execute "q"
-             call DirSetInto(l:sz)
-             call g:MyDir(g:DirSet . "/*")
+     if (line(".") > 1) 
+         if (strlen(l:sz) > 0)
+             if (l:sz == "..")
+                 silent execute "q"
+                 let l:sz = DirSetUp()
+                 call g:MyDir(g:DirSet . "/*")
+                 echom g:DirSet  
+                 return
+             endif
+             if ( isdirectory(l:sz) == 0 )
+                 silent execute "q"
+                 exe g:thatwin . "wincmd w"
+                 echom "execute " . a:1 . " " . "" . l:sz . ""
+                 silent execute a:1 . " " . "" . l:sz . ""
+             else
+                 silent execute "q"
+                 call DirSetInto(l:sz)
+                 call g:MyDir(g:DirSet . "/*")
+             endif
          endif
      endif
 endfunction

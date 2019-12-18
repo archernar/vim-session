@@ -103,7 +103,7 @@ function! g:MyDirAction(...)
              silent execute a:1 . " " . "" . l:sz . ""
          else
              silent execute "q"
-             call DirSetInto(l:sz)
+             call DirSetInto(g:DirSet . "/" . l:sz)
              call g:MyDir(g:DirSet . "/*")
          endif
      endif

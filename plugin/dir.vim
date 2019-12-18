@@ -58,6 +58,46 @@ function! g:MyDir(...)
     " Load Directory Part
         call g:SetMyKeyMapperMode("FILE")
         let l:list = split(glob(a:1),'\n')
+"         for l:file in l:list
+"         endfor
+    " Create Window/Buffer Part
+        let l:cols = &columns / 3
+        let l:len = s:Max(l:len, l:cols)
+        let l:cols =55 
+        let g:thatwin = winnr()
+        call g:NewWindow("Left", l:cols, "<Enter> :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
+        "echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"
+    " Display Part
+        setlocal cursorline
+        let l:nn=1
+
+        call setline(l:nn, "[" . g:DirSet . "]")
+        let l:nn= l:nn + 1
+        call setline(l:nn, "..")
+        let l:nn= l:nn + 1
+
+	let l:sortedlist = sort(l:list)
+	for key in sort(l:sortedlist)
+          let l:l = l:Dict[key]
+          let l:sz = DirFileName(l:l)
+          let l:type="f"
+          if (isdirectory(g:DirSet . "/" . l:sz) > 0)
+               let l:type="d"
+          endif
+          call setline(l:nn, l:type . " " . l:sz )
+          let l:nn= l:nn + 1
+	endfor
+        set nowrap
+        resize 155
+endfunc
+function! g:MyDirOLD(...)
+    let l:Dict = {} 
+    let l:DictCT = 1000 
+    let l:len = -1
+    let l:nn = 0
+    " Load Directory Part
+        call g:SetMyKeyMapperMode("FILE")
+        let l:list = split(glob(a:1),'\n')
 "         let l:list = split(globpath(".","**/*"),'\n')
 "         for l:file in split(glob(a:1),'\n')
         for l:file in l:list

@@ -45,14 +45,13 @@ function! DirSetInto(...)
     endif
     return g:DirSet
 endfunction
+let l:currentWindow=0
 function g:MyDirPwd()
+    let g:currentwindow = winnr()
     call DirSetPwd() 
     call g:MyDir("./*")
 endfunction
-
-let g:markerwindow=0
 function! g:MyDir(...)
-    let g:markerwindow = winnr()
     let l:len = -1
     let l:nn = 0
     " Load Directory Part
@@ -62,7 +61,6 @@ function! g:MyDir(...)
         let l:cols = &columns / 3
         let l:len = s:Max(l:len, l:cols)
         let l:cols =55 
-        let g:thatwin = winnr()
         call g:NewWindow("Left", l:cols, "<Enter> :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
         "echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"
     " Display Part
@@ -104,8 +102,7 @@ function! g:MyDirAction(...)
              endif
              if ( isdirectory(g:DirSet . "/" . l:sz) == 0 )
                  "silent execute "q"
-                 "exe g:thatwin . "wincmd w"
-                 exe g:markerwindow . "wincmd w"
+                 exe g:currentwindow . "wincmd w"
                  echom "execute " . a:1 . " " . g:DirSet . "/" . l:sz . ""
                  "silent execute a:1 . " " . "" . g:DirSet . "/" .l:sz . ""
              else

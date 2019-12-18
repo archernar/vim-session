@@ -35,8 +35,12 @@ function! g:MyDir(...)
     " Display Part
         setlocal cursorline
         let l:nn=1
+
+        call setline(l:nn, getcwd())
+        let l:nn= l:nn + 1
         call setline(l:nn, "..")
         let l:nn= l:nn + 1
+
 	for key in sort(keys(l:Dict))
           call setline(l:nn, l:Dict[key] . "")
           let l:nn= l:nn + 1

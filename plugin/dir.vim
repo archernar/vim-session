@@ -51,9 +51,6 @@ function g:MyDirPwd()
     call DirSetPwd() 
     call g:MyDir("./*")
 endfunction
-function! g:GotoTop()
-    normal ":1"
-endfunction
 function! g:MyDir(...)
     let l:len = -1
     let l:nn = 0
@@ -66,7 +63,7 @@ function! g:MyDir(...)
         let l:cols =55 
         call g:NewWindow("Left", l:cols, "<Enter> :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
         nnoremap <silent> <buffer> f /^f<cr>
-        nnoremap <silent> <buffer> d :call g:GotoTop()<cr>
+        nnoremap <silent> <buffer> g /^d<cr>
         "echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"
     " Display Part
         setlocal cursorline

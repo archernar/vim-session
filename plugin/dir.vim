@@ -18,7 +18,7 @@ endfunction
 let g:DirSet = ""
 function! DirFileName(...)
     let l:l = split(a:1,"/")
-    return   join(l:l[:-2])
+    return   join(l:l[-1:-1])
 endfunction
 function! DirSetPwd()
     let g:DirSet = getcwd()

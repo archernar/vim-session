@@ -1,4 +1,4 @@
-# call g:MyCommandMapper("command! DIR   :call g:MyDir(\"./*\")")
+" call g:MyCommandMapper("command! DIR   :call g:MyDir(\"./*\")")
 call g:MyCommandMapper("command! DIR   :call g:PwdDir()")
 function! s:Max(...)
         let l:n = a:1

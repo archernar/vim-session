@@ -105,7 +105,7 @@ function! g:MyDirAction(...)
              silent execute "q"
              call DirSetInto(l:sz)
              echom g:DirSet . "/" 
-             "call g:MyDir(g:DirSet . "/*")
+             call g:MyDir(g:DirSet . "/*")
          endif
      endif
 endfunction

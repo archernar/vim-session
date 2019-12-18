@@ -89,7 +89,7 @@ function! g:MyDirAction(...)
      let l:sz   = getline(".")
      if (strlen(l:sz) > 0)
          if (l:sz == "..")
-             l:sz = DirSetUp()
+             let l:sz = DirSetUp()
          endif
          if ( isdirectory(l:sz) == 0 )
              silent execute "q"

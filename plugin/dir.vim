@@ -94,7 +94,11 @@ function! g:MyDirAction(...)
      let l:sz   = getline(".")
      if (strlen(l:sz) > 0)
          if (l:sz == "..")
+             silent execute "q"
              let l:sz = DirSetUp()
+             call g:MyDir(g:DirSet . "/*")
+             echom g:DirSet  
+             return
          endif
          if ( isdirectory(l:sz) == 0 )
              silent execute "q"
@@ -103,8 +107,6 @@ function! g:MyDirAction(...)
              silent execute a:1 . " " . "" . l:sz . ""
          else
              silent execute "q"
-             echom g:DirSet  
-             call DirSetInto(l:sz)
              call g:MyDir(g:DirSet . "/*")
          endif
      endif

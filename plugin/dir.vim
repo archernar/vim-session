@@ -56,8 +56,6 @@ function! g:MyDir(...)
     " Load Directory Part
         call g:SetMyKeyMapperMode("FILE")
         let l:list = split(glob(a:1),'\n')
-"         for l:file in l:list
-"         endfor
     " Create Window/Buffer Part
         let l:cols = &columns / 3
         let l:len = s:Max(l:len, l:cols)
@@ -73,16 +71,20 @@ function! g:MyDir(...)
         let l:nn= l:nn + 1
         call setline(l:nn, "..")
         let l:nn= l:nn + 1
+        let l:templ = []
 
-	let l:sortedlist = sort(l:list)
-	for key in l:sortedlist
-          let l:l = key
-          let l:sz = DirFileName(l:l)
+	for key in l:list
+          let l:sz = DirFileName(key)
           let l:type="f"
           if (isdirectory(g:DirSet . "/" . l:sz) > 0)
                let l:type="d"
           endif
-          call setline(l:nn, l:type . " " . l:sz )
+          call add(l:templ, l:type . " " . l:sz)
+	endfor
+
+	let l:sortedlist = sort(l:templ)
+	for key in l:sortedlist
+          call setline(l:nn, key)
           let l:nn= l:nn + 1
 	endfor
         set nowrap

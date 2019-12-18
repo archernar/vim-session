@@ -75,7 +75,7 @@ function! g:MyDir(...)
         let l:nn= l:nn + 1
 
 	let l:sortedlist = sort(l:list)
-	for key in sort(l:sortedlist)
+	for key in l:sortedlist
           let l:l = key
           let l:sz = DirFileName(l:l)
           let l:type="f"

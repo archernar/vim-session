@@ -103,8 +103,8 @@ function! g:MyDirAction(...)
              if ( isdirectory(g:DirSet . "/" . l:sz) == 0 )
                  silent execute "q"
                  exe g:thatwin . "wincmd w"
-                 echom "execute " . a:1 . " " . "" . l:sz . ""
-                 " silent execute a:1 . " " . "" . l:sz . ""
+                 echom "execute " . a:1 . " " . g:DirSet . "/" . l:sz . ""
+                 " silent execute a:1 . " " . "" . g:DirSet . "/" .l:sz . ""
              else
                  silent execute "q"
                  call DirSetInto(l:sz)

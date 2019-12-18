@@ -51,8 +51,6 @@ function g:MyDirPwd()
 endfunction
 
 function! g:MyDir(...)
-    let l:Dict = {} 
-    let l:DictCT = 1000 
     let l:len = -1
     let l:nn = 0
     " Load Directory Part
@@ -78,7 +76,7 @@ function! g:MyDir(...)
 
 	let l:sortedlist = sort(l:list)
 	for key in sort(l:sortedlist)
-          let l:l = l:Dict[key]
+          let l:l = key
           let l:sz = DirFileName(l:l)
           let l:type="f"
           if (isdirectory(g:DirSet . "/" . l:sz) > 0)

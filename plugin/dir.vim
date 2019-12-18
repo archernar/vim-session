@@ -71,7 +71,7 @@ function! g:MyDir(...)
         let l:cols =55 
         let g:thatwin = winnr()
         call g:NewWindow("Left", l:cols, "<Enter> :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
-        echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"
+        "echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"
     " Display Part
         setlocal cursorline
         let l:nn=1
@@ -104,6 +104,7 @@ function! g:MyDirAction(...)
          else
              silent execute "q"
              call DirSetInto(g:DirSet . "/" . l:sz)
+             echom g:DirSet . "/" 
              call g:MyDir(g:DirSet . "/*")
          endif
      endif

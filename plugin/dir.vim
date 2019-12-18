@@ -8,7 +8,7 @@ function! s:Max(...)
         return l:n
 endfunction
 function! g:PwdDir(...)
-    call g:MyDir( getcwd() . "/*" )
+    call g:MyDir( "./*" )
 endfunction
 
 function! g:MyDir(...)

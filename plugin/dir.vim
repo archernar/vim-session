@@ -81,7 +81,6 @@ function! g:MyDir(...)
           endif
           call add(l:templ, l:type . " " . l:sz)
 	endfor
-
 	let l:sortedlist = sort(l:templ)
 	for key in l:sortedlist
           call setline(l:nn, key)

@@ -20,6 +20,10 @@ function! DirFileName(...)
     let l:l = split(a:1,"/")
     return   join(l:l[-1:-1])
 endfunction
+function! DirToken(...)
+    let l:l = split(a:1," ")
+    return   join(l:l[0])
+endfunction
 function! DirSetPwd()
     let g:DirSet = getcwd()
     return g:DirSet
@@ -95,7 +99,7 @@ function! g:MyDir(...)
         resize 155
 endfunc
 function! g:MyDirAction(...)
-     let l:sz   = getline(".")
+     let l:sz   = DirToken(getline("."))
      if (strlen(l:sz) > 0)
          if (l:sz == "..")
              silent execute "q"

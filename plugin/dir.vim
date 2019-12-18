@@ -109,7 +109,7 @@ function! g:MyDirAction(...)
                  echom g:DirSet  
                  return
              endif
-             if ( isdirectory(l:sz) == 0 )
+             if ( isdirectory(g:DirSet . "/" . l:sz) == 0 )
                  silent execute "q"
                  exe g:thatwin . "wincmd w"
                  echom "execute " . a:1 . " " . "" . l:sz . ""

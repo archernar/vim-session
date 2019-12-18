@@ -100,7 +100,6 @@ function! g:MyDir(...)
 endfunc
 function! g:MyDirAction(...)
      let l:sz   = DirToken(getline("."))
-     echom ">> " . l:sz
      if (line(".") > 1) 
          if (strlen(l:sz) > 0)
              if (l:sz == "..")

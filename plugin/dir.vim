@@ -62,6 +62,7 @@ function! g:MyDir(...)
         let l:len = s:Max(l:len, l:cols)
         let l:cols =55 
         call g:NewWindow("Left", l:cols, "<Enter> :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
+        nnoremap <silent> <buffer> f /^f<cr>
         "echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"
     " Display Part
         setlocal cursorline

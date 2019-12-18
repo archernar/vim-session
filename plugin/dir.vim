@@ -16,6 +16,10 @@ function! Testxxxa()
 endfunction
 
 let g:DirSet = ""
+function! DirFileName(...)
+    let l:l=split(a:1,"/")
+    return   l:l[:-1] 
+endfunction
 function! DirSetPwd()
     let g:DirSet = getcwd()
     return g:DirSet
@@ -29,7 +33,6 @@ function! DirSetUp()
     endif
     return g:DirSet
 endfunction
-
 function! DirSetInto(...)
     if (a:1 == "")
         let g:DirSet = g:DirSet
@@ -79,7 +82,9 @@ function! g:MyDir(...)
         let l:nn= l:nn + 1
 
 	for key in sort(keys(l:Dict))
-          call setline(l:nn, l:Dict[key] . "")
+          let l:sz = l:Dict[key]
+          let l:sz = DirFileName(l:sz)
+          call setline(l:nn, l:sz . "")
           let l:nn= l:nn + 1
 	endfor
         set nowrap

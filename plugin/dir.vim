@@ -45,7 +45,7 @@ function! DirSetInto(...)
     endif
     return g:DirSet
 endfunction
-let l:currentWindow=0
+let g:currentwindow=0
 function g:MyDirPwd()
     let g:currentwindow = winnr()
     call DirSetPwd() 

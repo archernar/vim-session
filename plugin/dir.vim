@@ -92,7 +92,7 @@ function! g:MyDir(...)
           if (isdirectory(l:sz) > 0)
                let l:type="d"
           endif
-          call setline(l:nn, l:type . " " . l:sz . "  (" . l:sz . ")"  )
+          call setline(l:nn, l:type . " " . l:sz )
           let l:nn= l:nn + 1
 	endfor
         set nowrap
@@ -118,6 +118,7 @@ function! g:MyDirAction(...)
                  silent execute "q"
                  call DirSetInto(l:sz)
                  call g:MyDir(g:DirSet . "/*")
+                 echom g:DirSet  
              endif
          endif
      endif

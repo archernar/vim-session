@@ -1,5 +1,5 @@
 # call g:MyCommandMapper("command! DIR   :call g:MyDir(\"./*\")")
-call g:MyCommandMapper("command! DIR   :call g:MyDir( getcwd() " . "/*)" )
+call g:MyCommandMapper("command! DIR   :call g:PwdDir()")
 function! s:Max(...)
         let l:n = a:1
         if ( a:1 > a:2 )
@@ -7,6 +7,10 @@ function! s:Max(...)
         endif
         return l:n
 endfunction
+function! g:PwdDir(...)
+    call g:MyDir( getcwd() . "/*" )
+endfunction
+
 function! g:MyDir(...)
     let l:Dict = {} 
     let l:DictCT = 1000 

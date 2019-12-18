@@ -100,6 +100,7 @@ function! g:MyDir(...)
 endfunc
 function! g:MyDirAction(...)
      let l:sz   = DirToken(getline("."))
+     echom ">> " . l:sz
      if (strlen(l:sz) > 0)
          if (l:sz == "..")
              silent execute "q"

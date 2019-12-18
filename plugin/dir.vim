@@ -65,7 +65,7 @@ function! g:MyDir(...)
     " Create Window/Buffer Part
         let l:cols = &columns / 3
         let l:len = s:Max(l:len, l:cols)
-        let l:cols = 38
+        let l:cols =55 
         let g:thatwin = winnr()
         call g:NewWindow("Left", l:cols, "<Enter> :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
         echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"

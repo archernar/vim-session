@@ -50,7 +50,9 @@ function g:MyDirPwd()
     call g:MyDir("./*")
 endfunction
 
+let g:markerwindow=0
 function! g:MyDir(...)
+    let g:markerwindow = winnr()
     let l:len = -1
     let l:nn = 0
     " Load Directory Part
@@ -103,6 +105,7 @@ function! g:MyDirAction(...)
              if ( isdirectory(g:DirSet . "/" . l:sz) == 0 )
                  "silent execute "q"
                  exe g:thatwin . "wincmd w"
+                 exe g:markerwindow . "wincmd w"
                  echom "execute " . a:1 . " " . g:DirSet . "/" . l:sz . ""
                  silent execute a:1 . " " . "" . g:DirSet . "/" .l:sz . ""
              else

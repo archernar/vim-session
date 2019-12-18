@@ -95,6 +95,7 @@ function! g:MyDirAction(...)
      if (strlen(l:sz) > 0)
          if (l:sz == "..")
              let l:sz = DirSetUp()
+             echom g:DirSet  
          endif
          if ( isdirectory(l:sz) == 0 )
              silent execute "q"
@@ -104,8 +105,7 @@ function! g:MyDirAction(...)
          else
              silent execute "q"
              call DirSetInto(l:sz)
-             echom g:DirSet . "/" 
-             call g:MyDir(g:DirSet . "/*")
+             "call g:MyDir(g:DirSet . "/*")
          endif
      endif
 endfunction

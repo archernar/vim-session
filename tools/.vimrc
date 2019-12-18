@@ -37,7 +37,7 @@ endfunction
 set splitbelow
 set splitright
 
-set cmdheight=3                   " Set the command window height to 2 lines, to avoid many cases of having to  press <Enter> to continue
+set cmdheight=8                   " Set the command window height to 2 lines, to avoid many cases of having to  press <Enter> to continue
 set nowrap
 set nocompatible
 " set relativenumber
@@ -259,15 +259,24 @@ function! Four()
 endfunction
                                   " *******************************************************************
                                   " END: Utility Functions
-function! Testa()
-        let body=[]
-        call add(body, 'NArleyOne')
-        call add(body, 'NArleyTwo')
-        call writefile(body, 'momo')
-	if line("'\"") > 1 && line("'\"") <= line("$") 
-            exe "normal! g`\"" 
-        endif
-endfunction
+
+" :echo ['a', 'b', 'c', 'd', 'e'][0:2]
+" Vim displays ['a', 'b', 'c'] (elements 0, 1 and 2). You can safely exceed the upper bound as well. Try this command:
+" 
+" :echo ['a', 'b', 'c', 'd', 'e'][0:100000]
+" Vim simply displays the entire list.
+" 
+" Slice indexes can be negative. Try this command:
+" 
+" :echo ['a', 'b', 'c', 'd', 'e'][-2:-1]
+" Vim displays ['d', 'e'] (elements -2 and -1).
+" 
+" When slicing lists you can leave off the first index to mean "the beginning" and/or the last index to mean "the end". Run the following commands:
+" 
+" :echo ['a', 'b', 'c', 'd', 'e'][:1]
+" :echo ['a', 'b', 'c', 'd', 'e'][3:]
+"  len(list)
+
 function! Test()
         let l:sz="NO"
         let l:current_win = winnr()

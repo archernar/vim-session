@@ -1,5 +1,4 @@
-" call g:MyCommandMapper("command! DIR   :call g:MyDir(\"./*\")")
-call g:MyCommandMapper("command! DIR   :call g:PwdDir()")
+call g:MyCommandMapper("command! DIR   :call g:MyDir(\"./*\")")
 function! s:Max(...)
         let l:n = a:1
         if ( a:1 > a:2 )
@@ -7,10 +6,38 @@ function! s:Max(...)
         endif
         return l:n
 endfunction
-function! g:PwdDir(...)
-    call g:MyDir( "./*" )
+
+function! Testxxxa()
+        echom DirSetPwd()
+        echom DirSetUp()
+        echom DirSetUp()
+        echom DirSetInto("otto")
 endfunction
 
+let g:DirSet = ""
+function! DirSetPwd()
+    let g:DirSet = getcwd()
+    return g:DirSet
+endfunction
+function! DirSetUp()
+    if (g:DirSet == "/")
+        let g:DirSet = "/"
+    else
+        let l:l=split(g:DirSet,"/")
+        let g:DirSet =  "/" . join( l:l[:-2], "/" )
+    endif
+    return g:DirSet
+endfunction
+
+
+function! DirSetInto(...)
+    if (a:1 == "")
+        let g:DirSet = g:DirSet
+    else
+        let g:DirSet = g:DirSet . "/" . a:1
+    endif
+    return g:DirSet
+endfunction
 function! g:MyDir(...)
     let l:Dict = {} 
     let l:DictCT = 1000 

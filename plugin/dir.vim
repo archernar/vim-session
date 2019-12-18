@@ -88,6 +88,9 @@ endfunc
 function! g:MyDirAction(...)
      let l:sz   = getline(".")
      if (strlen(l:sz) > 0)
+         if (l:sz == "..")
+             l:sz = DirSetUp()
+         endif
          if ( isdirectory(l:sz) == 0 )
              silent execute "q"
              exe g:thatwin . "wincmd w"
@@ -95,7 +98,7 @@ function! g:MyDirAction(...)
              silent execute a:1 . " " . "" . l:sz . ""
          else
              silent execute "q"
-             call g:MyDir(l:sz . "/*")
+             call g:MyDir(g:DirSet . "/*")
          endif
      endif
 endfunction

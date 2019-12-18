@@ -37,7 +37,7 @@ endfunction
 set splitbelow
 set splitright
 
-set cmdheight=8                   " Set the command window height to 2 lines, to avoid many cases of having to  press <Enter> to continue
+set cmdheight=3                   " Set the command window height to 2 lines, to avoid many cases of having to  press <Enter> to continue
 set nowrap
 set nocompatible
 " set relativenumber

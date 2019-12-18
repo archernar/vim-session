@@ -85,7 +85,8 @@ function! g:MyDir(...)
         call setline(l:nn, "..")
         let l:nn= l:nn + 1
 
-	for key in sort(keys(l:Dict))
+	let l:sortedlist = sort(keys(l:Dict))
+	for key in sort(l:sortedlist)
           let l:l = l:Dict[key]
           let l:sz = DirFileName(l:l)
           let l:type="f"

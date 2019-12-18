@@ -84,7 +84,11 @@ function! g:MyDir(...)
 	for key in sort(keys(l:Dict))
           let l:l = l:Dict[key]
           let l:sz = DirFileName(l:l)
-          call setline(l:nn, l:sz . "")
+          let l:type="DIR"
+          if isdirectory(l:sz) == 0 )
+               let l:type="FILE"
+          endif
+          call setline(l:nn, l:sz . " " . l:type)
           let l:nn= l:nn + 1
 	endfor
         set nowrap

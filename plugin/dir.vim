@@ -22,7 +22,7 @@ function! DirFileName(...)
 endfunction
 function! DirToken(...)
     let l:l = split(a:1," ")
-    return   l:l[0]
+    return   l:l[-1]
 endfunction
 function! DirSetPwd()
     let g:DirSet = getcwd()
@@ -88,11 +88,11 @@ function! g:MyDir(...)
 	for key in sort(keys(l:Dict))
           let l:l = l:Dict[key]
           let l:sz = DirFileName(l:l)
-          let l:type="DIR"
+          let l:type="d"
           if (isdirectory(l:sz) == 0)
-               let l:type="FILE"
+               let l:type="f"
           endif
-          call setline(l:nn, l:sz . " " . l:type)
+          call setline(l:nn, l:type . " " l:sz )
           let l:nn= l:nn + 1
 	endfor
         set nowrap

@@ -22,6 +22,8 @@ function! DirFileName(...)
 endfunction
 function! DirToken(...)
     let l:l = split(a:1," ")
+
+    echom join(l:l[0])
     return   join(l:l[0])
 endfunction
 function! DirSetPwd()

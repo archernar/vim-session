@@ -89,7 +89,7 @@ function! g:MyDir(...)
           let l:l = l:Dict[key]
           let l:sz = DirFileName(l:l)
           let l:type="f"
-          if (isdirectory(l:sz) > 0)
+          if (isdirectory(g:DirSet . "/" . l:sz) > 0)
                let l:type="d"
           endif
           call setline(l:nn, l:type . " " . l:sz )

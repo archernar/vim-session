@@ -104,7 +104,7 @@ function! g:MyDirAction(...)
                  "silent execute "q"
                  exe g:currentwindow . "wincmd w"
                  echom "execute " . a:1 . " " . g:DirSet . "/" . l:sz . ""
-                 "silent execute a:1 . " " . "" . g:DirSet . "/" .l:sz . ""
+                 silent execute a:1 . " " . "" . g:DirSet . "/" .l:sz . ""
              else
                  silent execute "q"
                  call DirSetInto(l:sz)

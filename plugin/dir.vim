@@ -39,11 +39,9 @@ endfunction
 function! g:MyDir(...)
     let l:nn = 0
     " Load Directory Part
-"        call g:SetMyKeyMapperMode("FILE")
         let l:list = split(glob(a:1),'\n')
     " Create Window/Buffer Part
-        let l:cols = &columns / 3
-        call g:NewWindow("Left", l:cols, "<Enter> :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
+        call g:NewWindow("Left", &columns/3, "<Enter> :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
         let g:DirWindow = winnr()
         nnoremap <silent> <buffer> f /^f<cr>
         "echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"

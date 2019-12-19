@@ -47,12 +47,12 @@ function! Testaa()
         endfor
 endfunction
 
-let g:currentwindow=0
+let g:EditWindow=0
 let g:DirCloseWindow=1
 let g:DirWindow=0
 function g:MyDirPwd(...)
     let g:DirCloseWindow = a:1
-    let g:currentwindow = winnr()
+    let g:EditWindow = winnr()
     call DirSetPwd() 
     call g:MyDir("./*")
 endfunction
@@ -111,8 +111,8 @@ function! g:MyDirAction(...)
                  if (g:DirCloseWindow == 1)
                      silent execute "q"
                  endif
-                 exe g:currentwindow+1 . "wincmd w"
-                 echom "execute " . a:1 . " " . g:DirSet . "/" . l:sz . "   [" . g:currentwindow . "]"
+                 exe g:EditWindow+1 . "wincmd w"
+                 echom "execute " . a:1 . " " . g:DirSet . "/" . l:sz
                  silent execute a:1 . " " . "" . g:DirSet . "/" .l:sz . ""
                  if (g:DirCloseWindow == 0)
                      exe g:DirWindow . "wincmd w"

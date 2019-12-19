@@ -1,5 +1,6 @@
 " call g:MyCommandMapper("command! DIR   :call DirSetPwd() | call g:MyDir(\"./*\")")
-call g:MyCommandMapper("command! DIR :call g:MyDirPwd()")
+call g:MyCommandMapper("command! DIR :call g:MyDirPwd(0)")
+call g:MyCommandMapper("command! DIRC :call g:MyDirPwd(1)")
 function! s:Max(...)
         let l:n = a:1
         if ( a:1 > a:2 )
@@ -46,7 +47,9 @@ function! DirSetInto(...)
     return g:DirSet
 endfunction
 let g:currentwindow=0
-function g:MyDirPwd()
+let g:DirCloseWindow==1
+function g:MyDirPwd(...)
+    let g:DirCloseWindow = a:1
     let g:currentwindow = winnr()
     call DirSetPwd() 
     call g:MyDir("./*")
@@ -101,7 +104,9 @@ function! g:MyDirAction(...)
                  return
              endif
              if ( isdirectory(g:DirSet . "/" . l:sz) == 0 )
-                 " silent execute "q"
+                 if (g:DirCloseWindow == 1)
+                     silent execute "q"
+                 endif
                  exe "wincmd w"
                  echom "execute " . a:1 . " " . g:DirSet . "/" . l:sz . "   [" . g:currentwindow . "]"
                  silent execute a:1 . " " . "" . g:DirSet . "/" .l:sz . ""

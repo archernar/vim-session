@@ -19,7 +19,11 @@ function! DirSetPwd()
     return g:DirSet
 endfunction
 function! DirSetUp()
-    g:DirSet = (g:DirSet == "/") ? "/" : "/" . join( (split(g:DirSet,"/"))[:-2], "/" )
+    if (g:DirSet == "/")
+        let g:DirSet = "/"
+    else
+        let g:DirSet =  "/" . join( (split(g:DirSet,"/"))[:-2], "/" )
+    endif
     return g:DirSet
 endfunction
 function! DirSetInto(...)

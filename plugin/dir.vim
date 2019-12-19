@@ -23,17 +23,13 @@ function! DirSetUp()
         let g:DirSet = "/"
     else
         let l:l=split(g:DirSet,"/")
-        let g:DirSet =  "/" . join( l:l[:-2], "/" )
+        let g:DirSet =  "/" . join( (split(g:DirSet,"/"))[:-2], "/" )
+        " let g:DirSet =  "/" . join( l:l[:-2], "/" )
     endif
     return g:DirSet
 endfunction
 function! DirSetInto(...)
     let g:DirSet = (a:1 == "") ?  g:DirSet : g:DirSet . "/" . a:1
-"     if (a:1 == "")
-"         let g:DirSet = g:DirSet
-"     else
-"         let g:DirSet = g:DirSet . "/" . a:1
-"     endif
     return g:DirSet
 endfunction
 

@@ -47,7 +47,7 @@ function! DirSetInto(...)
     return g:DirSet
 endfunction
 let g:currentwindow=0
-let g:DirCloseWindow==1
+let g:DirCloseWindow=1
 function g:MyDirPwd(...)
     let g:DirCloseWindow = a:1
     let g:currentwindow = winnr()

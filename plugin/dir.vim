@@ -18,9 +18,9 @@ call g:MyCommandMapper("command! DIR :call g:MyDirPwd(0)")
 call g:MyCommandMapper("command! DIRC :call g:MyDirPwd(1)")
 
 let s:DirSet = ""
-let g:DirEditWindow=0
-let g:DirCloseWindow=1
-let g:DirWindow=0
+let s:DirEditWindow=0
+let s:DirCloseWindow=1
+let s:DirWindow=0
 function! DirFileName(...)
     return  join(split(a:1,"/")[-1:-1])
 endfunction
@@ -45,8 +45,8 @@ function! DirSetInto(...)
 endfunction
 
 function g:MyDirPwd(...)
-    let g:DirCloseWindow = a:1
-    let g:DirEditWindow = winnr()
+    let s:DirCloseWindow = a:1
+    let s:DirEditWindow = winnr()
     call DirSetPwd() 
     call g:MyDir("./*")
 endfunction
@@ -58,7 +58,7 @@ function! g:MyDir(...)
     " Create Window/Buffer Part
         let l:cols = &columns / 3
         call g:NewWindow("Left", &columns/3, "<Enter> :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
-        let g:DirWindow = winnr()
+        let s:DirWindow = winnr()
         nnoremap <silent> <buffer> f /^f<cr>
         "echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"
     " Display Part
@@ -98,14 +98,14 @@ function! g:MyDirAction(...)
                  return
              endif
              if ( isdirectory(s:DirSet . "/" . l:sz) == 0 )
-                 if (g:DirCloseWindow == 1)
+                 if (s:DirCloseWindow == 1)
                      silent execute "q"
                  endif
-                 exe g:DirEditWindow+1 . "wincmd w"
+                 exe s:DirEditWindow+1 . "wincmd w"
                  echom "execute " . a:1 . " " . s:DirSet . "/" . l:sz
                  silent execute a:1 . " " . "" . s:DirSet . "/" .l:sz . ""
-                 if (g:DirCloseWindow == 0)
-                     exe g:DirWindow . "wincmd w"
+                 if (s:DirCloseWindow == 0)
+                     exe s:DirWindow . "wincmd w"
                  endif
              else
                  silent execute "q"

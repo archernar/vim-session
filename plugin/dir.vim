@@ -9,13 +9,6 @@ function! s:Max(...)
         return l:n
 endfunction
 
-function! Testxxxa()
-        echom DirSetPwd()
-        echom DirSetUp()
-        echom DirSetUp()
-        echom DirSetInto("otto")
-endfunction
-
 let g:DirSet = ""
 function! DirFileName(...)
     let l:l = split(a:1,"/")
@@ -46,6 +39,14 @@ function! DirSetInto(...)
     endif
     return g:DirSet
 endfunction
+
+function! Testaa()
+        l:list = range(1,winnr('$'))
+	for key in l:list
+            echom key
+        endfor
+endfunction
+
 let g:currentwindow=0
 let g:DirCloseWindow=1
 function g:MyDirPwd(...)
@@ -54,6 +55,7 @@ function g:MyDirPwd(...)
     call DirSetPwd() 
     call g:MyDir("./*")
 endfunction
+
 function! g:MyDir(...)
     let l:len = -1
     let l:nn = 0

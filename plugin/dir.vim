@@ -1,15 +1,11 @@
 " call g:MyCommandMapper("command! DIR   :call DirSetPwd() | call g:MyDir(\"./*\")")
 call g:MyCommandMapper("command! DIR :call g:MyDirPwd(0)")
 call g:MyCommandMapper("command! DIRC :call g:MyDirPwd(1)")
-function! s:Max(...)
-        let l:n = a:1
-        if ( a:1 > a:2 )
-            let l:n = a:2
-        endif
-        return l:n
-endfunction
 
 let g:DirSet = ""
+let g:EditWindow=0
+let g:DirCloseWindow=1
+let g:DirWindow=0
 function! DirFileName(...)
     let l:l = split(a:1,"/")
     return   join(l:l[-1:-1])
@@ -32,11 +28,12 @@ function! DirSetUp()
     return g:DirSet
 endfunction
 function! DirSetInto(...)
-    if (a:1 == "")
-        let g:DirSet = g:DirSet
-    else
-        let g:DirSet = g:DirSet . "/" . a:1
-    endif
+    let g:DirSet = (a:1 == "") ?  g:DirSet : g:DirSet . "/" . a:1
+"     if (a:1 == "")
+"         let g:DirSet = g:DirSet
+"     else
+"         let g:DirSet = g:DirSet . "/" . a:1
+"     endif
     return g:DirSet
 endfunction
 
@@ -47,9 +44,6 @@ function! Testaa()
         endfor
 endfunction
 
-let g:EditWindow=0
-let g:DirCloseWindow=1
-let g:DirWindow=0
 function g:MyDirPwd(...)
     let g:DirCloseWindow = a:1
     let g:EditWindow = winnr()
@@ -58,15 +52,12 @@ function g:MyDirPwd(...)
 endfunction
 
 function! g:MyDir(...)
-    let l:len = -1
     let l:nn = 0
     " Load Directory Part
         call g:SetMyKeyMapperMode("FILE")
         let l:list = split(glob(a:1),'\n')
     " Create Window/Buffer Part
         let l:cols = &columns / 3
-        let l:len = s:Max(l:len, l:cols)
-        let l:cols =55 
         call g:NewWindow("Left", l:cols, "<Enter> :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
         let g:DirWindow = winnr()
         nnoremap <silent> <buffer> f /^f<cr>

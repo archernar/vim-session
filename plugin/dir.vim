@@ -7,8 +7,7 @@ let g:EditWindow=0
 let g:DirCloseWindow=1
 let g:DirWindow=0
 function! DirFileName(...)
-    let l:l = split(a:1,"/")
-    return   join(l:l[-1:-1])
+    return  join(split(a:1,"/")[-1:-1])
 endfunction
 function! DirToken(...)
     return  split(a:1," ")[-1]

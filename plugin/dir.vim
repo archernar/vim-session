@@ -41,7 +41,7 @@ function! DirSetInto(...)
 endfunction
 
 function! Testaa()
-        l:list = range(1,winnr('$'))
+        let l:list = range(1,winnr('$'))
 	for key in l:list
             echom key
         endfor

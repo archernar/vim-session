@@ -66,7 +66,6 @@ function! g:MyDir(...)
           let l:nn= l:nn + 1
 	endfor
         set nowrap
-        "resize 155
 endfunc
 function! g:MyDirAction(...)
      let l:sz   = DirToken(getline("."))

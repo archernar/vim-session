@@ -3,7 +3,7 @@ call g:MyCommandMapper("command! DIR :call g:MyDirPwd(0)")
 call g:MyCommandMapper("command! DIRC :call g:MyDirPwd(1)")
 
 let g:DirSet = ""
-let g:EditWindow=0
+let g:DirEditWindow=0
 let g:DirCloseWindow=1
 let g:DirWindow=0
 function! DirFileName(...)
@@ -29,16 +29,9 @@ function! DirSetInto(...)
     return g:DirSet
 endfunction
 
-function! Testaa()
-        let l:list = range(1,winnr('$'))
-	for key in l:list
-            echom key
-        endfor
-endfunction
-
 function g:MyDirPwd(...)
     let g:DirCloseWindow = a:1
-    let g:EditWindow = winnr()
+    let g:DirEditWindow = winnr()
     call DirSetPwd() 
     call g:MyDir("./*")
 endfunction
@@ -46,7 +39,7 @@ endfunction
 function! g:MyDir(...)
     let l:nn = 0
     " Load Directory Part
-        call g:SetMyKeyMapperMode("FILE")
+"        call g:SetMyKeyMapperMode("FILE")
         let l:list = split(glob(a:1),'\n')
     " Create Window/Buffer Part
         let l:cols = &columns / 3
@@ -94,7 +87,7 @@ function! g:MyDirAction(...)
                  if (g:DirCloseWindow == 1)
                      silent execute "q"
                  endif
-                 exe g:EditWindow+1 . "wincmd w"
+                 exe g:DirEditWindow+1 . "wincmd w"
                  echom "execute " . a:1 . " " . g:DirSet . "/" . l:sz
                  silent execute a:1 . " " . "" . g:DirSet . "/" .l:sz . ""
                  if (g:DirCloseWindow == 0)
@@ -110,3 +103,4 @@ function! g:MyDirAction(...)
      endif
 endfunction
 
+"Get Windows let l:list = range(1,winnr('$'))

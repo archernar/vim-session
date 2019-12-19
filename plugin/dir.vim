@@ -48,13 +48,11 @@ function! g:MyDir(...)
     " Display Part
         setlocal cursorline
         let l:nn=1
-
         call setline(l:nn, "[" . g:DirSet . "]")
         let l:nn= l:nn + 1
         call setline(l:nn, "..")
         let l:nn= l:nn + 1
         let l:templ = []
-
 	for key in l:list
           let l:sz = DirFileName(key)
           let l:type="f"
@@ -68,7 +66,7 @@ function! g:MyDir(...)
           let l:nn= l:nn + 1
 	endfor
         set nowrap
-        resize 155
+        "resize 155
 endfunc
 function! g:MyDirAction(...)
      let l:sz   = DirToken(getline("."))

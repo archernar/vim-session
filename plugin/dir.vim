@@ -109,7 +109,7 @@ function! g:MyDirAction(...)
                  if (g:DirCloseWindow == 1)
                      silent execute "q"
                  endif
-                 exe g:currentwindow . "wincmd w"
+                 exe g:currentwindow+1 . "wincmd w"
                  echom "execute " . a:1 . " " . g:DirSet . "/" . l:sz . "   [" . g:currentwindow . "]"
                  silent execute a:1 . " " . "" . g:DirSet . "/" .l:sz . ""
              else

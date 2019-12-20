@@ -57,6 +57,7 @@ function! g:MyDir(...)
     let l:nn = 0
     " Load Directory Part
         let l:list = split(glob(a:1),'\n')
+        echom a:1
     " Create Window/Buffer Part
         call g:NewWindow("Left", &columns/3, "<Enter> :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
         let s:DirWindow = winnr()

@@ -49,7 +49,6 @@ function g:MyDirPwd(...)
     let s:DirCloseWindow = a:1
     let s:DirEditWindow = winnr()
     call DirSetPwd() 
-    call s:DirSetMask("/*.java")
     call g:MyDir("." . s:DirMask)
 endfunction
 

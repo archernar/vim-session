@@ -18,9 +18,14 @@ call g:MyCommandMapper("command! DIR :call g:MyDirPwd(0)")
 call g:MyCommandMapper("command! DIRC :call g:MyDirPwd(1)")
 
 let s:DirSet = ""
+let s:DirMask = "/*"
 let s:DirEditWindow=0
 let s:DirCloseWindow=1
 let s:DirWindow=0
+function! DirSetMask(...)
+    let s:DirMask = a:1
+    return  s:DirMask
+endfunction
 function! DirFileName(...)
     return  join(split(a:1,"/")[-1:-1])
 endfunction
@@ -89,7 +94,7 @@ function! g:MyDirAction(...)
              if (l:sz == "..")
                  silent execute "q"
                  let l:sz = DirSetUp()
-                 call g:MyDir(s:DirSet . "/*")
+                 call g:MyDir(s:DirSet . s:DirMask)
                  echom s:DirSet  
                  return
              endif
@@ -106,7 +111,7 @@ function! g:MyDirAction(...)
              else
                  silent execute "q"
                  call DirSetInto(l:sz)
-                 call g:MyDir(s:DirSet . "/*")
+                 call g:MyDir(s:DirSet . s:DirMask)
                  echom s:DirSet  
              endif
          endif

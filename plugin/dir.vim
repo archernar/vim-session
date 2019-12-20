@@ -32,11 +32,12 @@ function! DirSetPwd()
     return s:DirSet
 endfunction
 function! DirSetUp()
-    if (s:DirSet == "/")
-        let s:DirSet = "/"
-    else
-        let s:DirSet =  "/" . join( (split(s:DirSet,"/"))[:-2], "/" )
-    endif
+    let s:DirSet = (s:DirSet == "/") ? "/" : ("/" . join( (split(s:DirSet,"/"))[:-2], "/" ))
+"     if (s:DirSet == "/")
+"         let s:DirSet = "/"
+"     else
+"         let s:DirSet =  "/" . join( (split(s:DirSet,"/"))[:-2], "/" )
+"     endif
     return s:DirSet
 endfunction
 function! DirSetInto(...)

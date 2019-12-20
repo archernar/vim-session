@@ -68,6 +68,8 @@ function! g:MyDir(...)
 
         call setline(l:nn, "[" . s:DirSet . "]")
         let l:nn= l:nn + 1
+        call setline(l:nn, "was")
+        let l:nn= l:nn + 1
         call setline(l:nn, "..")
         let l:nn= l:nn + 1
         let l:templ = []
@@ -80,6 +82,9 @@ function! g:MyDir(...)
           endif
           call add(l:templ, l:type . " " . l:sz)
 	endfor
+
+
+
 	for key in sort(l:templ)
           call setline(l:nn, key)
           let l:nn= l:nn + 1

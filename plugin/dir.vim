@@ -49,7 +49,8 @@ function g:MyDirPwd(...)
     let s:DirCloseWindow = a:1
     let s:DirEditWindow = winnr()
     call DirSetPwd() 
-    call g:MyDir("./*")
+    call g:DirSetMask("/*.java")
+    call g:MyDir("." . s:DirMask)
 endfunction
 
 function! g:MyDir(...)
@@ -88,7 +89,6 @@ function! g:MyDir(...)
         resize 155
 endfunc
 function! g:MyDirAction(...)
-                 call g:DirSetMask("/*.java")
      let l:sz   = DirToken(getline("."))
      if (line(".") > 1) 
          if (strlen(l:sz) > 0)

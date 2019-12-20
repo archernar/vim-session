@@ -22,7 +22,7 @@ let s:DirMask = "/*"
 let s:DirEditWindow=0
 let s:DirCloseWindow=1
 let s:DirWindow=0
-function! DirSetMask(...)
+function! s:DirSetMask(...)
     let s:DirMask = a:1
     return  s:DirMask
 endfunction

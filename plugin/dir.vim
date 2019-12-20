@@ -33,11 +33,6 @@ function! DirSetPwd()
 endfunction
 function! DirSetUp()
     let s:DirSet = (s:DirSet == "/") ? "/" : ("/" . join( (split(s:DirSet,"/"))[:-2], "/" ))
-"     if (s:DirSet == "/")
-"         let s:DirSet = "/"
-"     else
-"         let s:DirSet =  "/" . join( (split(s:DirSet,"/"))[:-2], "/" )
-"     endif
     return s:DirSet
 endfunction
 function! DirSetInto(...)
@@ -80,8 +75,6 @@ function! g:MyDir(...)
           endif
           call add(l:templ, l:type . " " . l:sz)
 	endfor
-
-
 
 	for key in sort(l:templ)
           call setline(l:nn, key)

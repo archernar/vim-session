@@ -88,6 +88,7 @@ function! g:MyDir(...)
         resize 155
 endfunc
 function! g:MyDirAction(...)
+                 call g:DirSetMask("/*.java")
      let l:sz   = DirToken(getline("."))
      if (line(".") > 1) 
          if (strlen(l:sz) > 0)
@@ -111,7 +112,6 @@ function! g:MyDirAction(...)
              else
                  silent execute "q"
                  call DirSetInto(l:sz)
-                 call g:DirSetMask("/*.java")
                  call g:MyDir(s:DirSet . s:DirMask)
                  echom s:DirSet  
              endif

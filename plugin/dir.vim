@@ -111,6 +111,7 @@ function! g:MyDirAction(...)
              else
                  silent execute "q"
                  call DirSetInto(l:sz)
+                 call g:DirSetMask("/*.java")
                  call g:MyDir(s:DirSet . s:DirMask)
                  echom s:DirSet  
              endif

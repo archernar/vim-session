@@ -26,21 +26,21 @@ function! s:DirSetMask(...)
     let s:DirMask = a:1
     return  s:DirMask
 endfunction
-function! DirFileName(...)
+function! s:DirFileName(...)
     return  join(split(a:1,"/")[-1:-1])
 endfunction
-function! DirToken(...)
+function! s:DirToken(...)
     return  split(a:1," ")[-1]
 endfunction
-function! DirSetPwd()
+function! s:DirSetPwd()
     let s:DirSet = getcwd()
     return s:DirSet
 endfunction
-function! DirSetUp()
+function! s:DirSetUp()
     let s:DirSet = (s:DirSet == "/") ? "/" : ("/" . join( (split(s:DirSet,"/"))[:-2], "/" ))
     return s:DirSet
 endfunction
-function! DirSetInto(...)
+function! s:DirSetInto(...)
     let s:DirSet = (a:1 == "") ?  s:DirSet : s:DirSet . "/" . a:1
     return s:DirSet
 endfunction
@@ -48,17 +48,17 @@ endfunction
 function g:MyDirPwd(...)
     let s:DirCloseWindow = a:1
     let s:DirEditWindow = winnr()
-    call DirSetPwd() 
-    call g:MyDir("." . s:DirMask)
+    call s:DirSetPwd() 
+    call s:MyDir("." . s:DirMask)
 endfunction
 
-function! g:MyDir(...)
+function! s:MyDir(...)
     let l:nn = 0
     " Load Directory Part
         let l:list = split(glob(a:1),'\n')
         echom a:1
     " Create Window/Buffer Part
-        call g:NewWindow("Left", &columns/3, "<Enter> :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
+        call g:NewWindow("Left", &columns/3, "<Enter> :call s:MyDirAction('e')","s :call s:MyDirAction('vnew')", "b :call s:MyDirAction('split')")
         let s:DirWindow = winnr()
         nnoremap <silent> <buffer> f /^f<cr>
         "echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"
@@ -73,7 +73,7 @@ function! g:MyDir(...)
         let l:templ = []
 
 	for key in l:list
-          let l:sz = DirFileName(key)
+          let l:sz = s:DirFileName(key)
           let l:type="f"
           if (isdirectory(s:DirSet . "/" . l:sz) > 0)
                let l:type="d"
@@ -88,14 +88,14 @@ function! g:MyDir(...)
         set nowrap
         resize 155
 endfunc
-function! g:MyDirAction(...)
-     let l:sz   = DirToken(getline("."))
+function! s:MyDirAction(...)
+     let l:sz   = s:DirToken(getline("."))
      if (line(".") > 1) 
          if (strlen(l:sz) > 0)
              if (l:sz == "..")
                  silent execute "q"
-                 let l:sz = DirSetUp()
-                 call g:MyDir(s:DirSet . s:DirMask)
+                 let l:sz = s:DirSetUp()
+                 call s:MyDir(s:DirSet . s:DirMask)
                  echom s:DirSet  
                  return
              endif
@@ -111,8 +111,8 @@ function! g:MyDirAction(...)
                  endif
              else
                  silent execute "q"
-                 call DirSetInto(l:sz)
-                 call g:MyDir(s:DirSet . s:DirMask)
+                 call s:DirSetInto(l:sz)
+                 call s:MyDir(s:DirSet . s:DirMask)
                  echom s:DirSet  
              endif
          endif

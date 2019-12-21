@@ -58,7 +58,7 @@ function! s:MyDir(...)
         let l:list = split(glob(a:1),'\n')
         echom a:1
     " Create Window/Buffer Part
-        call g:NewWindow("Left", &columns/3, "<Enter> :call s:MyDirAction('e')","s :call s:MyDirAction('vnew')", "b :call s:MyDirAction('split')")
+        call g:NewWindow("Left", &columns/3, "<Enter> :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
         let s:DirWindow = winnr()
         nnoremap <silent> <buffer> f /^f<cr>
         "echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"
@@ -88,7 +88,7 @@ function! s:MyDir(...)
         set nowrap
         resize 155
 endfunc
-function! s:MyDirAction(...)
+function! g:MyDirAction(...)
      let l:sz   = s:DirToken(getline("."))
      if (line(".") > 1) 
          if (strlen(l:sz) > 0)

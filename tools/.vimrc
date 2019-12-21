@@ -138,7 +138,6 @@ Plugin 'archernar/vim-mru'
 Plugin 'archernar/vim-polymode'
 Plugin 'archernar/vim-progsnips'
 Plugin 'archernar/vimstuff'
-Plugin 'scrooloose/nerdtree.git'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'jeetsukumaran/vim-buffergator'
 Plugin 'vim-scripts/grep.vim'      " https://github.com/vim-scripts/grep.vim
@@ -146,6 +145,10 @@ Plugin 'tpope/vim-surround'
 Bundle 'Lokaltog/vim-monotone.git'
 Bundle 'owickstrom/vim-colors-paramount'
 
+"Plugin 'scrooloose/nerdtree.git'
+"let g:NERDTreeNodeDelimiter = "\u00a0"
+"call g:MyKeyMapper("nnoremap <Leader>nt :NERDTreeToggle<cr>","NERDTree Toggle")
+"call g:MyCommandMapper("command! DOC     :NERDTree /usr/share/vim/vim74/doc")
 "Plugin 'vim-airline/vim-airline'
 "Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'kristijanhusak/vim-carbon-now-sh'
@@ -391,8 +394,6 @@ nnoremap <silent> <leader><F4> :CtrlPBuffer<cr>
                                   " *******************************************************************
 nnoremap <leader>] *
 nnoremap <Leader>' diwi""<ESC>hp<ESC>
-let g:NERDTreeNodeDelimiter = "\u00a0"
-call g:MyKeyMapper("nnoremap <Leader>nt :NERDTreeToggle<cr>","NERDTree Toggle")
 call g:MyKeyMapper("nnoremap <Leader>p  :PluginUpdate<cr>","Vundle Update")
 call g:MyKeyMapper("nnoremap <Leader>d  :! rm -rf /tmp/dotfiles;git clone http://github.com/archernar/dotfiles.git /tmp/dotfiles;<cr>","fetch .vimrc update")
 
@@ -758,7 +759,6 @@ call g:SetMyKeyMapperMode("COM")
 call g:MyCommandMapper("command! CHEAT   :call MyCheatsheetDump()")
 call g:MyCommandMapper("command! MI      :call MyCheatsheetDump()")
 call g:MyCommandMapper("command! RC      :e ~/.vimrc")
-call g:MyCommandMapper("command! DOC     :NERDTree /usr/share/vim/vim74/doc")
 call g:MyCommandMapper("command! LIB     :call PDFList()")
 call g:MyCommandMapper("command! PDF     :call PDFList()")
 call g:MyCommandMapper("command! MP3     :call MP3List()")

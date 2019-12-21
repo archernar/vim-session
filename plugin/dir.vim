@@ -45,7 +45,7 @@ function! s:DirSetInto(...)
     return s:DirSet
 endfunction
 
-function g:MyDirPwd(...)
+function! g:MyDirPwd(...)
     let s:DirCloseWindow = a:1
     let s:DirEditWindow = winnr()
     call s:DirSetPwd() 
@@ -56,12 +56,11 @@ function! s:MyDir(...)
     let l:nn = 0
     " Load Directory Part
         let l:list = split(glob(a:1),'\n')
-        echom a:1
     " Create Window/Buffer Part
         call g:NewWindow("Left", &columns/3, "<Enter> :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
         let s:DirWindow = winnr()
         nnoremap <silent> <buffer> f /^f<cr>
-        "echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"
+        echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"
     " Display Part
         setlocal cursorline
         let l:nn=1
@@ -96,7 +95,6 @@ function! g:MyDirAction(...)
                  silent execute "q"
                  let l:sz = s:DirSetUp()
                  call s:MyDir(s:DirSet . s:DirMask)
-                 echom s:DirSet  
                  return
              endif
              if ( isdirectory(s:DirSet . "/" . l:sz) == 0 )
@@ -104,7 +102,6 @@ function! g:MyDirAction(...)
                      silent execute "q"
                  endif
                  exe s:DirEditWindow+1 . "wincmd w"
-                 echom "execute " . a:1 . " " . s:DirSet . "/" . l:sz
                  silent execute a:1 . " " . "" . s:DirSet . "/" .l:sz . ""
                  if (s:DirCloseWindow == 0)
                      exe s:DirWindow . "wincmd w"
@@ -113,7 +110,6 @@ function! g:MyDirAction(...)
                  silent execute "q"
                  call s:DirSetInto(l:sz)
                  call s:MyDir(s:DirSet . s:DirMask)
-                 echom s:DirSet  
              endif
          endif
      endif

@@ -6,20 +6,33 @@ trap "exit 2" 1 2 3 13 15
 rm $Tmp  >/dev/null 2>&1
 
 # #######################################
+confirm() {
+      print -n "Enter '10111' to confirm >> "
+      read STRIN
+      if [ "$STRIN" != "10111" ] ; then
+           print "   Exiting - No Match"
+           exit 1
+      fi
+}
+# #######################################
 REPO=vim-session
-FILE=session.vim
 LOCAL=""
-while getopts "l" arg
+while getopts "lk" arg
 do
 	case $arg in
-            l) LOCAL="yes" ;;
+            k) confirm 
+               rm -rf cp $HOME/.vim/bundle/$REPO
+               exit 0 
+               ;;
+            l) LOCAL="yes" 
+               ;;
         esac
 done
 ANON=`date`
 print $ANON
 print "Local Deployment..."
-cp plugin/$FILE /home/mestes/.vim/bundle/$REPO/plugin/$FILE
-cp plugin/dir.vim /home/mestes/.vim/bundle/$REPO/plugin/dir.vim
+cp plugin/session.vim $HOME/.vim/bundle/$REPO/plugin/session.vim
+cp plugin/dir.vim $HOME/.vim/bundle/$REPO/plugin/dir.vim
 cp tools/vit ~/firstbin/vit
 cp tools/vi  ~/firstbin/vi
 cp ~/.vimrc   tools/.vimrc 
@@ -52,7 +65,7 @@ cat tools/vi | gawk '{print "    " $0}' >> README.md
 
 
 
-          git add plugin/$FILE
+          git add plugin/session.vim
           git add plugin/dir.vim
           git add tools/vit
           git add tools/vi

@@ -49,7 +49,6 @@ function g:MyDirPwd(...)
     let s:DirCloseWindow = a:1
     let s:DirEditWindow = winnr()
     call s:DirSetPwd() 
-    echom "HERE"
     call s:MyDir("." . s:DirMask)
 endfunction
 
@@ -94,6 +93,7 @@ function! s:MyDirAction(...)
      if (line(".") > 1) 
          if (strlen(l:sz) > 0)
              if (l:sz == "..")
+    echom "HERE"
                  silent execute "q"
                  let l:sz = s:DirSetUp()
                  call s:MyDir(s:DirSet . s:DirMask)

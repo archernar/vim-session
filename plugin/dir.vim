@@ -93,7 +93,6 @@ function! g:MyDirAction(...)
      if (line(".") > 1) 
          if (strlen(l:sz) > 0)
              if (l:sz == "..")
-    echom "HERE"
                  silent execute "q"
                  let l:sz = s:DirSetUp()
                  call s:MyDir(s:DirSet . s:DirMask)

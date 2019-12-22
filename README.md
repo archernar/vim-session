@@ -243,7 +243,7 @@ function! s:DirSetInto(...)
     return s:DirSet
 endfunction
 let s:PutLineRow=0
-function! s:PutLineSet(a:1)
+function! s:PutLineSet(...)
     let s:PutLineRow = a:1 
 endfunction
 function! s:PutLine(...)

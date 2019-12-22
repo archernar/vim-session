@@ -50,7 +50,7 @@ function! s:PutLineSet(...)
 endfunction
 function! s:PutLine(...)
     call setline(s:PutLineRow, a:1)
-    let s:PutLineRow = s:PutLineRow
+    let s:PutLineRow = s:PutLineRow + 1
 endfunction
 
 function! g:MyDirPwd(...)

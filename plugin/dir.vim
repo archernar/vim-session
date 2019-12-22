@@ -44,10 +44,9 @@ function! s:DirSetInto(...)
     let s:DirSet = (a:1 == "") ?  s:DirSet : s:DirSet . "/" . a:1
     return s:DirSet
 endfunction
-
 let s:PutLineRow=0
-function! s:PutLineReset()
-    let s:PutLineRow = 0
+function! s:PutLineSet(a:1)
+    let s:PutLineRow = a:1 
 endfunction
 function! s:PutLine(...)
     call setline(s:PutLineRow, a:1)
@@ -62,7 +61,7 @@ function! g:MyDirPwd(...)
 endfunction
 
 function! s:MyDir(...)
-    let l:nn = 0
+    call s:PutLineSet(0)
     " Load Directory Part
         let l:list = split(glob(a:1),'\n')
     " Create Window/Buffer Part
@@ -72,12 +71,10 @@ function! s:MyDir(...)
         echom "<enter> to edit, <s> to edit in Vert-Split, <b> to edit in Horz-Split"
     " Display Part
         setlocal cursorline
-        let l:nn=1
+        call s:PutLineSet(1)
 
-        call setline(l:nn, "[" . s:DirSet . "]")
-        let l:nn= l:nn + 1
-        call setline(l:nn, "..")
-        let l:nn= l:nn + 1
+        call PutLine("[" . s:DirSet . "]")
+        call PutLine("..")
         let l:templ = []
 
 	for key in l:list
@@ -90,8 +87,7 @@ function! s:MyDir(...)
 	endfor
 
 	for key in sort(l:templ)
-          call setline(l:nn, key)
-          let l:nn= l:nn + 1
+          call PutLine(key)
 	endfor
         set nowrap
         resize 155

@@ -243,6 +243,15 @@ function! s:DirSetInto(...)
     return s:DirSet
 endfunction
 
+let s:PutLineRow=0;
+function! s:PutLineReset()
+    let s:PutLineRow = 0
+endfunction
+function! s:PutLine(...)
+    call setline(s:PutLineRow, a:1)
+    let s:PutLineRow = s:PutLineRow
+endfunction
+
 function! g:MyDirPwd(...)
     let s:DirCloseWindow = a:1
     let s:DirEditWindow = winnr()

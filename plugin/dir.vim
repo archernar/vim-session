@@ -73,8 +73,8 @@ function! s:MyDir(...)
         setlocal cursorline
         call s:PutLineSet(1)
 
-        call PutLine("[" . s:DirSet . "]")
-        call PutLine("..")
+        call s:PutLine("[" . s:DirSet . "]")
+        call s:PutLine("..")
         let l:templ = []
 
 	for key in l:list
@@ -87,7 +87,7 @@ function! s:MyDir(...)
 	endfor
 
 	for key in sort(l:templ)
-          call PutLine(key)
+          call s:PutLine(key)
 	endfor
         set nowrap
         resize 155

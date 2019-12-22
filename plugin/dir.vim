@@ -17,6 +17,9 @@
 call g:MyCommandMapper("command! DIR :call g:MyDirPwd(0)")
 call g:MyCommandMapper("command! DIRC :call g:MyDirPwd(1)")
 
+" *****************************************************************************************************
+                "  Local/Script Functions
+                " *************************************************************************************
 let s:DirSet = ""
 let s:DirMask = "/*"
 let s:DirEditWindow=0
@@ -53,13 +56,6 @@ function! s:PutLine(...)
     let s:PutLineRow = s:PutLineRow + 1
 endfunction
 
-function! g:MyDirPwd(...)
-    let s:DirCloseWindow = a:1
-    let s:DirEditWindow = winnr()
-    call s:DirSetPwd() 
-    call s:MyDir("." . s:DirMask)
-endfunction
-
 function! s:MyDir(...)
     call s:PutLineSet(0)
     " Load Directory Part
@@ -92,6 +88,18 @@ function! s:MyDir(...)
         set nowrap
         resize 155
 endfunc
+
+
+" *****************************************************************************************************
+                "  Global/Public Functions
+                " *************************************************************************************
+function! g:MyDirPwd(...)
+    let s:DirCloseWindow = a:1
+    let s:DirEditWindow = winnr()
+    call s:DirSetPwd() 
+    call s:MyDir("." . s:DirMask)
+endfunction
+
 function! g:MyDirAction(...)
      let l:sz   = s:DirToken(getline("."))
      if (line(".") > 1) 

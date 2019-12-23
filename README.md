@@ -2,7 +2,7 @@
 Simple Vim session management
 
 ## Screen Shot
-![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png "Session.vim")
+![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png)
 
 ## DIR Command (simple file selector)
 ![alt text](https://github.com/archernar/vim-session/blob/master/images/dirsession.png)

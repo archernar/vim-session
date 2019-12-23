@@ -53,7 +53,7 @@ print "Simple Vim session management" >> README.md
 print "" >> README.md
 
 print "## Screen Shot" >> README.md
-print  "![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png \"Session.vim\")" >> README.md
+print  "![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png)" >> README.md
 print "" >> README.md
 print "## DIR Command (simple file selector)" >> README.md
 print  "![alt text](https://github.com/archernar/vim-session/blob/master/images/dirsession.png)" >> README.md

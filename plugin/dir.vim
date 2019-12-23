@@ -90,6 +90,7 @@ function! s:MyDir(...)
         resize 155
 endfunc
 
+
 function! g:ListBuffers()
     let l:c=1
     call g:NewWindow("Left", &columns/3, "")

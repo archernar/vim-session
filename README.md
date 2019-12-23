@@ -290,14 +290,14 @@ function! ListSession()
     let l:c=1
     let l:body=[]
     let l:winbody=[]
-    call g:NewWindow("Left", &amp;columns/3, "&lt;Enter&gt; :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
+    call g:NewWindow("Left", &amp;columns/3, "")
     call s:PutLine(1)
     while l:c &lt;= 64 
         if (bufexists(l:c))
             if (filereadable(bufname(l:c)))
                 if (getbufvar(l:c, '&amp;buftype') == "")
                     if !(bufname(l:c) == "")
-                       call s:PutLine( bufname(l:c) ) 
+                       call s:PutLine( l:c . " " . bufname(l:c) ) 
                     endif
                 endif
             endif

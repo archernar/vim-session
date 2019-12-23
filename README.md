@@ -4,6 +4,9 @@ Simple Vim session management
 ## Screen Shot
 ![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png "Session.vim")
 
+## DIR Command (simple file selector)
+![alt text](https://github.com/archernar/vim-session/blob/master/images/dirsession.png)
+
 ## session.vim
 <pre><code>" ====================================================================================
 " Required Environment Variables

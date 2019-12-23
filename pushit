@@ -55,6 +55,9 @@ print "" >> README.md
 print "## Screen Shot" >> README.md
 print  "![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png \"Session.vim\")" >> README.md
 print "" >> README.md
+print "## DIR Command (simple file selector)" >> README.md
+print  "![alt text](https://github.com/archernar/vim-session/blob/master/images/dirsession.png)" >> README.md
+print "" >> README.md
 
 print "## session.vim" >> README.md
 cat plugin/session.vim | gawk '{print "    " $0}' | markdown >> README.md
@@ -76,6 +79,7 @@ cat tools/vi | gawk '{print "    " $0}' >> README.md
           git add tools/vi
           git add tools/.vimrc
           git add images/session.png
+          git add images/dirsession.png
           git add pushit
           git add README.md
           git commit -m "Update"

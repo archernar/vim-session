@@ -68,7 +68,7 @@ function! LoadSession(...)
     let l:filecmd = (a:0 &gt; 1) ? a:2 : "e"
     let l:sz = ""
     let l:c = 0
-    let l:sz = "No " . a:1
+    let l:sz = a:1
     if (filereadable(a:1))
         let l:body = readfile(a:1)
         for l:l in l:body

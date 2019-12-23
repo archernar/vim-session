@@ -16,6 +16,7 @@
 " *****************************************************************************************************
 call g:MyCommandMapper("command! DIR :call g:MyDirPwd(0)")
 call g:MyCommandMapper("command! DIRC :call g:MyDirPwd(1)")
+call g:MyCommandMapper("command! SESSIONLIST :call g:ListSession()")
 
 " *****************************************************************************************************
                 "  Local/Script Functions
@@ -89,7 +90,7 @@ function! s:MyDir(...)
         resize 155
 endfunc
 
-function! ListSession()
+function! g:ListSession()
     let l:c=1
     let l:body=[]
     let l:winbody=[]

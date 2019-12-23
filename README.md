@@ -176,8 +176,7 @@ function! CaptureSession(...)
     let l:winbody=[]
     while l:c &lt;= 64 
         if (bufexists(l:c))
-            let l:readable = filereadable(bufname(l:c))
-            if (l:readable)
+            if (filereadable(bufname(l:c)))
                 if (getbufvar(l:c, '&amp;buftype') == "")
                     if !(bufname(l:c) == "")
                        call add(l:body, bufname(l:c))

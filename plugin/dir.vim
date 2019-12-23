@@ -92,8 +92,6 @@ endfunc
 
 function! g:ListBuffers()
     let l:c=1
-    let l:body=[]
-    let l:winbody=[]
     call g:NewWindow("Left", &columns/3, "")
     call s:PutLine(1)
     while l:c <= 64 

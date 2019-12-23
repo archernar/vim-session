@@ -100,7 +100,7 @@ function! ListSession()
             if (filereadable(bufname(l:c)))
                 if (getbufvar(l:c, '&buftype') == "")
                     if !(bufname(l:c) == "")
-                       call s:PutLine( bufname(l:c)) )
+                       call s:PutLine( bufname(l:c) ) 
                     endif
                 endif
             endif

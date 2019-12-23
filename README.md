@@ -267,7 +267,8 @@ function! s:MyDir(...)
         setlocal cursorline
         call s:PutLineSet(1)
 
-        call s:PutLine("[" . s:DirSet . "]")
+        " call s:PutLine("[" . s:DirSet . "]")
+        call s:PutLine("[" . g:Strreplace(s:DirSet,$HOME,"$HOME") . "]")
         call s:PutLine("..")
         let l:templ = []
 

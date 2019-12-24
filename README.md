@@ -311,7 +311,7 @@ function! s:NewWindow(...)
         setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
         nnoremap &lt;silent&gt; &lt;buffer&gt; q :close&lt;cr&gt;
         nnoremap &lt;silent&gt; &lt;buffer&gt; = :vertical resize +5&lt;cr&gt;
-        nnoremap &lt;silent&gt; &lt;buffer&gt; + :vertical resize -5&lt;cr&gt;
+        nnoremap &lt;silent&gt; &lt;buffer&gt; - :vertical resize -5&lt;cr&gt;
         call cursor(1, 1)
         execute "vertical resize " . a:2
         if ( a:0 &gt; 2)

@@ -262,7 +262,7 @@ function! s:MyDir(...)
     " Load Directory Part
         let l:list = split(glob(a:1),'\n')
     " Create Window/Buffer Part
-        call g:NewWindow("Left", &amp;columns/3, "&lt;Enter&gt; :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
+        call s:NewWindow("Left", &amp;columns/3, "&lt;Enter&gt; :call g:MyDirAction('e')","s :call g:MyDirAction('vnew')", "b :call g:MyDirAction('split')")
         let s:DirWindow = winnr()
         nnoremap &lt;silent&gt; &lt;buffer&gt; f /^f&lt;cr&gt;
         echom "&lt;enter&gt; to edit, &lt;s&gt; to edit in Vert-Split, &lt;b&gt; to edit in Horz-Split"
@@ -291,10 +291,48 @@ function! s:MyDir(...)
         resize 155
 endfunc
 
+function! s:NewWindow(...)
+        " H is Left  L is Right  K is Top  J is Bottom
+        vnew
+        let l:sz = tolower(a:1)
+        if (l:sz == "left")
+             wincmd H
+        endif
+        if (l:sz == "right")
+             wincmd L
+        endif
+        if (l:sz == "top")
+             wincmd K
+        endif
+        if (l:sz == "bottom")
+             wincmd J
+        endif
+        setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
+        nnoremap &lt;silent&gt; &lt;buffer&gt; q :close&lt;cr&gt;
+        nnoremap &lt;silent&gt; &lt;buffer&gt; = :vertical resize +20&lt;cr&gt;
+        nnoremap &lt;silent&gt; &lt;buffer&gt; + :vertical resize -20&lt;cr&gt;
+        nnoremap &lt;silent&gt; &lt;buffer&gt; b :vertical resize +20&lt;cr&gt;
+        nnoremap &lt;silent&gt; &lt;buffer&gt; s :vertical resize -20&lt;cr&gt;
+        call cursor(1, 1)
+        execute "vertical resize " . a:2
+        if ( a:0 &gt; 2)
+            execute "nnoremap &lt;silent&gt; &lt;buffer&gt; " . a:3 . "&lt;cr&gt;"
+        endif
+        if ( a:0 &gt; 3)
+            execute "nnoremap &lt;silent&gt; &lt;buffer&gt; " . a:4 . "&lt;cr&gt;"
+        endif
+        if ( a:0 &gt; 4)
+            execute "nnoremap &lt;silent&gt; &lt;buffer&gt; " . a:5 . "&lt;cr&gt;"
+        endif
+endfunction
 
+
+" *****************************************************************************************************
+                "  Global/Public Functions
+                " *************************************************************************************
 function! g:ListBuffers()
     let l:c=1
-    call g:NewWindow("Left", &amp;columns/3, "")
+    call s:NewWindow("Left", &amp;columns/3, "")
     call s:PutLine(1)
     while l:c &lt;= 64 
         if (bufexists(l:c))
@@ -309,10 +347,6 @@ function! g:ListBuffers()
         let l:c += 1
     endwhile 
 endfunction
-
-" *****************************************************************************************************
-                "  Global/Public Functions
-                " *************************************************************************************
 function! g:MyDirPwd(...)
     let s:DirCloseWindow = a:1
     let s:DirEditWindow = winnr()

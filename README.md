@@ -292,6 +292,7 @@ function! s:MyDir(...)
 endfunc
 
 function! s:NewWindow(...)
+        " for wincmdH is Left  L is Right  K is Top  J is Bottom
         " H is Left  L is Right  K is Top  J is Bottom
         vnew
         let l:sz = tolower(a:1)
@@ -309,10 +310,8 @@ function! s:NewWindow(...)
         endif
         setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
         nnoremap &lt;silent&gt; &lt;buffer&gt; q :close&lt;cr&gt;
-        nnoremap &lt;silent&gt; &lt;buffer&gt; = :vertical resize +20&lt;cr&gt;
-        nnoremap &lt;silent&gt; &lt;buffer&gt; + :vertical resize -20&lt;cr&gt;
-        nnoremap &lt;silent&gt; &lt;buffer&gt; b :vertical resize +20&lt;cr&gt;
-        nnoremap &lt;silent&gt; &lt;buffer&gt; s :vertical resize -20&lt;cr&gt;
+        nnoremap &lt;silent&gt; &lt;buffer&gt; = :vertical resize +5&lt;cr&gt;
+        nnoremap &lt;silent&gt; &lt;buffer&gt; + :vertical resize -5&lt;cr&gt;
         call cursor(1, 1)
         execute "vertical resize " . a:2
         if ( a:0 &gt; 2)

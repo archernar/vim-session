@@ -88,7 +88,6 @@ function! s:MyDir(...)
           call s:PutLine(key)
 	endfor
         set nowrap
-        resize 155
 endfunc
 
 function! s:NewWindow(...)

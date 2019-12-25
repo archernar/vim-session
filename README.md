@@ -214,10 +214,13 @@ endfunction
 " |function-argument|  a:     Function argument (only inside a function).
 " |vim-variable|       v:     Global, predefined by Vim.
 " *****************************************************************************************************
-call g:MyCommandMapper("command! DIR :call g:MyDirPwd(0)")
-call g:MyCommandMapper("command! DIRC :call g:MyDirPwd(1)")
-call g:MyCommandMapper("command! SESSIONLIST :call g:ListBuffers()")
-
+call g:MyCommandMapper("command! DIR           :call g:MyDirPwd(0)")
+call g:MyCommandMapper("command! DIRC          :call g:MyDirPwd(1)")
+call g:MyCommandMapper("command! SESSIONLIST   :call g:ListBuffers()")
+call g:MyCommandMapper("command! SESSIONEDIT   :e .vimsession")
+call g:MyCommandMapper("command! SESSION       :call CaptureSession('.vimsession')")
+call g:MyCommandMapper("command! SESSIONLOAD   :call LoadSession('.vimsession', 'e')")
+call g:MyCommandMapper("command! SESSIONLOADT  :call LoadSessionT('.vimsession','vimwindows', 'e')")
 " *****************************************************************************************************
                 "  Local/Script Functions
                 " *************************************************************************************

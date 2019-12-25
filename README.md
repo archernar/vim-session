@@ -201,19 +201,10 @@ endfunction
 <pre><code>" *****************************************************************************************************
                 "  dir.vim - a Simple Directory Lister/File Opener
                 " *************************************************************************************
-" Notes
-" There are several name spaces for variables.
-" 
-" (nothing)            In a function: local to a function; otherwise: global
-" |buffer-variable|    b:     Local to the current buffer.
-" |window-variable|    w:     Local to the current window.
-" |tabpage-variable|   t:     Local to the current tab page.
-" |global-variable|    g:     Global.
-" |local-variable|     l:     Local to a function.
-" |script-variable|    s:     Local to a |:source|'ed Vim script.
-" |function-argument|  a:     Function argument (only inside a function).
-" |vim-variable|       v:     Global, predefined by Vim.
+
 " *****************************************************************************************************
+                "  Command definitions
+                " *************************************************************************************
 call g:MyCommandMapper("command! DIR           :call g:MyDirPwd(0)")
 call g:MyCommandMapper("command! DIRC          :call g:MyDirPwd(1)")
 call g:MyCommandMapper("command! SESSIONLIST   :call g:ListBuffers()")

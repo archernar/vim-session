@@ -11,17 +11,13 @@
 " command! SESSION  :call CaptureSession()
 "
 " ====================================================================================
-i
-
-" *****************************************************************************************************
-                "  Singleton Load Plugin
-                " *************************************************************************************
-if exists('g:loaded_plugin_session')
+"
+if exists('loaded_plugin_session')
     finish
 endif
-let g:loaded_plugin_session=1
+let loaded_plugin_session=1
 
-
+"
 " ------------------------------------------
 " s:WindowExists(...)
 " a:1 is the window  number

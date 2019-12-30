@@ -12,6 +12,13 @@ command! SESSIONEDIT   :e .vimsession
 command! SESSION       :call CaptureSession('.vimsession')
 command! SESSIONLOAD   :call LoadSession('.vimsession', 'e')
 command! SESSIONLOADT  :call LoadSessionT('.vimsession','vimwindows', 'e')
+
+
+if exists('loaded_plugin_dir')
+    finish
+endif
+let loaded_plugin_dir=1
+
 " *****************************************************************************************************
                 "  Local/Script Functions
                 " *************************************************************************************

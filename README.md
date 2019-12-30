@@ -21,6 +21,17 @@ Simple Vim session management
 " command! SESSION  :call CaptureSession()
 "
 " ====================================================================================
+i
+
+" *****************************************************************************************************
+                "  Singleton Load Plugin
+                " *************************************************************************************
+if exists('g:loaded_plugin_session')
+    finish
+endif
+let g:loaded_plugin_session=1
+
+
 " ------------------------------------------
 " s:WindowExists(...)
 " a:1 is the window  number
@@ -212,6 +223,17 @@ command! SESSIONEDIT   :e .vimsession
 command! SESSION       :call CaptureSession('.vimsession')
 command! SESSIONLOAD   :call LoadSession('.vimsession', 'e')
 command! SESSIONLOADT  :call LoadSessionT('.vimsession','vimwindows', 'e')
+
+
+" *****************************************************************************************************
+                "  Singleton Load Plugin
+                " *************************************************************************************
+if exists('g:loaded_plugin_dir')
+    finish
+endif
+let g:loaded_plugin_dir=1
+
+
 " *****************************************************************************************************
                 "  Local/Script Functions
                 " *************************************************************************************

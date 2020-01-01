@@ -163,6 +163,11 @@ function! LoadSessionT(...)
     call s:DeleteNoNameBuffer()
 endfunction
 
+function! CaptureBuffer()
+    let l:body=[]
+    call add(l:body, bufname(expand('%:p')))
+    call writefile(l:body, ".vimbuffer")
+endfunction
 " ------------------------------------------
 " CaptureSession(...)
 " a:1 is the session file filename

@@ -95,6 +95,7 @@ function! LoadSession(...)
         call s:DeleteNoNameBuffer()
     endif
     echom l:sz
+    autocmd Filetype,BufEnter * call CaptureBuffer()
 endfunction
 
 
@@ -171,6 +172,7 @@ function! LoadSessionT(...)
     endif
     echom "T " . l:sz
     call s:DeleteNoNameBuffer()
+    autocmd Filetype,BufEnter * call CaptureBuffer()
 endfunction
 
 ":echo @%                def/my.txt      directory/name of file (relative to the current working directory of /abc)
@@ -189,7 +191,6 @@ function! CaptureBuffer()
         call writefile(l:body, ".vimbuffer")
     endif
 endfunction
-autocmd Filetype,BufEnter * call CaptureBuffer()
 
 " ------------------------------------------
 " CaptureSession(...)

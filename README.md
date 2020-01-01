@@ -94,6 +94,7 @@ function! LoadSession(...)
         exe "1wincmd w"
         call s:DeleteNoNameBuffer()
     endif
+    call LoadLastBuffer(".vimbuffer")
     echom l:sz
     autocmd Filetype,BufEnter * call CaptureBuffer()
 endfunction
@@ -172,6 +173,7 @@ function! LoadSessionT(...)
     endif
     echom "T " . l:sz
     call s:DeleteNoNameBuffer()
+    call LoadLastBuffer(".vimbuffer")
     autocmd Filetype,BufEnter * call CaptureBuffer()
 endfunction
 
@@ -189,6 +191,14 @@ function! CaptureBuffer()
     if (! (expand('%:t') == ".vimbuffer") )
         call add(l:body, bufname(expand('%:p')))
         call writefile(l:body, ".vimbuffer")
+    endif
+endfunction
+function! LoadLastBuffer(...)
+    if (filereadable(a:1))
+        let l:body = readfile(a:1)
+        for l:l in l:body
+             exe "e " . l:l
+        endfor
     endif
 endfunction
 

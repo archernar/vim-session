@@ -175,8 +175,10 @@ endfunction
 
 function! CaptureBuffer()
     let l:body=[]
-    call add(l:body, bufname(expand('%:p')))
-    call writefile(l:body, ".vimbuffer")
+    if (! (expand('%:p') == ".vimbuffer") )
+        call add(l:body, bufname(expand('%:p')))
+        call writefile(l:body, ".vimbuffer")
+    endif
 endfunction
 autocmd Filetype,BufEnter * call CaptureBuffer()
 

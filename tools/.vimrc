@@ -1817,4 +1817,3 @@ if has("autocmd")
 endif
 
 
-"autocmd Filetype,BufEnter * execute 'set completeopt'.(&ft == 'cpp' ? '+' : '-').'=preview'

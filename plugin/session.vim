@@ -168,6 +168,8 @@ function! CaptureBuffer()
     call add(l:body, bufname(expand('%:p')))
     call writefile(l:body, ".vimbuffer")
 endfunction
+autocmd Filetype,BufEnter * call CaptureBuffer()
+
 " ------------------------------------------
 " CaptureSession(...)
 " a:1 is the session file filename

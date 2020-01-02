@@ -422,10 +422,6 @@ function! g:SessionFiles()
     let l:sz = ".vimsession"
     if (filereadable(l:sz))
         call add(l:body, l:sz)
-        call add(l:body, l:sz)
-        call add(l:body, l:sz)
-        call add(l:body, l:sz)
-        call add(l:body, l:sz)
         let l:f = readfile(l:sz)
         for l:l in l:f
             call add(l:body, l:l)
@@ -436,7 +432,7 @@ function! g:SessionFiles()
     let l:n = 0
     for l:l in l:body
         let l:n = l:n + 1 
-        call setline(l:l, l:n)
+        call setline(l:n, l:l)
     endfor
 
 endfunction

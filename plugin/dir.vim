@@ -192,7 +192,7 @@ function! g:SessionFiles()
         endfor
     endif
 
-    call add(l:body, "" . l:sz)
+    call add(l:body, "")
     let l:sz = ".vimwindows"
     if (filereadable(l:sz))
         call add(l:body, "** " . l:sz)

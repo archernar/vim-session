@@ -186,6 +186,10 @@ function! g:SessionFiles()
     let l:sz = ".vimsession"
     if (filereadable(l:sz))
         call add(l:body, l:sz)
+        call add(l:body, l:sz)
+        call add(l:body, l:sz)
+        call add(l:body, l:sz)
+        call add(l:body, l:sz)
         let l:f = readfile(l:sz)
         for l:l in l:f
             call add(l:body, l:l)

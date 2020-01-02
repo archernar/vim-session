@@ -421,12 +421,27 @@ function! g:SessionFiles()
     let l:body=[]
     let l:sz = ".vimsession"
     if (filereadable(l:sz))
-        call add(l:body, l:sz)
+        call add(l:body, "** " . l:sz)
         let l:f = readfile(l:sz)
         for l:l in l:f
             call add(l:body, l:l)
         endfor
     endif
+
+    call add(l:body, "" . l:sz)
+    let l:sz = ".vimwindows"
+    if (filereadable(l:sz))
+        call add(l:body, "** " . l:sz)
+        let l:f = readfile(l:sz)
+        for l:l in l:f
+            call add(l:body, l:l)
+        endfor
+    endif
+    call add(l:body, "" . l:sz)
+
+
+
+
 
     call s:NewWindow("Left", &amp;columns/4, "")
     let l:n = 0

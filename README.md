@@ -421,7 +421,7 @@ function! g:SessionFiles()
     let l:body=[]
     let l:sz = ".vimsession"
     if (filereadable(l:sz))
-        call add(l:body, "** " . l:sz)
+        call add(l:body, "--&gt;" . l:sz)
         let l:f = readfile(l:sz)
         for l:l in l:f
             call add(l:body, l:l)
@@ -431,7 +431,7 @@ function! g:SessionFiles()
     call add(l:body, "")
     let l:sz = ".vimwindows"
     if (filereadable(l:sz))
-        call add(l:body, "** " . l:sz)
+        call add(l:body, "--&gt;" . l:sz)
         let l:f = readfile(l:sz)
         for l:l in l:f
             call add(l:body, l:l)

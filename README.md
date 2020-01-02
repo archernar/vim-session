@@ -417,6 +417,25 @@ function! g:MyDirAction(...)
      endif
 endfunction
 
+function! g:SessionFiles()
+    let l:body=[]
+    let l:sz = ".vimsession"
+    if (filereadable(l:sz))
+        call add(l:body, l:sz)
+        for l:l in readfile(l:sz)
+            call add(l:body, l:l)
+        endfor
+    endif
+
+    let l:n = 0
+    for l:l in l:body
+        let l:n = l:n + 1 
+        call setline(l:l, l:n)
+    endfor
+
+endfunction
+
+
 "Get Windows let l:list = range(1,winnr('$'))
 </code></pre>
 ## Example Integration:  vit (Adv. model)

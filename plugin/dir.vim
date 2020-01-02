@@ -191,6 +191,7 @@ function! g:SessionFiles()
         endfor
     endif
 
+    call s:NewWindow("Left", &columns/4, "")
     let l:n = 0
     for l:l in l:body
         let l:n = l:n + 1 

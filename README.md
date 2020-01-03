@@ -418,7 +418,40 @@ function! g:MyDirAction(...)
      endif
 endfunction
 
+let s:bb=[]
+function! g:BodyBuilderReset()
+    let s:bb=[]
+endfunction
+
+function! g:BodyBuilderDump()
+    let l:n = 0
+    for l:l in s:bb
+        let l:n = l:n + 1 
+        call setline(l:n, l:l)
+    endfor
+endfunction
+
+function! g:BodyBuilder(...)
+    if (filereadable(a:1))
+        call add(s:bb, "================")
+        call add(s:bb, "--&gt; " . a:1)
+        call add(s:bb, "----------------")
+        let l:f = readfile(a:1)
+        for l:l in l:f
+            call add(s:bb, l:l)
+        endfor
+    endif
+endfunction
+
 function! g:SessionFiles()
+    call g:BodyBuilderReset()
+    call g:BodyBuilder(".vimsession")
+    call g:BodyBuilder(".vimwindows")
+    call g:BodyBuilder(".vimbuffer")
+    call g:BodyBuilderDump()
+endfunction
+
+function! g:XSessionFiles()
     let l:body=[]
     let l:sz = ".vimsession"
     if (filereadable(l:sz))

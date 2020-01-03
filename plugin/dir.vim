@@ -13,6 +13,7 @@ command! SESSION       :call CaptureSession('.vimsession')
 command! SESSIONLOAD   :call LoadSession('.vimsession', 'e')
 command! SESSIONLOADT  :call LoadSessionT('.vimsession','vimwindows', 'e')
 command! SESSIONFILES  :call g:SessionFiles()
+command! SL            :call g:SessionFiles()
 
 if exists('loaded_plugin_dir')
     finish
@@ -185,6 +186,7 @@ function! g:SessionFiles()
     let l:body=[]
     let l:sz = ".vimsession"
     if (filereadable(l:sz))
+        call add(l:body, "============")
         call add(l:body, "--> " . l:sz)
         let l:f = readfile(l:sz)
         for l:l in l:f
@@ -195,6 +197,7 @@ function! g:SessionFiles()
     call add(l:body, "")
     let l:sz = ".vimwindows"
     if (filereadable(l:sz))
+        call add(l:body, "============")
         call add(l:body, "--> " . l:sz)
         let l:f = readfile(l:sz)
         for l:l in l:f
@@ -206,6 +209,7 @@ function! g:SessionFiles()
     call add(l:body, "")
     let l:sz = ".vimbuffer"
     if (filereadable(l:sz))
+        call add(l:body, "============")
         call add(l:body, "--> " . l:sz)
         let l:f = readfile(l:sz)
         for l:l in l:f

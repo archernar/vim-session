@@ -212,6 +212,7 @@ function! g:SessionFiles()
     call g:BodyBuilder(".vimsession")
     call g:BodyBuilder(".vimwindows")
     call g:BodyBuilder(".vimbuffer")
+    call s:NewWindow("Left", &columns/4, "")
     call g:BodyBuilderDump()
 endfunction
 

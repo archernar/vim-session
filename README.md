@@ -433,9 +433,10 @@ endfunction
 
 function! g:BodyBuilder(...)
     if (filereadable(a:1))
-        call add(s:bb, "================")
+        call add(s:bb, "")
+        call add(s:bb, "====================")
         call add(s:bb, "--&gt; " . a:1)
-        call add(s:bb, "----------------")
+        call add(s:bb, "--------------------")
         let l:f = readfile(a:1)
         for l:l in l:f
             call add(s:bb, l:l)

@@ -12,7 +12,7 @@ command! SESSIONEDIT   :e .vimsession
 command! SESSION       :call CaptureSession('.vimsession')
 command! SESSIONLOAD   :call LoadSession('.vimsession', 'e')
 command! SESSIONLOADT  :call LoadSessionT('.vimsession','vimwindows', 'e')
-
+command! SESSIONFILES  :call g:SessionFiles()
 
 if exists('loaded_plugin_dir')
     finish
@@ -203,6 +203,17 @@ function! g:SessionFiles()
     endif
     call add(l:body, "" . l:sz)
 
+    call add(l:body, "")
+    let l:sz = ".vimbuffer"
+    if (filereadable(l:sz))
+        call add(l:body, "--> " . l:sz)
+        let l:f = readfile(l:sz)
+        for l:l in l:f
+            call add(l:body, l:l)
+        endfor
+    endif
+
+    call add(l:body, "" . l:sz)
     call s:NewWindow("Left", &columns/4, "")
     let l:n = 0
     for l:l in l:body

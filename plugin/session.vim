@@ -58,6 +58,18 @@ function! s:DeleteNoNameBuffer()
         let l:c += 1
     endwhile 
 endfunction
+function! FileInSession(...)
+    let nRet = 0
+    if (filereadable(a:1))
+        let l:body = readfile(a:1)
+        for l:l in l:body
+            if (l:l == a:2)
+                let nRet = 1
+            endif
+        endfor
+    endif
+    return l:nRet
+endfunction
 " ------------------------------------------
 " LoadSession(...)
 " a:1 is the session file filename
@@ -84,7 +96,7 @@ function! LoadSession(...)
         exe "1wincmd w"
         call s:DeleteNoNameBuffer()
     endif
-    call LoadLastBuffer(".vimbuffer")
+    call s:LoadLastBuffer(".vimbuffer",a:1)
     echom l:sz
     autocmd Filetype,BufEnter * call CaptureBuffer()
 endfunction
@@ -163,7 +175,7 @@ function! LoadSessionT(...)
     endif
     echom "T " . l:sz
     call s:DeleteNoNameBuffer()
-    call LoadLastBuffer(".vimbuffer")
+    call s:LoadLastBuffer(".vimbuffer", a:1)
     autocmd Filetype,BufEnter * call CaptureBuffer()
 endfunction
 
@@ -183,11 +195,13 @@ function! CaptureBuffer()
         call writefile(l:body, ".vimbuffer")
     endif
 endfunction
-function! LoadLastBuffer(...)
+function! s:LoadLastBuffer(...)
     if (filereadable(a:1))
         let l:body = readfile(a:1)
         for l:l in l:body
-             exe "e " . l:l
+             if (FileInSession(a:2, l:l) == 1)
+                 exe "e " . l:l
+             endif
         endfor
     endif
 endfunction

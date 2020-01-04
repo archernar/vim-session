@@ -36,7 +36,11 @@ function! s:DirFileName(...)
     return  join(split(a:1,"/")[-1:-1])
 endfunction
 function! s:DirToken(...)
-    return  split(a:1," ")[-1]
+    let l:ret = ""
+    if (strlen(a:1) > 0)
+        let l:ret = split(a:1," ")[-1]
+    endif
+    return l:ret
 endfunction
 function! s:DirSetPwd()
     let s:DirSet = getcwd()
@@ -116,7 +120,6 @@ function! s:NewWindow(...)
         call cursor(1, 1)
         execute "vertical resize " . a:2
         if ( a:0 > 2)
-        echom a:3
             execute "nnoremap <silent> <buffer> " . a:3 . "<cr>"
         endif
         if ( a:0 > 3)
@@ -133,7 +136,7 @@ endfunction
                 " *************************************************************************************
 function! g:ListBuffers()
     let l:c=1
-    call s:NewWindow("Left", &columns/4, "<Enter> :call g:MyDirAction('e')")
+    call s:NewWindow("Left", &columns/4)
     call s:PutLine(1)
     while l:c <= 64 
         if (bufexists(l:c))
@@ -157,8 +160,6 @@ endfunction
 
 function! g:MyDirAction(...)
      let l:sz   = s:DirToken(getline("."))
-     echom l:sz
-
      if (line(".") > 1) 
          if (strlen(l:sz) > 0)
              if (l:sz == "..")
@@ -167,14 +168,18 @@ function! g:MyDirAction(...)
                  call s:MyDir(s:DirSet . s:DirMask)
                  return
              endif
+             let l:fs = s:DirSet . "/" . l:sz
              if ( isdirectory(s:DirSet . "/" . l:sz) == 0 )
-                 if (s:DirCloseWindow == 1)
-                     silent execute "q"
-                 endif
-                 exe s:DirEditWindow+1 . "wincmd w"
-                 silent execute a:1 . " " . "" . s:DirSet . "/" .l:sz . ""
-                 if (s:DirCloseWindow == 0)
-                     exe s:DirWindow . "wincmd w"
+                 echom l:fs . "   "  .  filereadable(l:fs)
+                 if (filereadable(l:fs))
+                             if (s:DirCloseWindow == 1)
+                                 silent execute "q"
+                             endif
+                             exe s:DirEditWindow+1 . "wincmd w"
+                             silent execute a:1 . " " . l:fs
+                             if (s:DirCloseWindow == 0)
+                                 exe s:DirWindow . "wincmd w"
+                             endif
                  endif
              else
                  silent execute "q"
@@ -201,9 +206,7 @@ endfunction
 function! g:BodyBuilder(...)
     if (filereadable(a:1))
         call add(s:bb, "")
-        call add(s:bb, "====================")
-        call add(s:bb, "--> " . a:1)
-        call add(s:bb, "--------------------")
+        call add(s:bb, "[" . a:1 . "]")
         let l:f = readfile(a:1)
         for l:l in l:f
             call add(s:bb, l:l)
@@ -216,7 +219,7 @@ function! g:SessionFiles()
     call g:BodyBuilder(".vimsession")
     call g:BodyBuilder(".vimwindows")
     call g:BodyBuilder(".vimbuffer")
-    call s:NewWindow("Left", &columns/4, "")
+    call s:NewWindow("Left", &columns/4, "<Enter> :call g:MyDirAction('e')")
     call g:BodyBuilderDump()
 endfunction
 

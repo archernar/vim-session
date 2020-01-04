@@ -368,7 +368,7 @@ endfunction
                 " *************************************************************************************
 function! g:ListBuffers()
     let l:c=1
-    call s:NewWindow("Left", &amp;columns/4, "")
+    call s:NewWindow("Left", &amp;columns/4, "&lt;Enter&gt; :call g:MyDirAction('e')")
     call s:PutLine(1)
     while l:c &lt;= 64 
         if (bufexists(l:c))

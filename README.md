@@ -392,6 +392,8 @@ endfunction
 
 function! g:MyDirAction(...)
      let l:sz   = s:DirToken(getline("."))
+     echom l:sz
+
      if (line(".") &gt; 1) 
          if (strlen(l:sz) &gt; 0)
              if (l:sz == "..")

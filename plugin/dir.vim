@@ -116,6 +116,7 @@ function! s:NewWindow(...)
         call cursor(1, 1)
         execute "vertical resize " . a:2
         if ( a:0 > 2)
+        echom a:3
             execute "nnoremap <silent> <buffer> " . a:3 . "<cr>"
         endif
         if ( a:0 > 3)

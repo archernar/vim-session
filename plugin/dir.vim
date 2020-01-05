@@ -1,6 +1,10 @@
 " *****************************************************************************************************
                 "  dir.vim - a Simple Directory Lister/File Opener
                 " *************************************************************************************
+if exists("g:loaded_plugin_dir") || v:version < 700 || &cp
+  finish
+endif
+let g:loaded_plugin_dir=1
 
 " *****************************************************************************************************
                 "  Command definitions
@@ -15,10 +19,6 @@ command! SESSIONLOADT  :call LoadSessionT('.vimsession','vimwindows', 'e')
 command! SESSIONFILES  :call g:SessionFiles()
 command! SL            :call g:SessionFiles()
 
-if exists('loaded_plugin_dir')
-    finish
-endif
-let loaded_plugin_dir=1
 
 " *****************************************************************************************************
                 "  Local/Script Functions

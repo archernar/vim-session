@@ -12,10 +12,10 @@
 "
 " ====================================================================================
 "
-if exists('loaded_plugin_session')
-    finish
+if exists("g:loaded_plugin_session") || v:version < 700 || &cp
+  finish
 endif
-let loaded_plugin_session=1
+let g:loaded_plugin_session=1
 
 "
 " ------------------------------------------

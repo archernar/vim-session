@@ -9,8 +9,9 @@ let g:loaded_plugin_dir=1
 " *****************************************************************************************************
                 "  Command definitions
                 " *************************************************************************************
-command! DIR           :call g:MyDirPwd(0)
-command! DIRC          :call g:MyDirPwd(1)
+command! DIR           :call g:MyDirPwd(1)
+command! DIRC          :call g:MyDirPwd(0)
+command! DDIR          :call g:MyDirPwd(0)
 command! SESSIONLIST   :call g:ListBuffers()
 command! SESSIONEDIT   :e .vimsession
 command! SESSION       :call CaptureSession('.vimsession')
@@ -157,6 +158,16 @@ function! g:MyDirPwd(...)
     call s:DirSetPwd() 
     call s:MyDir("." . s:DirMask)
 endfunction
+function! s:DirSetSpecific(...)
+    let s:DirSet = a:1
+    return s:DirSet
+endfunction
+function! g:MyDirSnips(...)
+    let s:DirCloseWindow = a:1
+    let s:DirEditWindow = winnr()
+    call s:DirSetSpecific($HOME . "/.vim/Snips") 
+    call s:MyDir($HOME . "/.vim/Snips" . s:DirMask)
+endfunction
 
 function! g:MyDirAction(...)
      let l:sz   = s:DirToken(getline("."))
@@ -203,12 +214,14 @@ function! g:BodyBuilderDump()
     endfor
 endfunction
 
+function! g:BodyBuilderln(...)
+    call add(s:bb, "")
+    call g:BodyBuilder(a:1)
+endfunction
 function! g:BodyBuilder(...)
+    call add(s:bb, "[" . a:1 . "]")
     if (filereadable(a:1))
-        call add(s:bb, "")
-        call add(s:bb, "[" . a:1 . "]")
-        let l:f = readfile(a:1)
-        for l:l in l:f
+        for l:l in readfile(a:1)
             call add(s:bb, l:l)
         endfor
     endif
@@ -217,8 +230,9 @@ endfunction
 function! g:SessionFiles()
     call g:BodyBuilderReset()
     call g:BodyBuilder(".vimsession")
-    call g:BodyBuilder(".vimwindows")
-    call g:BodyBuilder(".vimbuffer")
+    call g:BodyBuilderln(".vimwindows")
+    call g:BodyBuilderln(".vimbuffer")
+    call g:BodyBuilderln(".vimforcebuffer")
     call s:NewWindow("Left", &columns/4, "<Enter> :call g:MyDirAction('e')")
     call g:BodyBuilderDump()
 endfunction

@@ -102,11 +102,11 @@ function! LoadSession(...)
                 endif
             endif
         endfor
-        let l:sz = l:c . "F " . l:sz 
+        let l:sz = l:c . "F " . l:sz . "  SL/FORCE/UNFORCE" 
         exe "1wincmd w"
         call s:DeleteNoNameBuffer()
     endif
-    call s:LoadLastBuffer(".vimbuffer",a:1)
+    call s:LoadLastBuffer(".vimbuffer",".vimforcebuffer",a:1)
     echom l:sz
     autocmd Filetype,BufEnter * call CaptureBuffer()
 endfunction
@@ -185,7 +185,7 @@ function! LoadSessionT(...)
     endif
     echom "T " . l:sz
     call s:DeleteNoNameBuffer()
-    call s:LoadLastBuffer(".vimbuffer", a:1)
+    call s:LoadLastBuffer(".vimbuffer", ".vimforcebuffer",a:1)
     autocmd Filetype,BufEnter * call CaptureBuffer()
 endfunction
 
@@ -198,6 +198,7 @@ endfunction
 ":echo expand('%:e')     txt     name of file's extension ('extension')
 "For more info run :help expand
 
+
 function! CaptureBuffer()
     let l:body=[]
     if (! (expand('%:t') == ".vimbuffer") )
@@ -205,11 +206,42 @@ function! CaptureBuffer()
         call writefile(l:body, ".vimbuffer")
     endif
 endfunction
+command! ECB  :call EmptyCaptureBuffer()
+function! EmptyCaptureBuffer()
+    let l:body=[]
+    call writefile(l:body, ".vimbuffer")
+endfunction
+
+command! FORCE :call CaptureForceBuffer()
+function! CaptureForceBuffer()
+    let l:body=[]
+    if (! (expand('%:t') == ".vimforcebuffer") )
+        call add(l:body, bufname(expand('%:p')))
+        call writefile(l:body, ".vimforcebuffer")
+    endif
+endfunction
+
+command! UNFORCE :call EmptyForceBuffer()
+function! EmptyForceBuffer()
+    let l:body=[]
+    call writefile(l:body, ".vimforcebuffer")
+endfunction
+
 function! s:LoadLastBuffer(...)
     if (filereadable(a:1))
         let l:body = readfile(a:1)
         for l:l in l:body
-             if (FileInSession(a:2, l:l) == 1)
+             if (FileInSession(a:3, l:l) == 1)
+                 exe "e " . l:l
+             endif
+        endfor
+    endif
+
+
+    if (filereadable(a:2))
+        let l:body = readfile(a:2)
+        for l:l in l:body
+             if (FileInSession(a:3, l:l) == 1)
                  exe "e " . l:l
              endif
         endfor
@@ -229,7 +261,8 @@ function! CaptureSession(...)
     let l:winbody=[]
     while l:c &lt;= 64 
         if (bufexists(l:c))
-            if (filereadable(bufname(l:c)))
+            " if (filereadable(bufname(l:c)))
+            if ( 1 == 1 )
                 if (getbufvar(l:c, '&amp;buftype') == "")
                     if !(bufname(l:c) == "")
                        call add(l:body, bufname(l:c))
@@ -259,8 +292,9 @@ let g:loaded_plugin_dir=1
 " *****************************************************************************************************
                 "  Command definitions
                 " *************************************************************************************
-command! DIR           :call g:MyDirPwd(0)
-command! DIRC          :call g:MyDirPwd(1)
+command! DIR           :call g:MyDirPwd(1)
+command! DIRC          :call g:MyDirPwd(0)
+command! DDIR          :call g:MyDirPwd(0)
 command! SESSIONLIST   :call g:ListBuffers()
 command! SESSIONEDIT   :e .vimsession
 command! SESSION       :call CaptureSession('.vimsession')
@@ -407,6 +441,16 @@ function! g:MyDirPwd(...)
     call s:DirSetPwd() 
     call s:MyDir("." . s:DirMask)
 endfunction
+function! s:DirSetSpecific(...)
+    let s:DirSet = a:1
+    return s:DirSet
+endfunction
+function! g:MyDirSnips(...)
+    let s:DirCloseWindow = a:1
+    let s:DirEditWindow = winnr()
+    call s:DirSetSpecific($HOME . "/.vim/Snips") 
+    call s:MyDir($HOME . "/.vim/Snips" . s:DirMask)
+endfunction
 
 function! g:MyDirAction(...)
      let l:sz   = s:DirToken(getline("."))
@@ -453,12 +497,14 @@ function! g:BodyBuilderDump()
     endfor
 endfunction
 
+function! g:BodyBuilderln(...)
+    call add(s:bb, "")
+    call g:BodyBuilder(a:1)
+endfunction
 function! g:BodyBuilder(...)
+    call add(s:bb, "[" . a:1 . "]")
     if (filereadable(a:1))
-        call add(s:bb, "")
-        call add(s:bb, "[" . a:1 . "]")
-        let l:f = readfile(a:1)
-        for l:l in l:f
+        for l:l in readfile(a:1)
             call add(s:bb, l:l)
         endfor
     endif
@@ -467,8 +513,9 @@ endfunction
 function! g:SessionFiles()
     call g:BodyBuilderReset()
     call g:BodyBuilder(".vimsession")
-    call g:BodyBuilder(".vimwindows")
-    call g:BodyBuilder(".vimbuffer")
+    call g:BodyBuilderln(".vimwindows")
+    call g:BodyBuilderln(".vimbuffer")
+    call g:BodyBuilderln(".vimforcebuffer")
     call s:NewWindow("Left", &amp;columns/4, "&lt;Enter&gt; :call g:MyDirAction('e')")
     call g:BodyBuilderDump()
 endfunction

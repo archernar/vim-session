@@ -15,6 +15,81 @@
 " |vim-variable|       v:	  Global, predefined by Vim.
 " nnoremap <F4> :new<cr>:-1read $HOME/.vim/ksh.top<CR>
 " *****************************************************************************************************
+function! s:Strfind(s,find,start)
+            if type(a:find)==1
+                    let l:i = a:start
+                    while l:i<len(a:s)
+                            if strpart(a:s,l:i,len(a:find))==a:find
+                                    return l:i
+                            endif
+                            let l:i+=1
+                    endwhile
+                    return -1
+            elseif type(a:find)==3
+                    " a:find is a list
+                    let l:i = a:start
+                    while l:i<len(a:s)
+                            let l:j=0
+                            while l:j<len(a:find)
+                                    if strpart(a:s,l:i,len(a:find[l:j]))==a:find[l:j]
+                                            return [l:i,l:j]
+                                    endif
+                                    let l:j+=1
+                            endwhile
+                            let l:i+=1
+                    endwhile
+                    return [-1,-1]
+            endif
+endfunc
+
+function! g:FindBuffer(...)
+    let l:c = 1
+    while l:c <= 64 
+        if (bufexists(l:c))
+                if (s:Strfind(bufname(l:c),a:1,0) == 0 )
+                     echom a:1 . " --- " . s:Strfind(bufname(l:c),a:1,0)
+            endif
+        endif
+        let l:c += 1
+    endwhile 
+endfunction
+command! HEADS :call TestHeads()
+function! TestHeads()
+    let pu=strftime('%c')
+    call Heads("L", "")
+    call Heads("R", pu)
+    call Heads("L","  a1 - ")
+    call Heads("L","  a2 - ")
+    call Heads("L","  a3 - ")
+    call Heads("L", "")
+    call append(line("."), "")
+endfunction
+function! Headline(...)
+   let l:in=a:1
+   let l:sz = "\"" . l:in 
+   call append(line("."), l:sz . "|")
+   exe "normal j"
+endfunction
+function! Heads(...)
+   let l:line="------------------------------------------"
+   let l:in=a:2
+   let l:linelen = strlen(l:line)
+   let l:len = strlen(l:in)
+   let l:sz = l:line
+   let l:e = "-|"
+   if (l:len > 0)
+       let l:sz = strpart( l:line, 0, l:linelen - (l:len) )
+       let l:sz = substitute(l:sz, "-", " ", "g")
+       let l:e = " |"
+   endif
+   if (a:1 == "L")
+      let l:sz = l:in . l:sz 
+   else
+      let l:sz = l:sz . l:in 
+   endif
+   call append(line("."), "\"" . l:sz . l:e)
+   exe "normal j"
+endfunction
 function! Head()
    let l:one="\" ***************************************************************************************************"
    let l:two="\"               * "
@@ -600,6 +675,74 @@ call g:MyCheatsheet(g:CenterPad(""))
 call g:MyCheatsheet(g:CenterPad("My Cheat Sheet"))
 call g:MyCheatsheet(g:CenterPad(" "))
 call g:MyCheatsheet(s:barline)
+
+call g:MyCheatsheet(g:CenterPad("Plaintext Text Objects - Words"))
+call g:MyCheatsheet(g:CenterPad("<number><command><text object or motion>"))
+call g:CS("aw   a word (with white space)",           "iw   inner word")
+call g:CS("ab   a block from [( to ]) (with braces)", "ib   inner block")
+call g:CS("ap   a paragraph (with white space)",      "ip   inner paragraph")
+call g:CS("as   a sentence (with white space)",       "is   inner sentance")
+call g:CS("at   a tag block (with white space)",      "it   inner tag")
+
+call g:CS("a\"   double quoted string",               "i\"   double quoted string without the quotes")
+call g:CS("a\'   single quoted string",                "i\'   single quoted string without the quotes")
+
+
+call g:MyCheatsheet(s:barline)
+call g:MyCheatsheet("zt  puts current line to top of screen   ,,,    z. or zz puts current line to center of screen")
+call g:MyCheatsheet("zb  puts current line to bottom of screen        ,,,")
+call g:MyCheatsheet(s:barline)
+call g:MyCheatsheet("i   Enter insert mode at cursor                  ,,,    I   Enter insert mode at first non-blank char")
+call g:MyCheatsheet("s   Delete char under cursor enter i-mode        ,,,    S   Delete line & insert @ begin of same line")
+call g:MyCheatsheet("a   Enter insert mode _after_ cursor             ,,,    A   Enter insert mode at the end of the line")
+call g:MyCheatsheet("o   Enter insert mode on the next line           ,,,    O   rEenter insert mode on the above line")
+call g:MyCheatsheet("C   Delete from cursor to EOL & begin insert     ,,,")
+call g:MyCheatsheet(s:barline)
+call g:MyCheatsheet("dw  delete to the next word                      ,,,    dt  delete until next comma on the curline")
+call g:MyCheatsheet("de  delete to the end of the current word        ,,,    d2e delete to the end of next word")
+call g:MyCheatsheet("dj  delete down a line (current and one below    ,,,    dt) delete up until next closing parenthesis")
+call g:MyCheatsheet(s:barline)
+call g:MyCheatsheet("                     d/rails delete up until the first of 'rails'")
+call g:MyCheatsheet(s:barline)
+call g:MyCheatsheet(g:CenterPad("Motions"))
+call g:MyCheatsheet("h,l  move left/right by character                ,,,    w   move forward one (w)ord")
+call g:MyCheatsheet("b    move (b)ackward one word                    ,,,    e   move forward to the (e)nd of a word")
+call g:MyCheatsheet("aw   a word (surrounding white space)            ,,,    iw  inner word (not surrounding white space)")
+call g:MyCheatsheet(s:barline)
+call g:MyCheatsheet("()    Sentences (delimited words)                ,,, {}   Paragraphs (Next empty line)")
+call g:MyCheatsheet(";     Repeat last motion forward                 ,,, ,    Repeat last motion backward")
+call g:MyCheatsheet("<#>G  Go to Line #                               ,,, gg   Go to the top of the file")
+call g:MyCheatsheet("]]    Next section                               ,,, [[   Previous section")
+call g:MyCheatsheet("0     Front of line                              ,,, ^    Front of line (first non-blank)")
+call g:MyCheatsheet("%     Matching brace/bracket/paren/tag           ,,, $    End of line")
+
+call g:MyCheatsheet(g:CenterPad("Variable Scope"))
+call g:MyCheatsheet("nothing      In a function: local to a function; otherwise: global")
+call g:MyCheatsheet("buffer  b:   Local to the current buffer         ,,,window   w:   Local to the current window")
+call g:MyCheatsheet("vim     v:   Global, predefined by Vim           ,,,tabpage  t:   Local to the current tab page")
+call g:MyCheatsheet("global  g:   Global                              ,,,local    l:   Local to a function")
+call g:MyCheatsheet("script  s:   Local to |:src|'ed Vim script       ,,,fun-arg  a:   Function argument (inside a function)")
+call g:MyCheatsheet(s:barline)
+
+call g:MyCheatsheet(g:CenterPad("Commands"))
+call g:MyCheatsheet("COM", "call CommanderList()")
+call g:MyCheatsheet("COM", "call CommanderListEdit()")
+call g:MyCheatsheet(s:barline)
+call g:MyCheatsheet(g:CenterPad("Documents"))
+call g:MyCheatsheet("PDF","~/pdfs/vim-sq.pdf", "The Vim Tutorial and Reference")
+call g:MyCheatsheet("PDF","~/vimdocs/gnuplot4_6.pdf", "GnuPlot 4.6 Documentation")
+call g:MyCheatsheet("PDF","~/vimdocs/progit.pdf","Pro Git Book")
+call g:MyCheatsheet("PDF","~/vimdocs/SpringBootInAction.pdf")
+call g:MyCheatsheet("TXT","/usr/share/vim/vim74/doc/motion.txt","VIM Doc")
+call g:MyCheatsheet("TXT","/usr/share/vim/vim74/doc/pattern.txt")
+call g:MyCheatsheet("TXT","/usr/share/vim/vim74/doc/usr_27.txt")
+call g:MyCheatsheet("TXT","/usr/share/vim/vim74/doc/usr_40.txt")
+call g:MyCheatsheet("TXT","/usr/share/vim/vim74/doc/usr_41.txt","Write a VIM Script")
+call g:MyCheatsheet("URL","https://www.youtube.com/watch?v=XA2WjJbmmoM","How to Do 90% of What Plugins Do (With Just Vim)")
+call g:MyCheatsheet("URL","https://devhints.io/vimscript-functions","VimScript Functions")
+call g:MyCheatsheet("URL","https://technotales.wordpress.com/2010/04/29/vim-splits-a-guide-to-doing-exactly-what-you-want/","spliting the way you want")
+
+call g:MyCheatsheet(s:barline)
 call g:MyCheatsheet(g:CenterPad("i3wm"))
 call g:MyCheatsheet(g:CenterPad(" "))
 call g:MyCheatsheet("Controlling i3")
@@ -637,74 +780,6 @@ call g:MyCheatsheet("$mod+enter              Open new terminal window")
 call g:MyCheatsheet("$mod+d                  Open dmenu")
 
 call g:MyCheatsheet(s:barline)
-
-call g:MyCheatsheet(g:CenterPad("Plaintext Text Objects - Words"))
-call g:MyCheatsheet(g:CenterPad("<number><command><text object or motion>"))
-call g:CS("aw   a word (with white space)",           "iw   inner word")
-call g:CS("ab   a block from [( to ]) (with braces)", "ib   inner block")
-call g:CS("ap   a paragraph (with white space)",      "ip   inner paragraph")
-call g:CS("as   a sentence (with white space)",       "is   inner sentance")
-call g:CS("at   a tag block (with white space)",      "it   inner tag")
-
-call g:CS("a\"   double quoted string",               "i\"   double quoted string without the quotes")
-call g:CS("a\'   single quoted string",                "i\'   single quoted string without the quotes")
-
-
-call g:MyCheatsheet(s:barline)
-call g:MyCheatsheet("zt  puts current line to top of screen             ,,,    z. or zz puts current line to center of screen")
-call g:MyCheatsheet("zb  puts current line to bottom of screen          ,,,")
-call g:MyCheatsheet(s:barline)
-call g:MyCheatsheet("i   Enter insert mode at cursor                    ,,,    I   Enter insert mode at first non-blank char")
-call g:MyCheatsheet("s   Delete char under cursor enter i-mode          ,,,    S   Delete line & insert @ begin of same line")
-call g:MyCheatsheet("a   Enter insert mode _after_ cursor               ,,,    A   Enter insert mode at the end of the line")
-call g:MyCheatsheet("o   Enter insert mode on the next line             ,,,    O   rEenter insert mode on the above line")
-call g:MyCheatsheet("C   Delete from cursor to EOL & begin insert       ,,,")
-call g:MyCheatsheet(s:barline)
-call g:MyCheatsheet("dw  delete to the next word                        ,,,    dt  delete until next comma on the curline")
-call g:MyCheatsheet("de  delete to the end of the current word          ,,,    d2e delete to the end of next word")
-call g:MyCheatsheet("dj  delete down a line (current and one below      ,,,    dt) delete up until next closing parenthesis")
-call g:MyCheatsheet(s:barline)
-call g:MyCheatsheet("                     d/rails delete up until the first of 'rails'")
-call g:MyCheatsheet(s:barline)
-call g:MyCheatsheet(g:CenterPad("Motions"))
-call g:MyCheatsheet("h,l  move left/right by character                  ,,,    w   move forward one (w)ord")
-call g:MyCheatsheet("b    move (b)ackward one word                      ,,,    e   move forward to the (e)nd of a word")
-call g:MyCheatsheet("aw   a word (surrounding white space)              ,,,    iw  inner word (not surrounding white space)")
-call g:MyCheatsheet(s:barline)
-call g:MyCheatsheet("()    Sentences (delimited words)                  ,,, {}   Paragraphs (Next empty line)")
-call g:MyCheatsheet(";     Repeat last motion forward                   ,,, ,    Repeat last motion backward")
-call g:MyCheatsheet("<#>G  Go to Line #                                 ,,, gg   Go to the top of the file")
-call g:MyCheatsheet("]]    Next section                                 ,,, [[   Previous section")
-call g:MyCheatsheet("0     Front of line                                ,,, ^    Front of line (first non-blank)")
-call g:MyCheatsheet("%     Matching brace/bracket/paren/tag             ,,, $    End of line")
-
-call g:MyCheatsheet(g:CenterPad("Variable Scope"))
-call g:MyCheatsheet("nothing      In a function: local to a function; otherwise: global")
-call g:MyCheatsheet("buffer  b:   Local to the current buffer           ,,,window   w:   Local to the current window")
-call g:MyCheatsheet("vim     v:   Global, predefined by Vim             ,,,tabpage  t:   Local to the current tab page")
-call g:MyCheatsheet("global  g:   Global                                ,,,local    l:   Local to a function")
-call g:MyCheatsheet("script  s:   Local to |:src|'ed Vim script         ,,,fun-arg  a:   Function argument (inside a function)")
-call g:MyCheatsheet(s:barline)
-
-call g:MyCheatsheet(g:CenterPad("Commands"))
-call g:MyCheatsheet("COM", "call CommanderList()")
-call g:MyCheatsheet("COM", "call CommanderListEdit()")
-call g:MyCheatsheet(s:barline)
-call g:MyCheatsheet(g:CenterPad("Documents"))
-call g:MyCheatsheet("PDF","~/pdfs/vim-sq.pdf", "The Vim Tutorial and Reference")
-call g:MyCheatsheet("PDF","~/vimdocs/gnuplot4_6.pdf", "GnuPlot 4.6 Documentation")
-call g:MyCheatsheet("PDF","~/vimdocs/progit.pdf","Pro Git Book")
-call g:MyCheatsheet("PDF","~/vimdocs/SpringBootInAction.pdf")
-call g:MyCheatsheet("TXT","/usr/share/vim/vim74/doc/motion.txt","VIM Doc")
-call g:MyCheatsheet("TXT","/usr/share/vim/vim74/doc/pattern.txt")
-call g:MyCheatsheet("TXT","/usr/share/vim/vim74/doc/usr_27.txt")
-call g:MyCheatsheet("TXT","/usr/share/vim/vim74/doc/usr_40.txt")
-call g:MyCheatsheet("TXT","/usr/share/vim/vim74/doc/usr_41.txt","Write a VIM Script")
-call g:MyCheatsheet("URL","https://www.youtube.com/watch?v=XA2WjJbmmoM","How to Do 90% of What Plugins Do (With Just Vim)")
-call g:MyCheatsheet("URL","https://devhints.io/vimscript-functions","VimScript Functions")
-call g:MyCheatsheet("URL","https://technotales.wordpress.com/2010/04/29/vim-splits-a-guide-to-doing-exactly-what-you-want/","spliting the way you want")
-
-call g:MyCheatsheet(s:barline)
  
 
 " *****************************************************************************************************
@@ -734,7 +809,8 @@ call g:MyCommandMapper("command! CE      :call CommanderListEdit()")
 call g:MyCommandMapper("command! TEST    :call Test()")
 call g:MyCommandMapper("command! XXCSD   :call CallMan('LeftWindowBuffer()', 'MyCommandsheetDump()')")
 call g:MyCommandMapper("command! CSD     :call XMan('botright new', 'MyCommandsheetDump()')")
-call g:MyCommandMapper("command! SNIPS   :call g:DD0(\"~/.vim/Snips/*\")"          )
+call g:MyCommandMapper("command! SNIPS2  :call g:DD0(\"~/.vim/Snips/*\")"          )
+call g:MyCommandMapper("command! SNIPS   :call g:MyDirSnips(1)"        )
 call g:MyCommandMapper("command! REPOS   :call RepoList()")
 call g:MyCommandMapper("command! GETVUNDLE     :!git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim")
 call g:MyCommandMapper("command! TIPS    :call Vimtips()")
@@ -1504,6 +1580,9 @@ call g:MyCommandMapper("command! SNIPPEREDITOFF  :call SnipperEditOff()")
 call g:MyCommandMapper("command! SNIPPERNEW      :call SnipperPromptAndEdit()")
 call g:MyCommandMapper("command! SNIPNEW         :call SnipperPromptAndEdit()")
 call g:MyCommandMapper("command! SNIPLS          :call Snipperls()")
+function! Snp2(t,c)
+    echom "e " . g:SnipperHome . a:t
+endfunction
 function! Snp(t,c)
     execute "e " . g:SnipperHome . a:t
     if g:SnipperEdit == 0 

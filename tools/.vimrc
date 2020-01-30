@@ -42,13 +42,18 @@ function! s:Strfind(s,find,start)
             endif
 endfunc
 
-function! g:FindBuffer(...)
+function! g:FindBuffer()
+    let l:szIn = input('buffer >> ')
     let l:c = 1
     while l:c <= 64 
         if (bufexists(l:c))
-                if (s:Strfind(bufname(l:c),a:1,0) == 0 )
-                     echom a:1 . " --- " . s:Strfind(bufname(l:c),a:1,0)
-            endif
+                let l:m = stridx(bufname(l:c), l:szIn)
+                " echom "Does " . l:szIn . " equal " . bufname(l:c) . "   " .  l:m
+                if (l:m > -1 )
+                     exe "buffer " . l:c
+                     echom l:szIn . " --- " . l:m 
+                     let l:c = 100
+                endif
         endif
         let l:c += 1
     endwhile 
@@ -168,6 +173,7 @@ set notimeout ttimeout ttimeoutlen=200         " Quickly time out on keycodes, b
 " *****************************************************************************************************
                                   " The 'External Command' Command Setup
                                   " *******************************************************************
+command! BB call g:FindBuffer()
 command! -nargs=* -complete=shellcmd H new  | let w:scratch = 1 | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
 command! -nargs=* -complete=shellcmd BANG botright 60vnew | let w:scratch = 1 | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
 command! -nargs=1 L silent call Redir(<f-args>)
@@ -886,7 +892,7 @@ function! BiModeSet(...)
           echo "BiModeSet(1) to Buffer"
           let g:BiModeState = 1 
           call g:MyKeyMapper("nnoremap <F1> :bnext<cr>", "Next Buffer")
-          call g:MyKeyMapper("nnoremap <leader><F1>  <Nop>","Nothing")
+          call g:MyKeyMapper("nnoremap <leader><F1>  :call g:FindBuffer()<cr>","Find Buffer")
 
           call g:MyKeyMapper("nnoremap <F2> :bprev<cr>", "Previous Buffer")
           call g:MyKeyMapper("nnoremap <leader><F2>  <Nop>","Nothing")

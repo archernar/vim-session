@@ -521,6 +521,36 @@ function! g:SessionFiles()
 endfunction
 
 
+function! g:FindBuffer()
+    let l:szIn = input('buffer &gt;&gt; ')
+    if (l:szIn == "ls")
+        exe "ls"
+    else
+        let l:c = 1
+        while l:c &lt;= 64 
+            if (bufexists(l:c))
+                    let l:m = stridx(bufname(l:c), l:szIn)
+                    if (l:m &gt; -1 )
+                         exe "buffer " . l:c
+                         let l:c = 100
+                    endif
+            endif
+            let l:c += 1
+        endwhile 
+    endif
+endfunction
+
+function! g:EditNewBuffer()
+    let l:szIn = input('new buffer &gt;&gt; ')
+    let l:name = g:RandomString()
+    if (strlen(l:szIn) &gt; 0)
+        if (l:szIn == "r")
+            exe "e " . name
+        else
+            exe "e " . l:szIn
+        endif
+    endif
+endfunction
 "Get Windows let l:list = range(1,winnr('$'))
 </code></pre>
 ## Example Integration:  vit (Adv. model)

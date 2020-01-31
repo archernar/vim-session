@@ -15,49 +15,7 @@
 " |vim-variable|       v:	  Global, predefined by Vim.
 " nnoremap <F4> :new<cr>:-1read $HOME/.vim/ksh.top<CR>
 " *****************************************************************************************************
-function! s:Strfind(s,find,start)
-            if type(a:find)==1
-                    let l:i = a:start
-                    while l:i<len(a:s)
-                            if strpart(a:s,l:i,len(a:find))==a:find
-                                    return l:i
-                            endif
-                            let l:i+=1
-                    endwhile
-                    return -1
-            elseif type(a:find)==3
-                    " a:find is a list
-                    let l:i = a:start
-                    while l:i<len(a:s)
-                            let l:j=0
-                            while l:j<len(a:find)
-                                    if strpart(a:s,l:i,len(a:find[l:j]))==a:find[l:j]
-                                            return [l:i,l:j]
-                                    endif
-                                    let l:j+=1
-                            endwhile
-                            let l:i+=1
-                    endwhile
-                    return [-1,-1]
-            endif
-endfunc
 
-function! g:FindBuffer()
-    let l:szIn = input('buffer >> ')
-    let l:c = 1
-    while l:c <= 64 
-        if (bufexists(l:c))
-                let l:m = stridx(bufname(l:c), l:szIn)
-                " echom "Does " . l:szIn . " equal " . bufname(l:c) . "   " .  l:m
-                if (l:m > -1 )
-                     exe "buffer " . l:c
-                     echom l:szIn . " --- " . l:m 
-                     let l:c = 100
-                endif
-        endif
-        let l:c += 1
-    endwhile 
-endfunction
 command! HEADS :call TestHeads()
 function! TestHeads()
     let pu=strftime('%c')
@@ -897,7 +855,7 @@ function! BiModeSet(...)
           call g:MyKeyMapper("nnoremap <F2> :bprev<cr>", "Previous Buffer")
           call g:MyKeyMapper("nnoremap <leader><F2>  <Nop>","Nothing")
 
-          call g:MyKeyMapper("nnoremap <F3> <Nop>","Nothing")
+          call g:MyKeyMapper("nnoremap <F3> :call g:EditNewBuffer()<cr>","Edit New Buffer")
           call g:MyKeyMapper("nnoremap <leader><F3>  <Nop>","Nothing")
      endif
      if (a:1 == 0)
@@ -909,7 +867,7 @@ function! BiModeSet(...)
           call g:MyKeyMapper("nnoremap <F2> <C-W>W",     "Previous Window")
           call g:MyKeyMapper("nnoremap <leader><F2>  :botright  new<CR>","Split Window Down")
 
-          call g:MyKeyMapper("nnoremap <F3> <C-W>w",     "Next Window")
+          call g:MyKeyMapper("nnoremap <F3> :call g:EditNewBuffer()<cr>","Edit New Buffer")
           call g:MyKeyMapper("nnoremap <leader><F3>  :vnew<CR>","Split Window Right")
 
 
@@ -1890,7 +1848,7 @@ nnoremap <leader><F7> :call g:setupsniplocal("./*.java")<cr>:call MyDictionaryDu
 nnoremap <leader><F7> :call g:DD0("./*.*")<cr>
 call g:MyCommandMapper("command! GREP   :call Greppyon(1)")
 
-nnoremap <F3> :w<CR>:1<cr>i<cr><esc>k:r !gawk '/^function/{$1="";sub(/^ /,"", $0);print "\" " $0}' %<CR>:1<cr>dd
+" nnoremap <F3> :w<CR>:1<cr>i<cr><esc>k:r !gawk '/^function/{$1="";sub(/^ /,"", $0);print "\" " $0}' %<CR>:1<cr>dd
 
 
 " *****************************************************************************************************

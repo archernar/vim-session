@@ -6,6 +6,7 @@ trap "exit 2" 1 2 3 13 15
 rm $Tmp  >/dev/null 2>&1
 
 # #######################################
+# #######################################
 confirm() {
       print -n "Enter '10111' to confirm >> "
       read STRIN

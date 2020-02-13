@@ -131,6 +131,7 @@ set notimeout ttimeout ttimeoutlen=200         " Quickly time out on keycodes, b
 " *****************************************************************************************************
                                   " The 'External Command' Command Setup
                                   " *******************************************************************
+
 command! BB call g:FindBuffer()
 command! -nargs=* -complete=shellcmd H new  | let w:scratch = 1 | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
 command! -nargs=* -complete=shellcmd BANG botright 60vnew | let w:scratch = 1 | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
@@ -145,6 +146,7 @@ command! -nargs=1 V new <args>
 " Usage:
 "       :Redir hi ............. show the full output of command ':hi' in a scratch window
 "       :Redir !ls -al ........ show the full output of command ':!ls -al' in a scratch window
+
 
 " *****************************************************************************************************
                                   " Pre Vundle Setup
@@ -168,6 +170,7 @@ set rtp+=~/.vim/bundle/Vundle.vim " Vundle BEGIN
 call vundle#begin()               " Vundle BEGIN
                                   " *******************************************************************
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
 Plugin 'archernar/vim-map'
 Plugin 'archernar/vim-utils'
 Plugin 'archernar/vim-session'
@@ -183,7 +186,6 @@ Plugin 'vim-scripts/grep.vim'      " https://github.com/vim-scripts/grep.vim
 Plugin 'tpope/vim-surround'
 Bundle 'Lokaltog/vim-monotone.git'
 Bundle 'owickstrom/vim-colors-paramount'
-
 "Plugin 'scrooloose/nerdtree.git'
 "let g:NERDTreeNodeDelimiter = "\u00a0"
 "call g:MyKeyMapper("nnoremap <Leader>nt :NERDTreeToggle<cr>","NERDTree Toggle")
@@ -369,10 +371,6 @@ function! MyTest()
      echom l:szKey
 endfunction
 
-" *****************************************************************************************************
-                                  " Fast Quit All
-                                  " *******************************************************************
-nnoremap <silent> zz :wqa<cr>
 " *****************************************************************************************************
                                   " Function Keys
                                   " *******************************************************************
@@ -1030,9 +1028,45 @@ endif
                                   " *******************************************************************
 " let NOPOWERLINE = 1
 if !exists("NOPOWERLINE")
-     set  rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
-     set laststatus=2
-     set t_Co=256
+    set  rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
+    set laststatus=2
+    set t_Co=256
+" else
+"     function! GitBranch()
+"       return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+"     endfunction
+" 
+"     function! StatuslineGit()
+"       let l:branchname = GitBranch()
+"       return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+"     endfunction
+"     set laststatus=2
+"     set t_Co=256
+"     set statusline=%{FugitiveStatusline()}
+"     set statusline=
+"     set statusline+=%#PmenuSel#
+"     set statusline+=%{StatuslineGit()}
+"     set statusline+=%#LineNr#
+"     set statusline+=\ %f
+"     set statusline+=%m\
+"     set statusline+=%=
+"     set statusline+=%#CursorColumn#
+"     set statusline+=\ %y
+"     set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+"     set statusline+=\[%{&fileformat}\]
+"     set statusline+=\ %p%%
+"     set statusline+=\ %l:%c
+"     set statusline+=\
+"     set statusline=
+"     set statusline +=%1*\ %n\ %*            "buffer number
+"     set statusline +=%5*%{&ff}%*            "file format
+"     set statusline +=%3*%y%*                "file type
+"     set statusline +=%4*\ %<%F%*            "full path
+"     set statusline +=%2*%m%*                "modified flag
+"     set statusline +=%1*%=%5l%*             "current line
+"     set statusline +=%2*/%L%*               "total lines
+"     set statusline +=%1*%4v\ %*             "virtual column number
+"     set statusline +=%2*0x%04B\ %*          "character under cursor
 endif
 " *****************************************************************************************************
                                   " For Status Line
@@ -1667,64 +1701,6 @@ endfunc
 
 call g:Setupsnip()
 call g:MyCommandMapper("command! PWD     :!pwd")
-" call g:MyCommandMapper("command! KSH     :call  SnipperStuff('KSH.txt','')")
-" call g:MyCommandMapper("command! PSETONE :call  SnipperStuff('PSetOne.txt','')")
-" call g:MyCommandMapper("command! APPL    :call  SnipperStuff('Appl.txt','')")
-" call g:MyCommandMapper("command! GAWK    :call  SnipperStuff('Gawk.txt','')")
-" call g:MyCommandMapper("command! GSPLIT  :call  SnipperStuff('GSplit.txt','')")
-" call g:MyCommandMapper("command! SPLIT   :call  SnipperStuff('GSplit.txt','')")
-" call g:MyCommandMapper("command! QCLASS  :call  SnipperStuff('QuickClass.txt','')")
-" call g:MyCommandMapper("command! PCLASS  :call  SnipperStuff('PrivateClass.java','')")
-" call g:MyCommandMapper("command! CLASS   :call  SnipperStuff('Class.java','')")
-" call g:MyCommandMapper("command! RUNNER  :call  SnipperStuff('Runner.txt','')")
-" call g:MyCommandMapper("command! FOREX   :call  SnipperStuff('forexamples.java','')")
-" call g:MyCommandMapper("command! SB      :call  SnipperStuff('Sb.txt','')")
-" call g:MyCommandMapper("command! SCANNER :call  SnipperStuff('Scanner.txt','')")
-" call g:MyCommandMapper("command! SVM     :call  SnipperStuff('StaticVoidMain.txt','')")
-" call g:MyCommandMapper("command! SWITCH  :call  SnipperStuff('Switch.txt','')")
-" call g:MyCommandMapper("command! SYSOUT  :call  SnipperStuff('SysOut.txt','')")
-" call g:MyCommandMapper("command! STRING  :call  SnipperStuff('VarString.txt','')")
-" call g:MyCommandMapper("command! DOUBLE  :call  SnipperStuff('VarDouble.txt','')")
-" call g:MyCommandMapper("command! INT     :call  SnipperStuff('Varint.txt','')")
-" call g:MyCommandMapper("command! INTCIRCLE :call  SnipperStuff('IntCircle.txt','')")
-" call g:MyCommandMapper("command! SCORES  :call  SnipperStuff('Scores.txt','')")
-" call g:MyCommandMapper("command! FLOAT   :call  SnipperStuff('VarFloat.txt','')")
-" call g:MyCommandMapper("command! PRIM    :call  SnipperStuff('Prim.txt','')")
-" call g:MyCommandMapper("command! VAR     :call  SnipperStuff('Var.txt','')")
-" call g:MyCommandMapper("command! TRY     :call  SnipperStuff('Try.txt','')")
-" call g:MyCommandMapper("command! EX1     :call  SnipperStuff('ex1.java','')")
-" call g:MyCommandMapper("command! EX2     :call  SnipperStuff('ex2.java','')")
-" call g:MyCommandMapper("command! EX3     :call  SnipperStuff('ex3.java','')")
-" call g:MyCommandMapper("command! EX4     :call  SnipperStuff('ex4.java','')")
-" call g:MyCommandMapper("command! EX5     :call  SnipperStuff('ex5.java','')")
-" call g:MyCommandMapper("command! EX5A    :call  SnipperStuff('ex5a.java','')")
-" call g:MyCommandMapper("command! EX5B    :call  SnipperStuff('ex5b.java','')")
-" call g:MyCommandMapper("command! EX5C    :call  SnipperStuff('ex5c.java','')")
-" call g:MyCommandMapper("command! EX5D    :call  SnipperStuff('ex5d.java','')")
-" call g:MyCommandMapper("command! EX6     :call  SnipperStuff('ex6.java','')")
-" call g:MyCommandMapper("command! EX8     :call  SnipperStuff('ex8.java','')")
-" call g:MyCommandMapper("command! EX9     :call  SnipperStuff('ex9.java','')")
-" call g:MyCommandMapper("command! EX10    :call  SnipperStuff('ex10.java','')")
-" call g:MyCommandMapper("command! EX11    :call  SnipperStuff('ex11.java','')")
-" call g:MyCommandMapper("command! EX12A   :call  SnipperStuff('ex12a.java','')")
-" call g:MyCommandMapper("command! EX12B   :call  SnipperStuff('ex12b.java','')")
-
-" call g:MyCommandMapper("command! XXX  :call      SnipperStuff('IntCircle.java','')")
-" call g:MyCommandMapper("command! XXX  :call      SnipperStuff('ex5bnew.java','')")
-" call g:MyCommandMapper("command! XXX  :call      SnipperStuff('ex6b.java','')")
-" call g:MyCommandMapper("command! XXX  :call      SnipperStuff('FileTest2.java','')")
-" call g:MyCommandMapper("command! XXX  :call      SnipperStuff('FileTest.java','')")
-" call g:MyCommandMapper("command! XXX  :call      SnipperStuff('PlayList.java','')")
-" call g:MyCommandMapper("command! XXX  :call      SnipperStuff('PlayListTest.java','')")
-" call g:MyCommandMapper("command! XXX  :call      SnipperStuff('Scores.java','')")
-" call g:MyCommandMapper("command! XXX  :call      SnipperStuff('Song.java','')")
-" call g:MyCommandMapper("command! XXX  :call      SnipperStuff('songs.txt','')")
-" call g:MyCommandMapper("command! XXX  :call      SnipperStuff('Template.txt','')")
-" call g:MyCommandMapper("command! XXX  :call      SnipperStuff('Uni.txt','')")
-" call g:MyCommandMapper("command! XXX  :call      SnipperStuff('VarChar.txt','')")
-" call g:MyCommandMapper("command! XXX  :call      SnipperStuff('VarDouble.txt','')")
-" call g:MyCommandMapper("command! XXX  :call      SnipperStuff('VarFloat.txt','')")
-" call g:MyCommandMapper("command! XXX  :call      SnipperStuff('Varint.txt','')")
 
 
 call g:SetMyKeyMapperMode("JAVA")
@@ -1850,6 +1826,58 @@ call g:MyCommandMapper("command! GREP   :call Greppyon(1)")
 
 " nnoremap <F3> :w<CR>:1<cr>i<cr><esc>k:r !gawk '/^function/{$1="";sub(/^ /,"", $0);print "\" " $0}' %<CR>:1<cr>dd
 
+" *****************************************************************************************************
+                                  " Git and Scratch Stuff
+                                  " *******************************************************************
+" git log --pretty=format:"%h : %an %ar : %s"
+" git log --pretty=format:'%h : %s' --graph > log.log
+" git log --pretty=format:'%h was %an, %ar, message: %s'
+" git log --pretty=format:'%h was %an, %ar, message: %s' > log.log
+" git config --list
+" git reset HEAD <FILENAME>    ; Unstage a file previously staged
+" git --no-pager log > log.txt
+" git config --global core.pager cat
+" git config --global man.viewer catman
+" git config --global man.catman.cmd 'man -P "col -b"'
+
+" call g:MyCommandMapper("command! KSTD     :call MyKeyMapperDump(g:MyKeyDict,'STD')")
+
+call g:SetMyKeyMapperMode("GIT")
+call g:MyCommandMapper("command! GITIGNORE e .gitignore")
+call g:MyCommandMapper("command! GITIG     e .gitignore")
+call g:MyCommandMapper("command! GITLOG      call Scratch('git log --pretty=format:\"%h : %an %ar : %s\" -4')")
+call g:MyCommandMapper("command! GITLOGLAST  call Scratch('git log --pretty=format:\"%h : %an %ar : %s\" -1')")
+call g:MyCommandMapper("command! GITLOGALL   call Scratch('git log --pretty=format:\"%h : %an %ar : %s\"')")
+call g:MyCommandMapper("command! GITLOG2     call Scratch('git log -p -1')")
+call g:MyCommandMapper("command! GITSTATUS   call Scratch('git status')")
+call g:MyCommandMapper("command! GITREMOTE   call Scratch('git remote -v')")
+
+command! GITLOG2X      call Scratch("git log -p -1")
+command! GITLOGA       call Scratch("git log --pretty=format:\"%h : %an %ar : %s\" -4")
+command! GITDIFF       call Scratch("git diff " . expand("%") )
+command! GITBLAME      call Scratch("git blame " . expand("%") )
+command! GITNOTSTAGED  call Scratch("git blame -s " . expand("%") . " | grep 00000000")
+command! GITDIFFSTAGED call Scratch("git diff --staged " )
+command! DF            call Scratch("df " )
+command! GITRESETHEAD  call Scratch("git reset HEAD " . expand("%") )
+
+command! TREE   call Scratch("tree -L 3", 40)
+
+function! Scratch(...)
+        for win in range(1, winnr('$'))
+            if getwinvar(win, 'scratch')
+                execute win . 'windo close'
+            endif
+        endfor
+        echom a:1
+        let  output = system(a:1)"
+        if (a:0 > 1)
+            call g:NewWindow("Right",a:2)
+        else
+            call g:NewWindow("Right",88)
+        endif
+        call setline(1, split(output, "\n"))
+endfunction
 
 " *****************************************************************************************************
                                   " Jump to Last Position When Reopening a File

@@ -57,14 +57,17 @@ function! s:BufferVisible(...)
 endfunction
 function! s:DeleteNoNameBuffer()
     let l:c = 1
-    while l:c &lt;= 64 
+    while l:c &lt;= 24 
         if (bufexists(l:c))
             if (bufname(l:c) == "")
                 if (s:BufferVisible(l:c) == 0)
                     exe "bd " . l:c
                 endif
             endif
+        else
+            let l:c = 1024
         endif
+
         let l:c += 1
     endwhile 
 endfunction
@@ -259,7 +262,7 @@ function! CaptureSession(...)
     let l:c=1
     let l:body=[]
     let l:winbody=[]
-    while l:c &lt;= 64 
+    while l:c &lt;= 24 
         if (bufexists(l:c))
             " if (filereadable(bufname(l:c)))
             if ( 1 == 1 )
@@ -520,7 +523,8 @@ function! g:SessionFiles()
     call g:BodyBuilderDump()
 endfunction
 
-
+" Hello New Comment!
+"
 function! g:FindBuffer()
     let l:szIn = input('buffer &gt;&gt; ')
     if (l:szIn == "ls")
@@ -561,6 +565,14 @@ endfunction
     trap 'rm -f "$Tmp" >/dev/null 2>&1' 0
     trap "exit 2" 1 2 3 13 15
     rm $Tmp  >/dev/null 2>&1
+    
+    
+    
+    HOST=`hostname -s`
+    EPOCHTIME=`date --rfc-3339=seconds |gawk '{sz= $1 "." $2;gsub(/:/,"", sz);   print sz}'`
+    RANDNAME=${EPOCHTIME}_${HOST}
+    echo $RANDNAME
+    exit 0
     
     VIMSESSIONDEFAULT=~/.vimsessiondefault
     VIMSESSION=.vimsession

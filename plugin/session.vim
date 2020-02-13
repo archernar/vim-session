@@ -47,14 +47,17 @@ function! s:BufferVisible(...)
 endfunction
 function! s:DeleteNoNameBuffer()
     let l:c = 1
-    while l:c <= 64 
+    while l:c <= 24 
         if (bufexists(l:c))
             if (bufname(l:c) == "")
                 if (s:BufferVisible(l:c) == 0)
                     exe "bd " . l:c
                 endif
             endif
+        else
+            let l:c = 1024
         endif
+
         let l:c += 1
     endwhile 
 endfunction
@@ -249,7 +252,7 @@ function! CaptureSession(...)
     let l:c=1
     let l:body=[]
     let l:winbody=[]
-    while l:c <= 64 
+    while l:c <= 24 
         if (bufexists(l:c))
             " if (filereadable(bufname(l:c)))
             if ( 1 == 1 )

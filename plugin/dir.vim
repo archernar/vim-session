@@ -9,6 +9,7 @@ let g:loaded_plugin_dir=1
 " *****************************************************************************************************
                 "  Command definitions
                 " *************************************************************************************
+command! SNIPS         :call g:MyDirSnips(0)
 command! DIR           :call g:MyDirPwd(1)
 command! DIRC          :call g:MyDirPwd(0)
 command! DDIR          :call g:MyDirPwd(0)

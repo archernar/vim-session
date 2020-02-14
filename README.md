@@ -295,6 +295,7 @@ let g:loaded_plugin_dir=1
 " *****************************************************************************************************
                 "  Command definitions
                 " *************************************************************************************
+command! SNIPS         :call g:MyDirSnips(0)
 command! DIR           :call g:MyDirPwd(1)
 command! DIRC          :call g:MyDirPwd(0)
 command! DDIR          :call g:MyDirPwd(0)
@@ -569,10 +570,8 @@ endfunction
     
     
     HOST=`hostname -s`
-    EPOCHTIME=`date --rfc-3339=seconds |gawk '{sz= $1 "." $2;gsub(/:/,"", sz);   print sz}'`
-    RANDNAME=${EPOCHTIME}_${HOST}
-    echo $RANDNAME
-    exit 0
+    EPOCHTIME=`date --rfc-3339=seconds |gawk '{sz= $1 "." $2;gsub(/(:)|(-)|([.])/,"", sz);   print sz}'`
+    RANDNAME=${HOST}_${EPOCHTIME}
     
     VIMSESSIONDEFAULT=~/.vimsessiondefault
     VIMSESSION=.vimsession
@@ -584,7 +583,7 @@ endfunction
         echo "$1"
     }
     
-    while getopts "nfabcersthmx:" arg
+    while getopts "ADRSKGnfabcersthmx:" arg
     do
     	case $arg in
                  n) if [ -a "$VIMNOSPLITS" ] ; then
@@ -607,6 +606,24 @@ endfunction
                    exit 0
                    ;;
                 c) vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','split | split')"
+                   exit 0
+                   ;;
+                S) vi -c SNIPS
+                   exit 0
+                   ;;
+                D) vi -c DIR
+                   exit 0
+                   ;;
+                A) vi $RANDNAME -c AWK
+                   exit 0
+                   ;;
+                G) vi $RANDNAME -c AWK
+                   exit 0
+                   ;;
+                K) vi $RANDNAME -c KSH
+                   exit 0
+                   ;;
+                R) vi $RANDNAME
                    exit 0
                    ;;
                 r) rm -f $VIMSESSION
@@ -640,17 +657,22 @@ endfunction
                    exit 0
                    ;;
                 h) print "vit"
-                   print "  -a  side/side window layout"
-                   print "  -b  up/down window layout"
-                   print "  -c  up/mid/down window layout"
-                   print "  -e  Edit ./.vimsession ./.vimwindows"
-                   print "  -f  copy ./.vimsession to ./.vimwindows (and call vit)"
-                   print "  -m  Simple Mode with MRU"
-                   print "  -n  Toggle no-splits flag"
-                   print "  -h  Help"
-                   print "  -r  Remove ./.vimsession and ./.vimwindows"
-                   print "  -s  Simple Mode:Open in a single window"
-                   print "  -t  Only Windows Mode: Just open blank windows"
+                   print "  -D      open with pwd directory pane"
+                   print "  -S      open with snips directory pane"
+                   print "  -R      open random name file"
+                   print "  -K      open KSH snip file"
+                   print "  -A, -G  open AWK snip file"
+                   print "  -a      side/side window layout"
+                   print "  -b      up/down window layout"
+                   print "  -c      up/mid/down window layout"
+                   print "  -e      Edit ./.vimsession ./.vimwindows"
+                   print "  -f      copy ./.vimsession to ./.vimwindows (and call vit)"
+                   print "  -m      Simple Mode with MRU"
+                   print "  -n      Toggle no-splits flag"
+                   print "  -h      Help"
+                   print "  -r      Remove ./.vimsession and ./.vimwindows"
+                   print "  -s      Simple Mode:Open in a single window"
+                   print "  -t      Only Windows Mode: Just open blank windows"
                    print ""
                    print "  -x  <layout>"
                    print ""

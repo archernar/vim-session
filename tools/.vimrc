@@ -846,7 +846,8 @@ function! BiModeSet(...)
           echo "BiModeSet(1) to Buffer"
           let g:BiModeState = 1 
           call g:MyKeyMapper("nnoremap <F1> :bnext<cr>", "Next Buffer")
-          call g:MyKeyMapper("nnoremap <leader><F1>  :call g:FindBuffer()<cr>","Find Buffer")
+          call g:MyKeyMapper("nnoremap <leader><F1> <C-W>w",     "Next Window")
+"           call g:MyKeyMapper("nnoremap <leader><F1>  :call g:FindBuffer()<cr>","Find Buffer")
 
           call g:MyKeyMapper("nnoremap <F2> :bprev<cr>", "Previous Buffer")
           call g:MyKeyMapper("nnoremap <leader><F2>  <Nop>","Nothing")
@@ -858,7 +859,8 @@ function! BiModeSet(...)
           echom "BiModeSet(0) to Window"
           let g:BiModeState = 0 
           call g:MyKeyMapper("nnoremap <F1> <C-W>w",     "Next Window")
-          call g:MyKeyMapper("nnoremap <leader><F1>  :botright  new<CR>","Split Window Down")
+          call g:MyKeyMapper("nnoremap <leader><F1> :bnext<cr>", "Next Buffer")
+"           call g:MyKeyMapper("nnoremap <leader><F1>  :botright  new<CR>","Split Window Down")
 
           call g:MyKeyMapper("nnoremap <F2> <C-W>W",     "Previous Window")
           call g:MyKeyMapper("nnoremap <leader><F2>  :botright  new<CR>","Split Window Down")
@@ -900,7 +902,7 @@ function! PolyModeMapReset()
           call g:MyKeyMapper("nnoremap <F9> :set paste!<cr>",                     "Toggle Paste Setting")
           call g:MyKeyMapper("nnoremap <F10> :CHEAT<cr>",                         "My Cheat Sheet")
           call g:MyKeyMapper("nnoremap <leader><F10> :DOC<cr>",                   "Vim Doc")
-          call g:MyKeyMapper("nnoremap <leader><F1> :call MyTTLDump()<cr>",       "My Help",1)
+"         call g:MyKeyMapper("nnoremap <leader><F1> :call MyTTLDump()<cr>",       "My Help",1)
           call g:MyKeyMapper("nnoremap <leader><F8> :call MyCheatsheetDump()<cr>","My Cheatsheet")
           call g:MyKeyMapper("nnoremap <leader><F9> :call MyQuickListDump()<cr>", "My QuickList")
           " call g:MyKeyMapper("nnoremap <leader><F12> lmaj0d$`ahp`ah",             "grabandtuck")

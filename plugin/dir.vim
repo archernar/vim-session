@@ -9,6 +9,7 @@ let g:loaded_plugin_dir=1
 " *****************************************************************************************************
                 "  Command definitions
                 " *************************************************************************************
+command! CODE          :call g:MyDirCode(0)
 command! SNIPS         :call g:MyDirSnips(0)
 command! DIR           :call g:MyDirPwd(1)
 command! DIRC          :call g:MyDirPwd(0)
@@ -162,6 +163,12 @@ endfunction
 function! s:DirSetSpecific(...)
     let s:DirSet = a:1
     return s:DirSet
+endfunction
+function! g:MyDirCode(...)
+    let s:DirCloseWindow = a:1
+    let s:DirEditWindow = winnr()
+    call s:DirSetSpecific($HOME . "/CODE") 
+    call s:MyDir($HOME . "/CODE" . s:DirMask)
 endfunction
 function! g:MyDirSnips(...)
     let s:DirCloseWindow = a:1

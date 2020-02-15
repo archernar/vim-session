@@ -21,7 +21,7 @@ print() {
     echo "$1"
 }
 
-while getopts "ADRSKGnfabcersthmx:" arg
+while getopts "ACDRSKGnfabcersthmx:" arg
 do
 	case $arg in
              n) if [ -a "$VIMNOSPLITS" ] ; then
@@ -44,6 +44,9 @@ do
                exit 0
                ;;
             c) vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','split | split')"
+               exit 0
+               ;;
+            C) vi -c CODE
                exit 0
                ;;
             S) vi -c SNIPS

@@ -85,7 +85,7 @@ function! FileInSession(...)
 endfunction
 function! g:LoadNamedSession()
     silent exe "0,24bdelete!"
-    let l:szIn = input('session name &gt;&gt; ')
+    let l:szIn = input('session name (.vimsession) &gt;&gt; ')
     if (strlen(l:szIn) &gt; 0)
         call LoadSession(szIn,'e')
     else
@@ -317,7 +317,8 @@ command! SESSIONLOADT  :call LoadSessionT('.vimsession','vimwindows', 'e')
 command! SESSIONFILES  :call g:SessionFiles()
 command! SL            :call g:SessionFiles()
 
-command! LOADNAMEDSESSION       :call g:LoadNamedSession()
+command! LOADNAMEDSESSION  :call g:LoadNamedSession()
+command! LOADSESSION       :call g:LoadNamedSession()
 
 " *****************************************************************************************************
                 "  Local/Script Functions

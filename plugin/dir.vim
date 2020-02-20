@@ -22,7 +22,8 @@ command! SESSIONLOADT  :call LoadSessionT('.vimsession','vimwindows', 'e')
 command! SESSIONFILES  :call g:SessionFiles()
 command! SL            :call g:SessionFiles()
 
-command! LOADNAMEDSESSION       :call g:LoadNamedSession()
+command! LOADNAMEDSESSION  :call g:LoadNamedSession()
+command! LOADSESSION       :call g:LoadNamedSession()
 
 " *****************************************************************************************************
                 "  Local/Script Functions

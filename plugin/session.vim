@@ -47,7 +47,7 @@ function! s:BufferVisible(...)
 endfunction
 function! s:DeleteNoNameBuffer()
     let l:c = 1
-    while l:c <= 24 
+    while l:c <= 1024 
         if (bufexists(l:c))
             if (bufname(l:c) == "")
                 if (s:BufferVisible(l:c) == 0)
@@ -55,7 +55,7 @@ function! s:DeleteNoNameBuffer()
                 endif
             endif
         else
-            let l:c = 1024
+            let l:c = 2024
         endif
         let l:c += 1
     endwhile 
@@ -73,7 +73,7 @@ function! FileInSession(...)
     return l:nRet
 endfunction
 function! g:LoadNamedSession()
-    silent exe "0,24bdelete!"
+    silent exe "0,1024bdelete!"
     let l:szIn = input('session name (.vimsession) >> ')
     if (strlen(l:szIn) > 0)
         call LoadSession(szIn,'e')
@@ -260,7 +260,7 @@ function! CaptureSession(...)
     let l:c=1
     let l:body=[]
     let l:winbody=[]
-    while l:c <= 24 
+    while l:c <= 1024 
         if (bufexists(l:c))
             " if (filereadable(bufname(l:c)))
             if ( 1 == 1 )

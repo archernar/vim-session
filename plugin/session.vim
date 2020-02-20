@@ -109,7 +109,7 @@ function! LoadSession(...)
         call s:DeleteNoNameBuffer()
     endif
     call s:LoadLastBuffer(".vimbuffer",".vimforcebuffer",a:1)
-    echom l:sz
+"     echom l:sz
     autocmd Filetype,BufEnter * call CaptureBuffer()
 endfunction
 

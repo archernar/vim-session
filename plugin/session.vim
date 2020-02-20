@@ -57,7 +57,6 @@ function! s:DeleteNoNameBuffer()
         else
             let l:c = 1024
         endif
-
         let l:c += 1
     endwhile 
 endfunction

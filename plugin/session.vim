@@ -13,7 +13,7 @@
 " ====================================================================================
 "
 if exists("g:loaded_plugin_session") || v:version < 700 || &cp
-  finish
+    finish
 endif
 let g:loaded_plugin_session=1
 
@@ -71,6 +71,9 @@ function! FileInSession(...)
         endfor
     endif
     return l:nRet
+endfunction
+function! g:DeleteAllBuffers()
+    silent exe "0,1024bdelete!"
 endfunction
 function! g:LoadNamedSession()
     silent exe "0,1024bdelete!"

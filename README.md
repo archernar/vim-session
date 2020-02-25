@@ -23,7 +23,7 @@ Simple Vim session management
 " ====================================================================================
 "
 if exists("g:loaded_plugin_session") || v:version &lt; 700 || &amp;cp
-  finish
+    finish
 endif
 let g:loaded_plugin_session=1
 
@@ -81,6 +81,9 @@ function! FileInSession(...)
         endfor
     endif
     return l:nRet
+endfunction
+function! g:DeleteAllBuffers()
+    silent exe "0,1024bdelete!"
 endfunction
 function! g:LoadNamedSession()
     silent exe "0,1024bdelete!"
@@ -303,11 +306,12 @@ let g:loaded_plugin_dir=1
 " *****************************************************************************************************
                 "  Command definitions
                 " *************************************************************************************
-command! CODE          :call g:MyDirCode(0)
-command! SNIPS         :call g:MyDirSnips(0)
-command! DIR           :call g:MyDirPwd(1)
-command! DIRC          :call g:MyDirPwd(0)
-command! DDIR          :call g:MyDirPwd(0)
+command! CODE          :call s:MyDirCode(0)
+command! SNIPS         :call s:MyDirSnips(0)
+command! DIR           :call s:MyDirPwd(1)
+command! DIRC          :call s:MyDirPwd(0)
+command! DDIR          :call s:MyDirPwd(0)
+
 command! SESSIONLIST   :call g:ListBuffers()
 command! SESSIONEDIT   :e .vimsession
 command! SESSION       :call CaptureSession('.vimsession')
@@ -450,7 +454,7 @@ function! g:ListBuffers()
         let l:c += 1
     endwhile 
 endfunction
-function! g:MyDirPwd(...)
+function! s:MyDirPwd(...)
     let s:DirCloseWindow = a:1
     let s:DirEditWindow = winnr()
     call s:DirSetPwd() 
@@ -460,15 +464,15 @@ function! s:DirSetSpecific(...)
     let s:DirSet = a:1
     return s:DirSet
 endfunction
-function! g:MyDirCode(...)
-    let s:DirCloseWindow = a:1
-    let s:DirEditWindow = winnr()
+function! s:MyDirCode(...)
+    let  s:DirCloseWindow = a:1
+    let  s:DirEditWindow = winnr()
     call s:DirSetSpecific($HOME . "/CODE") 
     call s:MyDir($HOME . "/CODE" . s:DirMask)
 endfunction
-function! g:MyDirSnips(...)
-    let s:DirCloseWindow = a:1
-    let s:DirEditWindow = winnr()
+function! s:MyDirSnips(...)
+    let  s:DirCloseWindow = a:1
+    let  s:DirEditWindow = winnr()
     call s:DirSetSpecific($HOME . "/.vim/Snips") 
     call s:MyDir($HOME . "/.vim/Snips" . s:DirMask)
 endfunction

@@ -308,6 +308,8 @@ let g:loaded_plugin_dir=1
                 " *************************************************************************************
 command! CODE          :call s:MyDirCode(0)
 command! SNIPS         :call s:MyDirSnips(0)
+command! JSNIPS        :call s:MyDirJSnips(0)
+command! CLASSES      :call s:MyDirClasses(0)
 command! DIR           :call s:MyDirPwd(1)
 command! DIRC          :call s:MyDirPwd(0)
 command! DDIR          :call s:MyDirPwd(0)
@@ -475,6 +477,18 @@ function! s:MyDirSnips(...)
     let  s:DirEditWindow = winnr()
     call s:DirSetSpecific($HOME . "/.vim/Snips") 
     call s:MyDir($HOME . "/.vim/Snips" . s:DirMask)
+endfunction
+function! s:MyDirClasses(...)
+    let  s:DirCloseWindow = a:1
+    let  s:DirEditWindow = winnr()
+    call s:DirSetSpecific($HOME . "/classes") 
+    call s:MyDir($HOME . "/classes/*.class")
+endfunction
+function! s:MyDirJSnips(...)
+    let  s:DirCloseWindow = a:1
+    let  s:DirEditWindow = winnr()
+    call s:DirSetSpecific($HOME . "/.vim/Snips") 
+    call s:MyDir($HOME . "/.vim/Snips" . "/J*.txt")
 endfunction
 
 function! g:MyDirAction(...)

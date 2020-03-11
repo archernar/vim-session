@@ -64,6 +64,16 @@ function! Head()
    call setline(l:currentLine+2, l:two . l:szIn)
    call setline(l:currentLine+3, l:three)
 endfunction
+
+function! X100()
+    call inputsave()
+    let l:szIn = input("Snip ")
+    call inputrestore()
+    execute "e ~/.vim/Snips/" . l:szIn . ".txt"
+endfunction
+
+vnoremap v y:call X100()<cr>
+
 " *****************************************************************************************************
                 " External Environments Variables
                 " *************************************************************************************
@@ -159,6 +169,7 @@ if !exists("NOVUNDLE")
                                   " Vundle            - see :h vundle for more details or wiki for FAQ
                                   " *******************************************************************
                                   " git clone  https://github.com/VundleVim/Vundle.vim.git  ~/.vim/bundle/Vundle.vim
+                                  " git clone  https://github.com/archernar/dotfiles.git    ~/tmp
                                   " :PluginList       - lists configured plugins
                                   " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
                                   " :PluginUpdate     - <leader>p
@@ -1886,5 +1897,4 @@ if has("autocmd")
    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
    \| exe "normal! g'\"" | endif
 endif
-
 

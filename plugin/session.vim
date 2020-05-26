@@ -17,6 +17,8 @@ if exists("g:loaded_plugin_session") || v:version < 700 || &cp
 endif
 let g:loaded_plugin_session=1
 
+let s:MAXBUFFERS=1024 
+
 "
 " ------------------------------------------
 " s:WindowExists(...)
@@ -47,7 +49,7 @@ function! s:BufferVisible(...)
 endfunction
 function! s:DeleteNoNameBuffer()
     let l:c = 1
-    while l:c <= 1024 
+    while l:c <= s:MAXBUFFERS 
         if (bufexists(l:c))
             if (bufname(l:c) == "")
                 if (s:BufferVisible(l:c) == 0)
@@ -55,7 +57,7 @@ function! s:DeleteNoNameBuffer()
                 endif
             endif
         else
-            let l:c = 2024
+            let l:c = s:MAXBUFFERS * 2 
         endif
         let l:c += 1
     endwhile 
@@ -73,10 +75,10 @@ function! FileInSession(...)
     return l:nRet
 endfunction
 function! g:DeleteAllBuffers()
-    silent exe "0,1024bdelete!"
+    silent exe "0,s:MAXBUFFERSbdelete!"
 endfunction
 function! g:LoadNamedSession()
-    silent exe "0,1024bdelete!"
+    silent exe "0,s:MAXBUFFERSbdelete!"
     let l:szIn = input('session name (.vimsession) >> ')
     if (strlen(l:szIn) > 0)
         call LoadSession(szIn,'e')
@@ -263,7 +265,7 @@ function! CaptureSession(...)
     let l:c=1
     let l:body=[]
     let l:winbody=[]
-    while l:c <= 1024 
+    while l:c <= s:MAXBUFFERS 
         if (bufexists(l:c))
             " if (filereadable(bufname(l:c)))
             if ( 1 == 1 )

@@ -43,6 +43,7 @@ cp plugin/dir.vim $HOME/.vim/bundle/$REPO/plugin/dir.vim
 cp tools/vit ~/firstbin/vit
 cp tools/vi  ~/firstbin/vi
 cp ~/.vimrc   tools/.vimrc 
+print "Local Deployment Done"
 
 if [ "$LOCAL" == "yes" ] ; then
     print "Local Deployment Only"

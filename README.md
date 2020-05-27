@@ -29,26 +29,24 @@ let g:loaded_plugin_session=1
 
 let s:MAXBUFFERS=32
 
-"
 " ------------------------------------------
 " s:WindowExists(...)
-" a:1 is the window  number
+" a:1 is the window number
 " ------------------------------------------
 function! s:WindowExists(...)
-    let nRet = 0
+    let l:nRet = 0
     for l:l in range(1, winnr('$'))
         if (a:1 == l:l) 
-            let nRet = 1
+            let l:nRet = 1
         endif
     endfor
-    return nRet
+    return l:nRet
 endfunction
 " ------------------------------------------
 " s:BufferVisible(...)
 " a:1 is the buffer number
 " ------------------------------------------
 function! s:BufferVisible(...)
-    " a:1 is the buffer number
     let l:ret = 0
     for l:l in range(1, winnr('$'))
         if (a:1 == winbufnr(l:l))
@@ -57,6 +55,9 @@ function! s:BufferVisible(...)
     endfor
     return l:ret
 endfunction
+" ------------------------------------------
+" s:DeleteNoNameBuffer()
+" ------------------------------------------
 function! s:DeleteNoNameBuffer()
     let l:c = 1
     while l:c &lt;= s:MAXBUFFERS 
@@ -72,7 +73,11 @@ function! s:DeleteNoNameBuffer()
         let l:c += 1
     endwhile 
 endfunction
-function! FileInSession(...)
+" ------------------------------------------
+" s:FileInSession(...)
+" a:1 is a file name
+" ------------------------------------------
+function! s:FileInSession(...)
     let nRet = 0
     if (filereadable(a:1))
         let l:body = readfile(a:1)
@@ -84,9 +89,15 @@ function! FileInSession(...)
     endif
     return l:nRet
 endfunction
+" ------------------------------------------
+" g:DeleteAllBuffers()
+" ------------------------------------------
 function! g:DeleteAllBuffers()
     silent exe "0,s:MAXBUFFERSbdelete!"
 endfunction
+" ------------------------------------------
+" g:LoadNamedSession()
+" ------------------------------------------
 function! g:LoadNamedSession()
     silent exe "0,s:MAXBUFFERSbdelete!"
     let l:szIn = input('session name (.vimsession) &gt;&gt; ')
@@ -247,7 +258,7 @@ function! s:LoadLastBuffer(...)
     if (filereadable(a:1))
         let l:body = readfile(a:1)
         for l:l in l:body
-             if (FileInSession(a:3, l:l) == 1)
+             if (s:FileInSession(a:3, l:l) == 1)
                  exe "e " . l:l
              endif
         endfor
@@ -257,7 +268,7 @@ function! s:LoadLastBuffer(...)
     if (filereadable(a:2))
         let l:body = readfile(a:2)
         for l:l in l:body
-             if (FileInSession(a:3, l:l) == 1)
+             if (s:FileInSession(a:3, l:l) == 1)
                  exe "e " . l:l
              endif
         endfor

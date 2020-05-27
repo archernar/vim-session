@@ -17,7 +17,7 @@ if exists("g:loaded_plugin_session") || v:version < 700 || &cp
 endif
 let g:loaded_plugin_session=1
 
-let s:MAXBUFFERS=1024 
+let s:MAXBUFFERS=32
 
 "
 " ------------------------------------------
@@ -265,6 +265,7 @@ function! CaptureSession(...)
     let l:c=1
     let l:body=[]
     let l:winbody=[]
+    echom "capturing up to " . s:MAXBUFFERS . " buffers"
     while l:c <= s:MAXBUFFERS 
         if (bufexists(l:c))
             " if (filereadable(bufname(l:c)))

@@ -85,7 +85,7 @@ vnoremap v y:call X100()<cr>
 set splitbelow
 set splitright
 
-set cmdheight=3                   " Set the command window height to 2 lines, to avoid many cases of having to  press <Enter> to continue
+set cmdheight=2                   " Set the command window height to 2 lines, to avoid many cases of having to  press <Enter> to continue
 set nowrap
 set nocompatible
 " set relativenumber
@@ -169,7 +169,10 @@ if !exists("NOVUNDLE")
                                   " Vundle            - see :h vundle for more details or wiki for FAQ
                                   " *******************************************************************
                                   " git clone  https://github.com/VundleVim/Vundle.vim.git  ~/.vim/bundle/Vundle.vim
+                                  " git clone  https://github.com/archernar/home.git .
                                   " git clone  https://github.com/archernar/dotfiles.git    ~/tmp
+                                  " git clone
+                                  " git clone  https://github.com/archernar/Snips.git .
                                   " :PluginList       - lists configured plugins
                                   " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
                                   " :PluginUpdate     - <leader>p
@@ -201,8 +204,8 @@ Bundle 'owickstrom/vim-colors-paramount'
 "let g:NERDTreeNodeDelimiter = "\u00a0"
 "call g:MyKeyMapper("nnoremap <Leader>nt :NERDTreeToggle<cr>","NERDTree Toggle")
 "call g:MyCommandMapper("command! DOC     :NERDTree /usr/share/vim/vim74/doc")
-"Plugin 'vim-airline/vim-airline'
-"Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'kristijanhusak/vim-carbon-now-sh'
 "Plugin 'Buffergator'
 "Plugin 'tpope/vim-fugitive'
@@ -1525,6 +1528,7 @@ nnoremap <silent> <Leader>ts
                                   "  Yellow, LightYellow, DarkYellow
 " colorscheme darkblue
 " colorscheme onehalflight
+" let g:airline_theme='atomic'
 " let g:airline_theme='onehalfdark'
 " let g:gruvbox_italic=1
 " colorscheme gruvbox

@@ -98,12 +98,32 @@ function! s:FileInSession(...)
     endif
     return l:nRet
 endfunction
+
 " ==============================================================================
-"                                     - Global Function
+"                                     - Script Utility Function
 "                                     ------------------------------------------
-"                                     - 
+"                                     - s:LoadLastBuffer(...)
 "                                     -      
 "                                     ------------------------------------------
+function! s:LoadLastBuffer(...)
+    if (filereadable(a:1))
+        let l:body = readfile(a:1)
+        for l:l in l:body
+             if (s:FileInSession(a:3, l:l) == 1)
+                 exe "e " . l:l
+             endif
+        endfor
+    endif
+    if (filereadable(a:2))
+        let l:body = readfile(a:2)
+        for l:l in l:body
+             if (s:FileInSession(a:3, l:l) == 1)
+                 exe "e " . l:l
+             endif
+        endfor
+    endif
+endfunction
+
 " ==============================================================================
 "                                     - Global Function
 "                                     ------------------------------------------
@@ -250,6 +270,12 @@ endfunction
 "For more info run :help expand
 
 
+" ==============================================================================
+"                                     - Global Function
+"                                     ------------------------------------------
+"                                     - CaptureBuffer() 
+"                                     -      
+"                                     ------------------------------------------
 function! CaptureBuffer()
     let l:body=[]
     if (! (expand('%:t') == ".vimbuffer") )
@@ -257,12 +283,23 @@ function! CaptureBuffer()
         call writefile(l:body, ".vimbuffer")
     endif
 endfunction
+" ==============================================================================
+"                                     - Global Function
+"                                     ------------------------------------------
+"                                     - EmptyCaptureBuffer()
+"                                     -      
+"                                     ------------------------------------------
 command! ECB  :call EmptyCaptureBuffer()
 function! EmptyCaptureBuffer()
     let l:body=[]
     call writefile(l:body, ".vimbuffer")
 endfunction
-
+" ==============================================================================
+"                                     - Global Function
+"                                     ------------------------------------------
+"                                     - CaptureForceBuffer()
+"                                     -      
+"                                     ------------------------------------------
 command! FORCE :call CaptureForceBuffer()
 function! CaptureForceBuffer()
     let l:body=[]
@@ -271,39 +308,27 @@ function! CaptureForceBuffer()
         call writefile(l:body, ".vimforcebuffer")
     endif
 endfunction
-
+" ==============================================================================
+"                                     - Global Function
+"                                     ------------------------------------------
+"                                     - EmptyForceBuffer()
+"                                     -      
+"                                     ------------------------------------------
 command! UNFORCE :call EmptyForceBuffer()
 function! EmptyForceBuffer()
     let l:body=[]
     call writefile(l:body, ".vimforcebuffer")
 endfunction
 
-function! s:LoadLastBuffer(...)
-    if (filereadable(a:1))
-        let l:body = readfile(a:1)
-        for l:l in l:body
-             if (s:FileInSession(a:3, l:l) == 1)
-                 exe "e " . l:l
-             endif
-        endfor
-    endif
-
-
-    if (filereadable(a:2))
-        let l:body = readfile(a:2)
-        for l:l in l:body
-             if (s:FileInSession(a:3, l:l) == 1)
-                 exe "e " . l:l
-             endif
-        endfor
-    endif
-endfunction
-
-" ------------------------------------------
-" CaptureSession(...)
-" a:1 is the session file filename (default is .vimsession)
-" a:2 is the window file filename  (default is .vimwindows)
-" ------------------------------------------
+" ==============================================================================
+"                                     - Global Function
+"                                     ------------------------------------------
+"                                     - CaptureSession(...)
+"                                     -    a:1 is the session file filename 
+"                                     -        default is .vimsession
+"                                     -    a:2 is the window file filename
+"                                     -        default is .vimwindows
+"                                     ------------------------------------------
 function! CaptureSession(...)
     let l:c=1
     let l:body=[]
@@ -333,6 +358,12 @@ endfunction
 " ------------------------------------------
 " ==============================================================================
 "                                     - Script Utility Function
+"                                     ------------------------------------------
+"                                     - 
+"                                     -      
+"                                     ------------------------------------------
+" ==============================================================================
+"                                     - Global Function
 "                                     ------------------------------------------
 "                                     - 
 "                                     -      

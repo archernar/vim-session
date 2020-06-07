@@ -98,15 +98,27 @@ function! s:FileInSession(...)
     endif
     return l:nRet
 endfunction
-" ------------------------------------------
-" g:DeleteAllBuffers()
-" ------------------------------------------
+" ==============================================================================
+"                                     - Global Function
+"                                     ------------------------------------------
+"                                     - 
+"                                     -      
+"                                     ------------------------------------------
+" ==============================================================================
+"                                     - Global Function
+"                                     ------------------------------------------
+"                                     - g:DeleteAllBuffers()
+"                                     -      
+"                                     ------------------------------------------
 function! g:DeleteAllBuffers()
     silent exe "0,s:MAXBUFFERSbdelete!"
 endfunction
-" ------------------------------------------
-" g:LoadNamedSession()
-" ------------------------------------------
+" ==============================================================================
+"                                     - Global Function
+"                                     ------------------------------------------
+"                                     - g:LoadNamedSession()
+"                                     -      
+"                                     ------------------------------------------
 function! g:LoadNamedSession()
     silent exe "0,s:MAXBUFFERSbdelete!"
     let l:szIn = input('session name (.vimsession) &gt;&gt; ')
@@ -116,12 +128,14 @@ function! g:LoadNamedSession()
         call LoadSession('.vimsession','e')
     endif
 endfunction
-" ------------------------------------------
-" LoadSession(...)
-" a:1 is the session file filename
-" a:2 is the command to apply to files
-"     default is 'e'
-" ------------------------------------------
+" ==============================================================================
+"                                     - Global Function
+"                                     ------------------------------------------
+"                                     - LoadSession(...)
+"                                     -      a:1 is the session file filename
+"                                     -      a:2 is the cmd to apply to files
+"                                     -          default is 'e'
+"                                     ------------------------------------------
 function! LoadSession(...)
     let l:filecmd = (a:0 &gt; 1) ? a:2 : "e"
     let l:sz = ""
@@ -147,17 +161,18 @@ function! LoadSession(...)
     autocmd Filetype,BufEnter * call CaptureBuffer()
 endfunction
 
-
-" ------------------------------------------
-" LoadSessionT(...)
-" a:1 is the session file filename
-" a:2 is the window file filename
-" a:3 is the command to apply to files
-"     def: 'e'
-" a:4 a set of split commands
-"     def: vsplit | split | vert resize 33
-"
-" ------------------------------------------
+" ==============================================================================
+"                                     - Global Function
+"                                     ------------------------------------------
+"                                     - LoadSessionT(...)
+"                                     -   a:1 is the session file filename
+"                                     -   a:2 is the window file filename
+"                                     -   a:3 is the command to apply to files
+"                                     -       def: 'e'
+"                                     -   a:4 a set of split commands
+"                                     -   def: vsplit | split | vert resize 33
+"                                     -      
+"                                     ------------------------------------------
 function! LoadSessionT(...)
     let l:filecmd = (a:0 &gt; 2) ? a:3 : "e"
     let l:splits = ""

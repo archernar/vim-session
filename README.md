@@ -29,10 +29,12 @@ let g:loaded_plugin_session=1
 
 let s:MAXBUFFERS=32
 
-" ------------------------------------------
-" s:WindowExists(...)
-" a:1 is the window number
-" ------------------------------------------
+" ==============================================================================
+"                                     - Script Utility Function
+"                                     ------------------------------------------
+"                                     - s:WindowExists(...)
+"                                     -      a:1 is the window number
+"                                     ------------------------------------------
 function! s:WindowExists(...)
     let l:nRet = 0
     for l:l in range(1, winnr('$'))
@@ -42,10 +44,12 @@ function! s:WindowExists(...)
     endfor
     return l:nRet
 endfunction
-" ------------------------------------------
-" s:BufferVisible(...)
-" a:1 is the buffer number
-" ------------------------------------------
+" ==============================================================================
+"                                     - Script Utility Function
+"                                     ------------------------------------------
+"                                     - s:BufferVisible(...)
+"                                     -      a:1 is the buffer number
+"                                     ------------------------------------------
 function! s:BufferVisible(...)
     let l:ret = 0
     for l:l in range(1, winnr('$'))
@@ -55,9 +59,12 @@ function! s:BufferVisible(...)
     endfor
     return l:ret
 endfunction
-" ------------------------------------------
-" s:DeleteNoNameBuffer()
-" ------------------------------------------
+" ==============================================================================
+"                                     - Script Utility Function
+"                                     ------------------------------------------
+"                                     - s:DeleteNoNameBuffer()
+"                                     -      
+"                                     ------------------------------------------
 function! s:DeleteNoNameBuffer()
     let l:c = 1
     while l:c &lt;= s:MAXBUFFERS 
@@ -73,10 +80,12 @@ function! s:DeleteNoNameBuffer()
         let l:c += 1
     endwhile 
 endfunction
-" ------------------------------------------
-" s:FileInSession(...)
-" a:1 is a file name
-" ------------------------------------------
+" ==============================================================================
+"                                     - Script Utility Function
+"                                     ------------------------------------------
+"                                     - s:FileInSession(...)
+"                                     -      a:1 is a file name
+"                                     ------------------------------------------
 function! s:FileInSession(...)
     let nRet = 0
     if (filereadable(a:1))
@@ -306,6 +315,13 @@ function! CaptureSession(...)
     call writefile(l:winbody, (a:0 &gt; 1) ? a:2 : ".vimwindows")
     echom "session written"
 endfunction
+" ------------------------------------------
+" ==============================================================================
+"                                     - Script Utility Function
+"                                     ------------------------------------------
+"                                     - 
+"                                     -      
+"                                     ------------------------------------------
 </code></pre>
 
 

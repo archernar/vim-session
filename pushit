@@ -57,7 +57,7 @@ fi
 
 print "Building README.md"
 
-print "# Simple Vim session management" > README.md
+print "# Simple Vim session and split management" > README.md
 print "" >> README.md
 
 print "## Screen Shot" >> README.md

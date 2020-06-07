@@ -1,4 +1,4 @@
-# Simple Vim session management
+# Simple Vim session and split management
 
 ## Screen Shot
 ![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png)

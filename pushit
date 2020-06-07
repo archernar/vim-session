@@ -57,19 +57,22 @@ fi
 
 print "Building README.md"
 
-print "# vim-session" > README.md
-print "Simple Vim session management" >> README.md
+print "# Simple Vim session management" > README.md
 print "" >> README.md
 
 print "## Screen Shot" >> README.md
 print  "![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png)" >> README.md
 print "" >> README.md
-print "## DIR Command (simple file selector)" >> README.md
-print  "![alt text](https://github.com/archernar/vim-session/blob/master/images/dirsession.png)" >> README.md
-print "" >> README.md
 
 print "## session.vim" >> README.md
 cat plugin/session.vim | gawk '{print "    " $0}' | markdown >> README.md
+print "" >> README.md
+print "" >> README.md
+
+print "## DIR Command (simple file selector)" >> README.md
+print  "![alt text](https://github.com/archernar/vim-session/blob/master/images/dirsession.png)" >> README.md
+print "" >> README.md
+print "## dir.vim" >> README.md
 cat plugin/dir.vim | gawk '{print "    " $0}' | markdown >> README.md
 
 print "## Example Integration:  vit (Adv. model)" >> README.md
@@ -79,8 +82,6 @@ cat tools/vit | gawk '{print "    " $0}' >> README.md
 print "## Example Integration: vi (simple model)" >> README.md
 print "" >> README.md
 cat tools/vi | gawk '{print "    " $0}' >> README.md
-
-
 
           git add plugin/session.vim
           git add plugin/dir.vim

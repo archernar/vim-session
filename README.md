@@ -1,11 +1,7 @@
-# vim-session
-Simple Vim session management
+# Simple Vim session management
 
 ## Screen Shot
 ![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png)
-
-## DIR Command (simple file selector)
-![alt text](https://github.com/archernar/vim-session/blob/master/images/dirsession.png)
 
 ## session.vim
 <pre><code>" ==============================================================================
@@ -311,6 +307,12 @@ function! CaptureSession(...)
     echom "session written"
 endfunction
 </code></pre>
+
+
+## DIR Command (simple file selector)
+![alt text](https://github.com/archernar/vim-session/blob/master/images/dirsession.png)
+
+## dir.vim
 <pre><code>" *****************************************************************************************************
                 "  dir.vim - a Simple Directory Lister/File Opener
                 " *************************************************************************************

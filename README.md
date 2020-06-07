@@ -8,19 +8,23 @@ Simple Vim session management
 ![alt text](https://github.com/archernar/vim-session/blob/master/images/dirsession.png)
 
 ## session.vim
-<pre><code>" ====================================================================================
-" Required Environment Variables
+<pre><code>" ==============================================================================
+" Environment Variables
 "
 " export VIMSESSION=.vimsession
 " export VIMWINDOWS=.vimwindows
 "
 " To capture sessions, define a vim command of the form
 "
-" command! SESSION  :call CaptureSession('$VIMSESSION', '$VIMWINDOWS')   or
-" command! SESSION  :call CaptureSession('$VIMSESSION')   or
+" command! SESSION  :call CaptureSession('$VIMSESSION', '$VIMWINDOWS') or
+" command! SESSION  :call CaptureSession('$VIMSESSION') or
 " command! SESSION  :call CaptureSession()
+" 
+" CaptureSession(...)
+"      a:1 is the session file filename (default is .vimsession)
+"      a:2 is the window file filename  (default is .vimwindows)
 "
-" ====================================================================================
+" ==============================================================================
 "
 if exists("g:loaded_plugin_session") || v:version &lt; 700 || &amp;cp
     finish
@@ -277,10 +281,8 @@ endfunction
 
 " ------------------------------------------
 " CaptureSession(...)
-" a:1 is the session file filename
-"     def: .vimsession
-" a:2 is the window file filename
-"     def: .vimwindows
+" a:1 is the session file filename (default is .vimsession)
+" a:2 is the window file filename  (default is .vimwindows)
 " ------------------------------------------
 function! CaptureSession(...)
     let l:c=1

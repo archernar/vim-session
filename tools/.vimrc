@@ -1,79 +1,6 @@
 " *****************************************************************************************************
                 "  W e l c o m e   t o   m y  V I M R C
                 " *************************************************************************************
-" Notes
-" There are several name spaces for variables.
-" 
-" (nothing)            In a function: local to a function; otherwise: global
-" |buffer-variable|    b:	  Local to the current buffer.
-" |window-variable|    w:	  Local to the current window.
-" |tabpage-variable|   t:	  Local to the current tab page.
-" |global-variable|    g:	  Global.
-" |local-variable|     l:	  Local to a function.
-" |script-variable|    s:	  Local to a |:source|'ed Vim script.
-" |function-argument|  a:	  Function argument (only inside a function).
-" |vim-variable|       v:	  Global, predefined by Vim.
-" nnoremap <F4> :new<cr>:-1read $HOME/.vim/ksh.top<CR>
-" *****************************************************************************************************
-
-command! HEADS :call TestHeads()
-function! TestHeads()
-    let pu=strftime('%c')
-    call Heads("L", "")
-    call Heads("R", pu)
-    call Heads("L","  a1 - ")
-    call Heads("L","  a2 - ")
-    call Heads("L","  a3 - ")
-    call Heads("L", "")
-    call append(line("."), "")
-endfunction
-function! Headline(...)
-   let l:in=a:1
-   let l:sz = "\"" . l:in 
-   call append(line("."), l:sz . "|")
-   exe "normal j"
-endfunction
-function! Heads(...)
-   let l:line="------------------------------------------"
-   let l:in=a:2
-   let l:linelen = strlen(l:line)
-   let l:len = strlen(l:in)
-   let l:sz = l:line
-   let l:e = "-|"
-   if (l:len > 0)
-       let l:sz = strpart( l:line, 0, l:linelen - (l:len) )
-       let l:sz = substitute(l:sz, "-", " ", "g")
-       let l:e = " |"
-   endif
-   if (a:1 == "L")
-      let l:sz = l:in . l:sz 
-   else
-      let l:sz = l:sz . l:in 
-   endif
-   call append(line("."), "\"" . l:sz . l:e)
-   exe "normal j"
-endfunction
-function! Head()
-   let l:one="\" ***************************************************************************************************"
-   let l:two="\"               * "
-   let l:three="\"               *************************************************************************************"
-   let l:szIn = input('header text >> ')
-   let l:currentLine   = getline(".")
-   echom l:szIn
-   call setline(l:currentLine+1, l:one)
-   call setline(l:currentLine+2, l:two . l:szIn)
-   call setline(l:currentLine+3, l:three)
-endfunction
-
-function! X100()
-    call inputsave()
-    let l:szIn = input("Snip ")
-    call inputrestore()
-    execute "e ~/.vim/Snips/" . l:szIn . ".txt"
-endfunction
-
-vnoremap v y:call X100()<cr>
-
 " *****************************************************************************************************
                 " External Environments Variables
                 " *************************************************************************************
@@ -178,7 +105,6 @@ if !exists("NOVUNDLE")
                                   " :PluginUpdate     - <leader>p
                                   " :PluginSearch foo - searches for foo; append `!` to refresh local cache
                                   " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"         Bundle 'fxn/vim-monochrome'
                                   " *******************************************************************
 set rtp+=~/.vim/bundle/Vundle.vim " Vundle BEGIN
 call vundle#begin()               " Vundle BEGIN
@@ -200,25 +126,8 @@ Plugin 'vim-scripts/grep.vim'      " https://github.com/vim-scripts/grep.vim
 Plugin 'tpope/vim-surround'
 Bundle 'Lokaltog/vim-monotone.git'
 Bundle 'owickstrom/vim-colors-paramount'
-"Plugin 'scrooloose/nerdtree.git'
-"let g:NERDTreeNodeDelimiter = "\u00a0"
-"call g:MyKeyMapper("nnoremap <Leader>nt :NERDTreeToggle<cr>","NERDTree Toggle")
-"call g:MyCommandMapper("command! DOC     :NERDTree /usr/share/vim/vim74/doc")
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-"Plugin 'kristijanhusak/vim-carbon-now-sh'
-"Plugin 'Buffergator'
-"Plugin 'tpope/vim-fugitive'
-"Plugin 'mbbill/undotree'
-"Plugin 'NLKNguyen/papercolor-theme'
-"Plugin 'gmarik/github-search.vim'
-"Plugin 'xolox/vim-misc'           " https://github.com/xolox/vim-misc 
-"Plugin 'xolox/vim-notes'          " https://vimawesome.com/plugin/notes-vim
-"Plugin 'wincent/scalpel'
-"Plugin 'mhinz/vim-startify'
-"Plugin 'yegappan/mru'
-                                  " *******************************************************************
-                                  " *******************************************************************
+" Plugin 'vim-airline/vim-airline'
+" Plugin 'vim-airline/vim-airline-themes'
                                   " *******************************************************************
 call vundle#end()                 " Vundle END 
 endif                             " Vundle END
@@ -309,34 +218,9 @@ function! Test()
         let l:buf = bufname(bufnr("%"))
         let l:bnum = winbufnr(l:current_win)
         let l:sz= "NOTHING"
-
-"         if getbufvar(l:bnum, '&buftype') == 'quickfix'
-"             let l:sz="YES"
-"         endif
-"            'buftype' 'bt'          string (default: "")
-"                            local to buffer
-"                            {not in Vi}
-"                            {not available when compiled without the |+quickfix| feature}
-"            The value of this option specifies the type of a buffer:
-"              <empty>       normal buffer
-"              nofile        buffer which is not related to a file and will not be written
-"              nowrite       buffer which will not be written
-"              acwrite       buffer which will always be written with BufWriteCmd
-"                            autocommands. {not available when compiled without the |+autocmd| feature}
-"              quickfix      quickfix buffer, contains list of errors |:cwindow| or list of locations |:lwindow|
-"              help          help buffer (you are not supposed to set this manually)
-" 
         call g:NewWindow("Bottom",33)
         call PutBufferList()
 endfunction
-
-" function! Funcky()
-"         call g:NewWindow("Right",33)
-"         exe !gawk "'/^function/{$1="";sub(/^ /,\"\", $0);print "\" " $0}' %"
-" endfunction
-
-
-
 
 function! PutBufferList(...)
         let l:nn=1
@@ -363,8 +247,6 @@ function! SetArgs(...)
             echom i
         endfor
 endfunction
-
-" stringToCenter.PadLeft(((totalLength - stringToCenter.Length) / 2) + stringToCenter.Length)
 
 
 function! Vimtips()
@@ -1040,48 +922,6 @@ endif
 " *****************************************************************************************************
                                   " Powerline
                                   " *******************************************************************
-" let NOPOWERLINE = 1
-if !exists("NOPOWERLINE")
-    set  rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
-    set laststatus=2
-    set t_Co=256
-" else
-"     function! GitBranch()
-"       return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-"     endfunction
-" 
-"     function! StatuslineGit()
-"       let l:branchname = GitBranch()
-"       return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-"     endfunction
-"     set laststatus=2
-"     set t_Co=256
-"     set statusline=%{FugitiveStatusline()}
-"     set statusline=
-"     set statusline+=%#PmenuSel#
-"     set statusline+=%{StatuslineGit()}
-"     set statusline+=%#LineNr#
-"     set statusline+=\ %f
-"     set statusline+=%m\
-"     set statusline+=%=
-"     set statusline+=%#CursorColumn#
-"     set statusline+=\ %y
-"     set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-"     set statusline+=\[%{&fileformat}\]
-"     set statusline+=\ %p%%
-"     set statusline+=\ %l:%c
-"     set statusline+=\
-"     set statusline=
-"     set statusline +=%1*\ %n\ %*            "buffer number
-"     set statusline +=%5*%{&ff}%*            "file format
-"     set statusline +=%3*%y%*                "file type
-"     set statusline +=%4*\ %<%F%*            "full path
-"     set statusline +=%2*%m%*                "modified flag
-"     set statusline +=%1*%=%5l%*             "current line
-"     set statusline +=%2*/%L%*               "total lines
-"     set statusline +=%1*%4v\ %*             "virtual column number
-"     set statusline +=%2*0x%04B\ %*          "character under cursor
-endif
 " *****************************************************************************************************
                                   " For Status Line
                                   " *******************************************************************

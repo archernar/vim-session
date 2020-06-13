@@ -732,7 +732,7 @@ endfunction
                 C) vi -c CODE
                    exit 0
                    ;;
-                S) vi -c call g:MyDirSelect("/home/mestes/tmp",0)
+                S) vi -c SNIPS
                    exit 0
                    ;;
                 D) vi -c DIR

@@ -537,7 +537,7 @@ function! g:ListBuffers()
         let l:c += 1
     endwhile 
 endfunction
-function! g:MyDirSelect(...)
+function! s:MyDirSelect(...)
     let  s:DirCloseWindow = a:2
     let  s:DirEditWindow = winnr()
     call s:DirSetSpecific(a:1) 

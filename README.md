@@ -536,6 +536,12 @@ function! g:ListBuffers()
         let l:c += 1
     endwhile 
 endfunction
+function! g:MyDirSelect(...)
+    let  s:DirCloseWindow = a:2
+    let  s:DirEditWindow = winnr()
+    call s:DirSetSpecific(a:1) 
+    call s:MyDir(a:1 . s:DirMask)
+endfunction
 function! s:MyDirPwd(...)
     let s:DirCloseWindow = a:1
     let s:DirEditWindow = winnr()
@@ -726,7 +732,7 @@ endfunction
                 C) vi -c CODE
                    exit 0
                    ;;
-                S) vi -c SNIPS
+                S) vi -c call g:MyDirSelect("/home/mestes/tmp",0)
                    exit 0
                    ;;
                 D) vi -c DIR

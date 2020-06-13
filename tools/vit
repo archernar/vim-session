@@ -49,7 +49,9 @@ do
             C) vi -c CODE
                exit 0
                ;;
-            S) vi -c SNIPS
+            S) 
+               export VIMSELECTEDDIR=~/.vim/Snips 
+               vi -c DIRE
                exit 0
                ;;
             D) vi -c DIR

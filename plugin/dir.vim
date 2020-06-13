@@ -11,7 +11,7 @@ let g:loaded_plugin_dir=1
                 " *************************************************************************************
 command! CODE          :call s:MyDirCode(0)
 command! SNIPS         :call s:MyDirSnips(0)
-command! SNIPE         :call s:MyDirSelect($VIMSELECTEDDIR,0)
+command! DIRE          :call s:MyDirSelect($VIMSELECTEDDIR,0)
 command! JSNIPS        :call s:MyDirJSnips(0)
 command! CLASSES      :call s:MyDirClasses(0)
 command! DIR           :call s:MyDirPwd(1)

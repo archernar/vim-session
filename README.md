@@ -695,11 +695,6 @@ endfunction
     EPOCHTIME=`date --rfc-3339=seconds |gawk '{sz= $1 "." $2;gsub(/(:)|(-)|([.])/,"", sz);   print sz}'`
     RANDNAME=${HOST}_${EPOCHTIME}
     
-    VIMSESSIONDEFAULT=~/.vimsessiondefault
-    VIMSESSION=.vimsession
-    VIMWINDOWS=.vimwindows
-    VIMLAYOUT=.vimlayout
-    VIMNOSPLITS=.vimnosplits
     
     print() {
         echo "$1"

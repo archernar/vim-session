@@ -180,29 +180,29 @@ endfunction
 "                                     - LoadSessionT()
 "                                     -      
 "                                     ------------------------------------------
+function! LoadSessionTX()
+    let l:sfile = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
+    let l:wfile = ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS
+    let l:splits = ($VIMSPLITCMDS == "") ? "vsplit | split | vertical resize 53" : $VIMSPLITCMDS
+    echo l:splits
+    exe l:splits . " | exe '1wincmd w'"
+
+    let l:filecmd = "e"
+    let l:sz = ""
+    let l:szW = ""
+    let l:c = 0
+
+"     let l:splits = "vsplit | split | vertical resize 53"
+"      exe l:splits 
+endfunction
+
+
+
 function! LoadSessionT()
     let l:sfile = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
     let l:wfile = ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS
     let l:splits = ($VIMSPLITCMDS == "") ? "vsplit | split | vertical resize 53" : $VIMSPLITCMDS
     let l:filecmd = "e"
-    let l:splits = ""
-    let l:sz = ""
-    let l:szW = ""
-    let l:c = 0
-
-    let l:splits = "vsplit | split | vertical resize 53"
-    exe l:splits 
-    echom l:splits
-endfunction
-
-
-
-function! LoadSessionTX()
-    let l:sfile = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
-    let l:wfile = ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS
-    let l:splits = ($VIMSPLITCMDS == "") ? "vsplit | split | vertical resize 53" : $VIMSPLITCMDS
-    let l:filecmd = "e"
-    let l:splits = ""
     let l:sz = ""
     let l:szW = ""
     let l:c = 0
@@ -217,14 +217,12 @@ function! LoadSessionTX()
             let l:delim = " | "
         endfor
     endif
-echom l:splits
 
     exe l:splits . " | exe '1wincmd w'"
 
-    return
-    if (a:0 == 0)
-        return
-    endif
+"     if (a:0 == 0)
+"         return
+"     endif
 
     let l:sz = "No " . l:sfile
     if (filereadable(l:sfile))

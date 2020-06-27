@@ -43,17 +43,13 @@ do
                 fi
                 exit 0
                 ;;
-            f) cp "$VIMSESSION" "$VIMWINDOWS"
-               vim -c "call LoadSessionT('$VIMSESSION','$VIMSESSION','e','')"
+            a) export VIMSPLITCMDS = "vsplit";vim -c "call LoadSessionT()"
                exit 0
                ;;
-            a) vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','vsplit')"
+            b) export VIMSPLITCMDS = "split";vim -c "call LoadSessionT()"
                exit 0
                ;;
-            b) vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','split')"
-               exit 0
-               ;;
-            c) vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','split | split')"
+            c) export VIMSPLITCMDS = "split | split";vim -c "call LoadSessionT()"
                exit 0
                ;;
             C) vi -c CODE
@@ -119,7 +115,6 @@ do
                print "  -b      up/down window layout"
                print "  -c      up/mid/down window layout"
                print "  -e      Edit ./.vimsession ./.vimwindows"
-               print "  -f      copy ./.vimsession to ./.vimwindows (and call vit)"
                print "  -m      Simple Mode with MRU"
                print "  -n      Toggle no-splits flag"
                print "  -h      Help"

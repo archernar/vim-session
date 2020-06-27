@@ -177,26 +177,19 @@ endfunction
 " ==============================================================================
 "                                     - Global Function
 "                                     ------------------------------------------
-"                                     - LoadSessionT(...)
-"                                     -   a:1 is the session file filename
-"                                     -   a:2 is the window file filename
-"                                     -   a:3 is the command to apply to files
-"                                     -       def: 'e'
-"                                     -   a:4 a set of split commands
-"                                     -   def: vsplit | split | vert resize 33
+"                                     - LoadSessionT()
 "                                     -      
 "                                     ------------------------------------------
-function! LoadSessionT(...)
+function! LoadSessionT()
     let l:sfile = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
     let l:wfile = ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS
-    let l:filecmd = (a:0 > 2) ? a:3 : "e"
+    let l:splits = ($VIMSPLITCMDS == "") ? "vsplit | split | vertical resize 53" : $VIMSPLITCMDS
     let l:filecmd = "e"
     let l:splits = ""
     let l:sz = ""
     let l:szW = ""
     let l:c = 0
 
-    let l:splits = "vsplit | split | vertical resize 53"
 
     if (filereadable(".vimlayout"))
         let l:splits = ""
@@ -208,15 +201,8 @@ function! LoadSessionT(...)
         endfor
     endif
 
-    if (a:0 > 3)
-        let l:splits = ((a:4 == "") ? l:splits : a:4)
-    endif
-
     exe l:splits . " | exe '1wincmd w'"
 
-    if (a:0 == 0)
-        return
-    endif
 
     let l:sz = "No " . l:sfile
     if (filereadable(l:sfile))

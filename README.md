@@ -196,6 +196,7 @@ function! LoadSessionT()
     let l:szW = ""
     let l:c = 0
 
+    let l:splits "vsplit | split | vertical resize 53"
     exe l:splits 
     echom l:splits
 endfunction

@@ -840,7 +840,6 @@ endfunction
                   vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','')"
               else
                   vim -c "call LoadSession()"
-    "             vim -c "call LoadSession('$VIMSESSION','e')"
               fi
     else
         vim $1 $2 $3 $4

@@ -714,7 +714,7 @@ endfunction
         echo "$1"
     }
     
-    while getopts "ACDRSKGnfabcersthmx:" arg
+    while getopts "ACDRSKGnabcersthmx:" arg
     do
     	case $arg in
                  n) if [ "$VIMNOSPLITS" == "" ]; then 
@@ -741,13 +741,16 @@ endfunction
                     fi
                     exit 0
                     ;;
-                a) export VIMSPLITCMDS = "vsplit";vim -c "call LoadSessionT()"
+                a) export VIMSPLITCMDS="vsplit"
+                   vim -c "call LoadSessionT()"
                    exit 0
                    ;;
-                b) export VIMSPLITCMDS = "split";vim -c "call LoadSessionT()"
+                b) export VIMSPLITCMDS="split"
+                   vim -c "call LoadSessionT()"
                    exit 0
                    ;;
-                c) export VIMSPLITCMDS = "split | split";vim -c "call LoadSessionT()"
+                c) export VIMSPLITCMDS="split | split"
+                   vim -c "call LoadSessionT()"
                    exit 0
                    ;;
                 C) vi -c CODE

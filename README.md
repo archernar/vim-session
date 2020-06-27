@@ -823,7 +823,7 @@ endfunction
               fi
     
               if [ -a "$VIMSPLIT" ] ; then
-                  vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','')"
+                  vim -c "call LoadSessionT()"
               else
                   vim -c "call LoadSession()"
               fi

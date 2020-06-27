@@ -190,18 +190,8 @@ function! LoadSessionT()
     let l:szW = ""
     let l:c = 0
 
-
-    if (filereadable(".vimlayout"))
-        let l:splits = ""
-        let l:delim = ""
-        let l:layout = readfile(".vimlayout")
-        for l:l in l:layout
-            let l:splits .= (l:delim . l:l)
-            let l:delim = " | "
-        endfor
-    endif
+    exe l:splits 
     echom l:splits
-    exe l:splits . " | exe '1wincmd w'"
 endfunction
 
 

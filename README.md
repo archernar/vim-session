@@ -209,6 +209,10 @@ function! LoadSessionT()
 
     exe l:splits . " | exe '1wincmd w'"
 
+    return
+    if (a:0 == 0)
+        return
+    endif
 
     let l:sz = "No " . l:sfile
     if (filereadable(l:sfile))

@@ -711,7 +711,10 @@ endfunction
     while getopts "ACDRSKGnfabcersthmx:" arg
     do
     	case $arg in
-                 n) if [ -a "$VIMNOSPLITS" ] ; then
+                 n) if [ "$VIMNOSPLITS" == "" ]; then 
+                        export VIMNOSPLITS=.vimnosplits
+                    fi
+                    if [ -a "$VIMNOSPLITS" ] ; then
                          rm -rf "$VIMNOSPLITS"
                          print "splits"
                     else

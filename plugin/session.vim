@@ -345,8 +345,12 @@ function! CaptureSession(...)
     for l:l in range(1, winnr('$'))
                 call add(l:winbody, bufname(winbufnr(l:l)))
     endfor
-    call writefile(l:body,    (a:0 > 0) ? a:1 : ".vimsession")
-    call writefile(l:winbody, (a:0 > 1) ? a:2 : ".vimwindows")
+
+    call writefile(l:body,    ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION)
+    call writefile(l:winbody, ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS)
+
+"     call writefile(l:body,    (a:0 > 0) ? a:1 : ".vimsession")
+"     call writefile(l:winbody, (a:0 > 1) ? a:2 : ".vimwindows")
     echom "session written"
 endfunction
 " ------------------------------------------

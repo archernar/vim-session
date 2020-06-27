@@ -351,8 +351,12 @@ function! CaptureSession(...)
     for l:l in range(1, winnr('$'))
                 call add(l:winbody, bufname(winbufnr(l:l)))
     endfor
-    call writefile(l:body,    (a:0 &gt; 0) ? a:1 : ".vimsession")
-    call writefile(l:winbody, (a:0 &gt; 1) ? a:2 : ".vimwindows")
+
+    call writefile(l:body,    ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION)
+    call writefile(l:winbody, ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS)
+
+"     call writefile(l:body,    (a:0 &gt; 0) ? a:1 : ".vimsession")
+"     call writefile(l:winbody, (a:0 &gt; 1) ? a:2 : ".vimwindows")
     echom "session written"
 endfunction
 " ------------------------------------------
@@ -826,10 +830,6 @@ endfunction
     trap 'rm -f "$Tmp" >/dev/null 2>&1' 0
     trap "exit 2" 1 2 3 13 15
     rm $Tmp  >/dev/null 2>&1
-    
-    VIMSESSIONDEFAULT=~/.vimsessiondefault
-    VIMSESSION=.vimsession
-    VIMWINDOWS=.vimwindows
     
     # vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','vsplit')"
     

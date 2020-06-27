@@ -206,6 +206,33 @@ function! LoadSessionT()
             let l:delim = " | "
         endfor
     endif
+    echom l:splits
+    exe l:splits . " | exe '1wincmd w'"
+endfunction
+
+
+
+function! LoadSessionTX()
+    let l:sfile = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
+    let l:wfile = ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS
+    let l:splits = ($VIMSPLITCMDS == "") ? "vsplit | split | vertical resize 53" : $VIMSPLITCMDS
+    let l:filecmd = "e"
+    let l:splits = ""
+    let l:sz = ""
+    let l:szW = ""
+    let l:c = 0
+
+
+    if (filereadable(".vimlayout"))
+        let l:splits = ""
+        let l:delim = ""
+        let l:layout = readfile(".vimlayout")
+        for l:l in l:layout
+            let l:splits .= (l:delim . l:l)
+            let l:delim = " | "
+        endfor
+    endif
+echom l:splits
 
     exe l:splits . " | exe '1wincmd w'"
 

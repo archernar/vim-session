@@ -721,6 +721,18 @@ endfunction
                          touch "$VIMNOSPLITS"
                          print "no splits"
                     fi
+    
+    
+                    if [ "$VIMSPLIT" == "" ]; then 
+                        export VIMSPLIT=.vimsplit
+                    fi
+                    if [ -a "$VIMSPLIT" ] ; then
+                         rm -rf "$VIMSPLIT"
+                         print "no splits"
+                    else
+                         touch "$VIMSPLIT"
+                         print "splits"
+                    fi
                     exit 0
                     ;;
                 f) cp "$VIMSESSION" "$VIMWINDOWS"

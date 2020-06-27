@@ -714,7 +714,7 @@ endfunction
         echo "$1"
     }
     
-    while getopts "ACDRSKGnabcersthmx:" arg
+    while getopts "xACDRSKGnabcersthm:" arg
     do
     	case $arg in
                  n) if [ "$VIMNOSPLITS" == "" ]; then 
@@ -741,6 +741,9 @@ endfunction
                     fi
                     exit 0
                     ;;
+                x) vim -c "call LoadSession()"
+                   exit 0
+                   ;;
                 a) export VIMSPLITCMDS="vsplit"
                    vim -c "call LoadSessionT()"
                    exit 0
@@ -784,19 +787,6 @@ endfunction
                 s) vim -c "call LoadSession('$VIMSESSION','e')"
                    exit 0
                    ;;
-                x) 
-                            case $OPTARG in
-                                a) vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','vsplit')"
-                                   ;;
-                                b) vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','split')"
-                                   ;;
-                                c) vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','split | split')"
-                                   ;;
-                                *) vim -c "call LoadSessionT('$VIMSESSION','$VIMWINDOWS','e','$OPTARG')"
-                                   ;;
-                            esac
-                   exit 0
-                   ;;
                 m) vim -c MRU
                    exit 0
                    ;;
@@ -822,11 +812,6 @@ endfunction
                    print "  -r      Remove ./.vimsession and ./.vimwindows"
                    print "  -s      Simple Mode:Open in a single window"
                    print "  -t      Only Windows Mode: Just open blank windows"
-                   print ""
-                   print "  -x  <layout>"
-                   print ""
-                   print "      layouts:"
-                   print "      a - side/side, b - up/down c - up/mid/down"
                    print ""
                    exit 0
                    ;;

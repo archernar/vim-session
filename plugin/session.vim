@@ -6,13 +6,8 @@
 "
 " To capture sessions, define a vim command of the form
 "
-" command! SESSION  :call CaptureSession('$VIMSESSION', '$VIMWINDOWS') or
-" command! SESSION  :call CaptureSession('$VIMSESSION') or
 " command! SESSION  :call CaptureSession()
 " 
-" CaptureSession(...)
-"      a:1 is the session file filename (default is .vimsession)
-"      a:2 is the window file filename  (default is .vimwindows)
 "
 " ==============================================================================
 "
@@ -353,13 +348,10 @@ endfunction
 " ==============================================================================
 "                                     - Global Function
 "                                     ------------------------------------------
-"                                     - CaptureSession(...)
-"                                     -    a:1 is the session file filename 
-"                                     -        default is .vimsession
-"                                     -    a:2 is the window file filename
-"                                     -        default is .vimwindows
+"                                     - CaptureSession()
+"                                     - 
 "                                     ------------------------------------------
-function! CaptureSession(...)
+function! CaptureSession()
     let l:c=1
     let l:body=[]
     let l:winbody=[]
@@ -384,10 +376,6 @@ function! CaptureSession(...)
 
     call writefile(l:body,    ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION)
     call writefile(l:winbody, ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS)
-
-" OLD WAY !TBR
-"     call writefile(l:body,    (a:0 > 0) ? a:1 : ".vimsession")
-"     call writefile(l:winbody, (a:0 > 1) ? a:2 : ".vimwindows")
 
 echom "session written"
 endfunction

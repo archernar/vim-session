@@ -34,7 +34,7 @@ let s:MAXBUFFERS=32
 "                                     - s:TabsCount()
 "                                     - 
 "                                     ------------------------------------------
-function g:TabCount()
+function s:TabCount()
     let l:ret = 0
     for i in range(tabpagenr('$'))
         let l:ret = l:ret + 1

@@ -161,31 +161,6 @@ endfunction
 "                                     - LoadSession(...)
 "                                     -
 "                                     ------------------------------------------
-function! LoadSessionX(...)
-    let l:sfile = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
-    let l:wfile = ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS
-    let l:filecmd = "tabedit"
-    let l:sz = ""
-    let l:c = 0
-    let l:sz = l:sfile
-    if (filereadable(l:sfile))
-        let l:body = readfile(l:sfile)
-        for l:l in l:body
-            if !( l:l =~ "\"" )
-                if !( l:l == "" )
-                    exe l:filecmd . " " . l:l
-                    let l:sz .= l:l . " "
-                    let l:c += 1
-                endif
-            endif
-        endfor
-        let l:sz = l:c . "F " . l:sz . "  SL/FORCE/UNFORCE" 
-        exe "tabfirst"
-        call s:DeleteNoNameBuffer()
-    endif
-    call s:LoadLastBuffer(".vimbuffer",".vimforcebuffer",l:sfile)
-    autocmd Filetype,BufEnter * call CaptureBuffer()
-endfunction
 function! LoadSession(...)
     let l:sfile = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
     let l:wfile = ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS

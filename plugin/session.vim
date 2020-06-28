@@ -188,7 +188,12 @@ endfunction
 function! LoadSession(...)
     let l:sfile = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
     let l:wfile = ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS
+    let l:tfile = ($VIMTAB == "")     ? ".vimtab"     : $VIMTAB
     let l:filecmd = "e"
+    if (filereadable(l:tfile))
+        let l:filecmd = "tabedit"
+    endif
+
     let l:sz = ""
     let l:c = 0
     let l:sz = l:sfile
@@ -204,7 +209,11 @@ function! LoadSession(...)
             endif
         endfor
         let l:sz = l:c . "F " . l:sz . "  SL/FORCE/UNFORCE" 
-        exe "1wincmd w"
+        if (filereadable(l:tfile))
+            exe "tabfirst"
+        else
+            exe "1wincmd w"
+        endif
         call s:DeleteNoNameBuffer()
     endif
     call s:LoadLastBuffer(".vimbuffer",".vimforcebuffer",l:sfile)

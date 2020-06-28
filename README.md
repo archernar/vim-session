@@ -711,12 +711,22 @@ endfunction
     if [ "$VIMTAB" == "" ]; then 
         export VIMTAB=.vimtab
     fi
-    while getopts "fxACDRSKGnabcersthm:" arg
+    while getopts "xACDRSKGnabcerstohm:" arg
     do
     	case $arg in
-                 f) rm -rf "$VIMSPLIT"
-                    touch "$VIMTAB"
-                    print "no splits, Tab Mode"
+                 s) touch "$VIMSPLIT"
+                    rm -rf "$VIMTAB"
+                    print "split mode"
+                    exit 0
+                    ;;
+                 t) touch "$VIMTAB"
+                    rm -rf "$VIMSPLIT"
+                    print "no splits, tab Mode"
+                    exit 0
+                    ;;
+                 o) rm -rf "$VIMSPLIT"
+                    rm -rf "$VIMYAB"
+                    print "no splits, one window mode"
                     exit 0
                     ;;
                  n) rm -rf "$VIMTAB"
@@ -772,13 +782,7 @@ endfunction
                    rm -f $VIMLAYOUT
                    exit 0
                    ;;
-                s) vim -c "call LoadSession('$VIMSESSION','e')"
-                   exit 0
-                   ;;
                 m) vim -c MRU
-                   exit 0
-                   ;;
-                t) vim -c "call LoadSessionT()"
                    exit 0
                    ;;
                 e) vim  $VIMSESSION $VIMWINDOWS

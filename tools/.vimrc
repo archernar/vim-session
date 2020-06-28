@@ -743,8 +743,12 @@ function! BiModeSet(...)
           let g:BiModeState = 1 
           call g:MyKeyMapper("nnoremap <F1> :bnext<cr>",         "Next Buffer")
           call g:MyKeyMapper("nnoremap <F2> :bprev<cr>",         "Previous Buffer")
-          call g:MyKeyMapper("nnoremap <leader><F1> <C-W>w",     "Next Window")
-          call g:MyKeyMapper("nnoremap <leader><F2>  <Nop>",     "Nothing")
+          call g:MyKeyMapper("nnoremap <leader><F1> :tabn<cr>",  "Next Tab")
+          call g:MyKeyMapper("nnoremap <leader><F2> :tabp<CR>", "Previous Tab")
+
+
+"           call g:MyKeyMapper("nnoremap <leader><F1> <C-W>w",     "Next Window")
+"           call g:MyKeyMapper("nnoremap <leader><F2>  <Nop>",     "Nothing")
 "           call g:MyKeyMapper("nnoremap <leader><F1>  :call g:FindBuffer()<cr>","Find Buffer")
 
 

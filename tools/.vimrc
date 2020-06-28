@@ -739,28 +739,30 @@ function! BiMode()
 endfunction
 function! BiModeSet(...)
      if (a:1 == 1)
-          echo "BiModeSet(1) to Buffer"
+          echo "BiModeSet(1) to Buffer Mode"
           let g:BiModeState = 1 
-          call g:MyKeyMapper("nnoremap <F1> :bnext<cr>", "Next Buffer")
+          call g:MyKeyMapper("nnoremap <F1> :bnext<cr>",         "Next Buffer")
+          call g:MyKeyMapper("nnoremap <F2> :bprev<cr>",         "Previous Buffer")
           call g:MyKeyMapper("nnoremap <leader><F1> <C-W>w",     "Next Window")
+          call g:MyKeyMapper("nnoremap <leader><F2>  <Nop>",     "Nothing")
 "           call g:MyKeyMapper("nnoremap <leader><F1>  :call g:FindBuffer()<cr>","Find Buffer")
 
-          call g:MyKeyMapper("nnoremap <F2> :bprev<cr>", "Previous Buffer")
-          call g:MyKeyMapper("nnoremap <leader><F2>  <Nop>","Nothing")
 
           call g:MyKeyMapper("nnoremap <F3> :call g:EditNewBuffer()<cr>","Edit New Buffer")
           call g:MyKeyMapper("nnoremap <leader><F3>  <Nop>","Nothing")
      endif
      if (a:1 == 0)
-          echom "BiModeSet(0) to Window"
+          echom "BiModeSet(0) to Window/Tab Mode"
           let g:BiModeState = 0 
-          call g:MyKeyMapper("nnoremap <F1> <C-W>w",     "Next Window")
-          call g:MyKeyMapper("nnoremap <leader><F1> :bnext<cr>", "Next Buffer")
+          call g:MyKeyMapper("nnoremap <F1> <C-W>w",            "Next Window")
+          call g:MyKeyMapper("nnoremap <F2> <C-W>W",            "Previous Window")
+          call g:MyKeyMapper("nnoremap <leader><F1> :tabn<cr>", "Next Tab")
+          call g:MyKeyMapper("nnoremap <leader><F2>  :tabp<CR>","Previous Tab")
+
+          "call g:MyKeyMapper("nnoremap <leader><F1> :bnext<cr>", "Next Buffer")
 "           call g:MyKeyMapper("nnoremap <leader><F1>  :botright  new<CR>","Split Window Down")
 
-          call g:MyKeyMapper("nnoremap <F2> <C-W>W",     "Previous Window")
-          call g:MyKeyMapper("nnoremap <leader><F2>  :botright  new<CR>","Split Window Down")
-
+          "call g:MyKeyMapper("nnoremap <leader><F2>  :botright  new<CR>","Split Window Down")
           call g:MyKeyMapper("nnoremap <F3> :call g:EditNewBuffer()<cr>","Edit New Buffer")
           call g:MyKeyMapper("nnoremap <leader><F3>  :vnew<CR>","Split Window Right")
 

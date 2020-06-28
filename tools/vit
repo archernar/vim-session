@@ -16,24 +16,21 @@ print() {
     echo "$1"
 }
 
-while getopts "xACDRSKGnabcersthm:" arg
+if [ "$VIMSPLIT" == "" ]; then 
+    export VIMSPLIT=.vimsplit
+fi
+if [ "$VIMTAB" == "" ]; then 
+    export VIMTAB=.vimtab
+fi
+while getopts "fxACDRSKGnabcersthm:" arg
 do
 	case $arg in
-             n) if [ "$VIMNOSPLITS" == "" ]; then 
-                    export VIMNOSPLITS=.vimnosplits
-                fi
-                if [ -a "$VIMNOSPLITS" ] ; then
-                     rm -rf "$VIMNOSPLITS"
-                     print "splits"
-                else
-                     touch "$VIMNOSPLITS"
-                     print "no splits"
-                fi
-
-
-                if [ "$VIMSPLIT" == "" ]; then 
-                    export VIMSPLIT=.vimsplit
-                fi
+             f) rm -rf "$VIMSPLIT"
+                touch "$VIMTAB"
+                print "no splits, Tab Mode"
+                exit 0
+                ;;
+             n) rm -rf "$VIMTAB"
                 if [ -a "$VIMSPLIT" ] ; then
                      rm -rf "$VIMSPLIT"
                      print "no splits"

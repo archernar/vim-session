@@ -22,7 +22,19 @@ endif
 let g:loaded_plugin_session=1
 
 let s:MAXBUFFERS=32
-
+" ==============================================================================
+"                                     - Script Utility Function
+"                                     ------------------------------------------
+"                                     - s:TabsCount()
+"                                     - 
+"                                     ------------------------------------------
+function g:TabCount()
+    let l:ret = 0
+    for i in range(tabpagenr('$'))
+        let l:ret = l:ret + 1
+    endfor
+    return l:ret
+endfunction
 " ==============================================================================
 "                                     - Script Utility Function
 "                                     ------------------------------------------
@@ -148,6 +160,31 @@ endfunction
 "                                     - LoadSession(...)
 "                                     -
 "                                     ------------------------------------------
+function! LoadSessionX(...)
+    let l:sfile = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
+    let l:wfile = ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS
+    let l:filecmd = "tabedit"
+    let l:sz = ""
+    let l:c = 0
+    let l:sz = l:sfile
+    if (filereadable(l:sfile))
+        let l:body = readfile(l:sfile)
+        for l:l in l:body
+            if !( l:l =~ "\"" )
+                if !( l:l == "" )
+                    exe l:filecmd . " " . l:l
+                    let l:sz .= l:l . " "
+                    let l:c += 1
+                endif
+            endif
+        endfor
+        let l:sz = l:c . "F " . l:sz . "  SL/FORCE/UNFORCE" 
+        exe "tabfirst"
+        call s:DeleteNoNameBuffer()
+    endif
+    call s:LoadLastBuffer(".vimbuffer",".vimforcebuffer",l:sfile)
+    autocmd Filetype,BufEnter * call CaptureBuffer()
+endfunction
 function! LoadSession(...)
     let l:sfile = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
     let l:wfile = ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS
@@ -180,24 +217,6 @@ endfunction
 "                                     - LoadSessionT()
 "                                     -      
 "                                     ------------------------------------------
-function! LoadSessionTX()
-    let l:sfile = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
-    let l:wfile = ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS
-    let l:splits = ($VIMSPLITCMDS == "") ? "vsplit | split | vertical resize 53" : $VIMSPLITCMDS
-    echo l:splits
-    exe l:splits . " | exe '1wincmd w'"
-
-    let l:filecmd = "e"
-    let l:sz = ""
-    let l:szW = ""
-    let l:c = 0
-
-"     let l:splits = "vsplit | split | vertical resize 53"
-"      exe l:splits 
-endfunction
-
-
-
 function! LoadSessionT()
     let l:sfile = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
     let l:wfile = ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS

@@ -725,7 +725,7 @@ endfunction
                     exit 0
                     ;;
                  o) rm -rf "$VIMSPLIT"
-                    rm -rf "$VIMYAB"
+                    rm -rf "$VIMTAB"
                     print "no splits, one window mode"
                     exit 0
                     ;;
@@ -742,15 +742,15 @@ endfunction
                 x) vim -c "call LoadSession()"
                    exit 0
                    ;;
-                a) export VIMSPLITCMDS="vsplit"
+                a) export VIMSPLITCMDS="vsplit";rm -rf "$VIMTAB";touch "$VIMSPLIT"
                    vim -c "call LoadSessionT()"
                    exit 0
                    ;;
-                b) export VIMSPLITCMDS="split"
+                b) export VIMSPLITCMDS="split";rm -rf "$VIMTAB";touch "$VIMSPLIT"
                    vim -c "call LoadSessionT()"
                    exit 0
                    ;;
-                c) export VIMSPLITCMDS="split | split"
+                c) export VIMSPLITCMDS="split | split";rm -rf "$VIMTAB";touch "$VIMSPLIT"
                    vim -c "call LoadSessionT()"
                    exit 0
                    ;;

@@ -716,17 +716,17 @@ endfunction
     	case $arg in
                  s) touch "$VIMSPLIT"
                     rm -rf "$VIMTAB"
-                    print "split mode"
+                    vim -c "call LoadSessionT()"
                     exit 0
                     ;;
                  t) touch "$VIMTAB"
                     rm -rf "$VIMSPLIT"
-                    print "no splits, tab Mode"
+                    vim -c "call LoadSession()"
                     exit 0
                     ;;
                  o) rm -rf "$VIMSPLIT"
                     rm -rf "$VIMTAB"
-                    print "no splits, one window mode"
+                    vim -c "call LoadSession()"
                     exit 0
                     ;;
                  n) rm -rf "$VIMTAB"

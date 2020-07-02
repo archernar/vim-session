@@ -20,9 +20,6 @@ command! DDIR          :call s:MyDirPwd(0)
 
 command! SESSIONLIST   :call g:ListBuffers()
 command! SESSIONEDIT   :e .vimsession
-command! SESSION       :call CaptureSession('.vimsession')
-command! SESSIONLOAD   :call LoadSession('.vimsession', 'e')
-command! SESSIONLOADT  :call LoadSessionT('.vimsession','vimwindows', 'e')
 command! SESSIONFILES  :call g:SessionFiles()
 command! SL            :call g:SessionFiles()
 

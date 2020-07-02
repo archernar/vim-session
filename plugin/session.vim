@@ -186,7 +186,7 @@ function! LoadSession(...)
         endif
         call s:DeleteNoNameBuffer()
     endif
-    call s:LoadLastBuffer(".vimbuffer",".vimforcebuffer",l:sfile)
+"    call s:LoadLastBuffer(".vimbuffer",".vimforcebuffer",l:sfile)
     autocmd Filetype,BufEnter * call CaptureBuffer()
 endfunction
 

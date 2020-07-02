@@ -1740,6 +1740,8 @@ function! Scratch(...)
         call setline(1, split(output, "\n"))
 endfunction
 
+command! SESSIONX       :call CaptureSession()
+
 " *****************************************************************************************************
                                   " Jump to Last Position When Reopening a File
                                   " *******************************************************************

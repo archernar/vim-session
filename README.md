@@ -192,7 +192,7 @@ function! LoadSession(...)
         endif
         call s:DeleteNoNameBuffer()
     endif
-    call s:LoadLastBuffer(".vimbuffer",".vimforcebuffer",l:sfile)
+"    call s:LoadLastBuffer(".vimbuffer",".vimforcebuffer",l:sfile)
     autocmd Filetype,BufEnter * call CaptureBuffer()
 endfunction
 
@@ -402,9 +402,6 @@ command! DDIR          :call s:MyDirPwd(0)
 
 command! SESSIONLIST   :call g:ListBuffers()
 command! SESSIONEDIT   :e .vimsession
-command! SESSION       :call CaptureSession('.vimsession')
-command! SESSIONLOAD   :call LoadSession('.vimsession', 'e')
-command! SESSIONLOADT  :call LoadSessionT('.vimsession','vimwindows', 'e')
 command! SESSIONFILES  :call g:SessionFiles()
 command! SL            :call g:SessionFiles()
 

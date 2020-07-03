@@ -22,46 +22,34 @@ fi
 if [ "$VIMTAB" == "" ]; then 
     export VIMTAB=.vimtab
 fi
-while getopts "xACDRSKGnabcerstohm:" arg
+while getopts "xACDRSKGabcerstohm:" arg
 do
 	case $arg in
-             s) touch "$VIMSPLIT"
-                rm -rf "$VIMTAB"
-                exit 0
-                ;;
-             t) touch "$VIMTAB"
-                rm -rf "$VIMSPLIT"
-#                vim -c "call LoadSession()"
-                exit 0
-                ;;
-             o) rm -rf "$VIMSPLIT"
-                rm -rf "$VIMTAB"
-#                vim -c "call LoadSession()"
-                exit 0
-                ;;
-             n) rm -rf "$VIMTAB"
-                if [ -a "$VIMSPLIT" ] ; then
-                     rm -rf "$VIMSPLIT"
-                     print "no splits"
-                else
-                     touch "$VIMSPLIT"
-                     print "splits"
-                fi
-                exit 0
-                ;;
+            s) rm -rf "$VIMSPLIT"
+               echo "split" > "$VIMSPLIT"
+               exit 0
+               ;;
+            t) rm -rf "$VIMSPLIT"
+               echo "tab" > "$VIMSPLIT"
+               exit 0
+               ;;
+            o) rm -rf "$VIMSPLIT"
+               echo "none" > "$VIMSPLIT"
+               exit 0
+               ;;
             x) vim -c "call LoadSession()"
                exit 0
                ;;
-            a) export VIMSPLITCMDS="vsplit"
-               rm -rf "$VIMTAB";echo "vsplit" > "$VIMSPLIT"
+            a) rm -rf "$VIMSPLIT"
+               echo "vsplit" > "$VIMSPLIT"
                exit 0
                ;;
-            b) export VIMSPLITCMDS="split";
-               rm -rf "$VIMTAB";echo "split" > "$VIMSPLIT"
+            b) rm -rf "$VIMSPLIT"
+               echo "split" > "$VIMSPLIT"
                exit 0
                ;;
-            c) export VIMSPLITCMDS="split | split"
-               rm -rf "$VIMTAB";echo "split | split" > "$VIMSPLIT"
+            c) rm -rf "$VIMSPLIT"
+               echo "split | split" > "$VIMSPLIT"
                exit 0
                ;;
             C) vi -c CODE
@@ -122,13 +110,4 @@ do
 done
 
 shift $(($OPTIND - 1))
-
-if [ $# -eq 0 ]; then
-          if [ "$VIMSPLIT" == "" ]; then 
-              export VIMSPLIT=.vimsplit
-          fi
-          vim -c "call LoadSession()"
-else
-    vim $1 $2 $3 $4
-fi
 

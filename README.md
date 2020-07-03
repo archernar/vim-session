@@ -165,25 +165,25 @@ function! LoadSession(...)
     let l:sfile   = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
     let l:wfile   = ($VIMWINDOW == "")  ? ".vimwindow"  : $VIMWINDOW
     let l:splfile = ($VIMSPLIT == "")   ? ".vimsplit"   : $VIMSPLIT
-
     let l:tfile = ($VIMTAB == "")     ? ".vimtab"     : $VIMTAB
     let l:filecmd = "e"
-    if (filereadable(l:tfile))
-        let l:filecmd = "tabedit"
-    endif
-    if (filereadable(l:splfile))
-        let l:filecmd = "e"
-    endif
+    let l:splits = ""
 
     if (filereadable(splfile))
         let l:splits = ""
-        let l:filein = readfile(splfile)
-        let l:delim = " "
-        for l:l in l:filein
-            let l:splits .= (l:delim . l:l)
-            let l:delim = " "
-        endfor
-        exe l:splits . " | exe '1wincmd w'"
+        let l:splits = readfile(splfile)[0]
+    endif
+
+    if (l:splits == "tab")
+        let l:filecmd = "tabedit"
+    endif
+
+    if (l:splits != "tab") 
+        if (l:splits != "none")
+            if (l:splits != "")
+                exe l:splits . " | exe '1wincmd w'"
+            endif
+        endif
     endif
 
 
@@ -212,7 +212,6 @@ function! LoadSession(...)
         else
             exe "1wincmd w"
         endif
-        call s:DeleteNoNameBuffer()
     endif
 
         let l:c = 1
@@ -232,7 +231,6 @@ function! LoadSession(...)
             exe "1wincmd w"
         endif
 
-        call s:DeleteNoNameBuffer()
 
 "    call s:LoadLastBuffer(".vimbuffer",".vimforcebuffer",l:sfile)
     autocmd Filetype,BufEnter * call CaptureBuffer()
@@ -680,46 +678,34 @@ endfunction
     if [ "$VIMTAB" == "" ]; then 
         export VIMTAB=.vimtab
     fi
-    while getopts "xACDRSKGnabcerstohm:" arg
+    while getopts "xACDRSKGabcerstohm:" arg
     do
     	case $arg in
-                 s) touch "$VIMSPLIT"
-                    rm -rf "$VIMTAB"
-                    exit 0
-                    ;;
-                 t) touch "$VIMTAB"
-                    rm -rf "$VIMSPLIT"
-    #                vim -c "call LoadSession()"
-                    exit 0
-                    ;;
-                 o) rm -rf "$VIMSPLIT"
-                    rm -rf "$VIMTAB"
-    #                vim -c "call LoadSession()"
-                    exit 0
-                    ;;
-                 n) rm -rf "$VIMTAB"
-                    if [ -a "$VIMSPLIT" ] ; then
-                         rm -rf "$VIMSPLIT"
-                         print "no splits"
-                    else
-                         touch "$VIMSPLIT"
-                         print "splits"
-                    fi
-                    exit 0
-                    ;;
+                s) rm -rf "$VIMSPLIT"
+                   echo "split" > "$VIMSPLIT"
+                   exit 0
+                   ;;
+                t) rm -rf "$VIMSPLIT"
+                   echo "tab" > "$VIMSPLIT"
+                   exit 0
+                   ;;
+                o) rm -rf "$VIMSPLIT"
+                   echo "none" > "$VIMSPLIT"
+                   exit 0
+                   ;;
                 x) vim -c "call LoadSession()"
                    exit 0
                    ;;
-                a) export VIMSPLITCMDS="vsplit"
-                   rm -rf "$VIMTAB";echo "vsplit" > "$VIMSPLIT"
+                a) rm -rf "$VIMSPLIT"
+                   echo "vsplit" > "$VIMSPLIT"
                    exit 0
                    ;;
-                b) export VIMSPLITCMDS="split";
-                   rm -rf "$VIMTAB";echo "split" > "$VIMSPLIT"
+                b) rm -rf "$VIMSPLIT"
+                   echo "split" > "$VIMSPLIT"
                    exit 0
                    ;;
-                c) export VIMSPLITCMDS="split | split"
-                   rm -rf "$VIMTAB";echo "split | split" > "$VIMSPLIT"
+                c) rm -rf "$VIMSPLIT"
+                   echo "split | split" > "$VIMSPLIT"
                    exit 0
                    ;;
                 C) vi -c CODE
@@ -780,15 +766,6 @@ endfunction
     done
     
     shift $(($OPTIND - 1))
-    
-    if [ $# -eq 0 ]; then
-              if [ "$VIMSPLIT" == "" ]; then 
-                  export VIMSPLIT=.vimsplit
-              fi
-              vim -c "call LoadSession()"
-    else
-        vim $1 $2 $3 $4
-    fi
     
 ## Example Integration: vi (simple model)
 

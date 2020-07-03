@@ -159,25 +159,25 @@ function! LoadSession(...)
     let l:sfile   = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
     let l:wfile   = ($VIMWINDOW == "")  ? ".vimwindow"  : $VIMWINDOW
     let l:splfile = ($VIMSPLIT == "")   ? ".vimsplit"   : $VIMSPLIT
-
     let l:tfile = ($VIMTAB == "")     ? ".vimtab"     : $VIMTAB
     let l:filecmd = "e"
-    if (filereadable(l:tfile))
-        let l:filecmd = "tabedit"
-    endif
-    if (filereadable(l:splfile))
-        let l:filecmd = "e"
-    endif
+    let l:splits = ""
 
     if (filereadable(splfile))
         let l:splits = ""
-        let l:filein = readfile(splfile)
-        let l:delim = " "
-        for l:l in l:filein
-            let l:splits .= (l:delim . l:l)
-            let l:delim = " "
-        endfor
-        exe l:splits . " | exe '1wincmd w'"
+        let l:splits = readfile(splfile)[0]
+    endif
+
+    if (l:splits == "tab")
+        let l:filecmd = "tabedit"
+    endif
+
+    if (l:splits != "tab") 
+        if (l:splits != "none")
+            if (l:splits != "")
+                exe l:splits . " | exe '1wincmd w'"
+            endif
+        endif
     endif
 
 
@@ -206,7 +206,6 @@ function! LoadSession(...)
         else
             exe "1wincmd w"
         endif
-        call s:DeleteNoNameBuffer()
     endif
 
         let l:c = 1
@@ -226,7 +225,6 @@ function! LoadSession(...)
             exe "1wincmd w"
         endif
 
-        call s:DeleteNoNameBuffer()
 
 "    call s:LoadLastBuffer(".vimbuffer",".vimforcebuffer",l:sfile)
     autocmd Filetype,BufEnter * call CaptureBuffer()

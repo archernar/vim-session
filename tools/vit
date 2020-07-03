@@ -27,17 +27,16 @@ do
 	case $arg in
              s) touch "$VIMSPLIT"
                 rm -rf "$VIMTAB"
-                vim -c "call LoadSessionT()"
                 exit 0
                 ;;
              t) touch "$VIMTAB"
                 rm -rf "$VIMSPLIT"
-                vim -c "call LoadSession()"
+#                vim -c "call LoadSession()"
                 exit 0
                 ;;
              o) rm -rf "$VIMSPLIT"
                 rm -rf "$VIMTAB"
-                vim -c "call LoadSession()"
+#                vim -c "call LoadSession()"
                 exit 0
                 ;;
              n) rm -rf "$VIMTAB"
@@ -53,16 +52,16 @@ do
             x) vim -c "call LoadSession()"
                exit 0
                ;;
-            a) export VIMSPLITCMDS="vsplit";rm -rf "$VIMTAB";touch "$VIMSPLIT"
-               vim -c "call LoadSessionT()"
+            a) export VIMSPLITCMDS="vsplit"
+               rm -rf "$VIMTAB";echo "vsplit" > "$VIMSPLIT"
                exit 0
                ;;
-            b) export VIMSPLITCMDS="split";rm -rf "$VIMTAB";touch "$VIMSPLIT"
-               vim -c "call LoadSessionT()"
+            b) export VIMSPLITCMDS="split";
+               rm -rf "$VIMTAB";echo "split" > "$VIMSPLIT"
                exit 0
                ;;
-            c) export VIMSPLITCMDS="split | split";rm -rf "$VIMTAB";touch "$VIMSPLIT"
-               vim -c "call LoadSessionT()"
+            c) export VIMSPLITCMDS="split | split"
+               rm -rf "$VIMTAB";echo "split | split" > "$VIMSPLIT"
                exit 0
                ;;
             C) vi -c CODE
@@ -89,14 +88,15 @@ do
                exit 0
                ;;
             r) rm -f $VIMSESSION
-               rm -f $VIMWINDOWS
+               rm -f $VIMWINDOW
                rm -f $VIMLAYOUT
+               rm -f $VIMSPLIT
                exit 0
                ;;
             m) vim -c MRU
                exit 0
                ;;
-            e) vim  $VIMSESSION $VIMWINDOWS
+            e) vim  $VIMSESSION $VIMWINDOW
                exit 0
                ;;
             h) print "vit"
@@ -127,12 +127,7 @@ if [ $# -eq 0 ]; then
           if [ "$VIMSPLIT" == "" ]; then 
               export VIMSPLIT=.vimsplit
           fi
-
-          if [ -a "$VIMSPLIT" ] ; then
-              vim -c "call LoadSessionT()"
-          else
-              vim -c "call LoadSession()"
-          fi
+          vim -c "call LoadSession()"
 else
     vim $1 $2 $3 $4
 fi

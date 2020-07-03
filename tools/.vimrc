@@ -1740,7 +1740,12 @@ function! Scratch(...)
         call setline(1, split(output, "\n"))
 endfunction
 
-command! SESSIONX       :call CaptureSession()
+command! SESSION   :call CaptureSession()
+
+
+if ( argc() == 0 ) 
+     autocmd VimEnter * :call LoadSession()
+endif
 
 " *****************************************************************************************************
                                   " Jump to Last Position When Reopening a File

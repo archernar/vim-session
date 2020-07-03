@@ -2,7 +2,7 @@
 " Environment Variables
 "
 " export VIMSESSION=.vimsession
-" export VIMWINDOWS=.vimwindows
+" export VIMWINDOW=.vimwindow
 "
 " To capture sessions, define a vim command of the form
 "
@@ -156,13 +156,30 @@ endfunction
 "                                     -
 "                                     ------------------------------------------
 function! LoadSession(...)
-    let l:sfile = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
-    let l:wfile = ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS
+    let l:sfile   = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
+    let l:wfile   = ($VIMWINDOW == "")  ? ".vimwindow"  : $VIMWINDOW
+    let l:splfile = ($VIMSPLIT == "")   ? ".vimsplit"   : $VIMSPLIT
+
     let l:tfile = ($VIMTAB == "")     ? ".vimtab"     : $VIMTAB
     let l:filecmd = "e"
     if (filereadable(l:tfile))
         let l:filecmd = "tabedit"
     endif
+    if (filereadable(l:splfile))
+        let l:filecmd = "e"
+    endif
+
+    if (filereadable(splfile))
+        let l:splits = ""
+        let l:filein = readfile(splfile)
+        let l:delim = " "
+        for l:l in l:filein
+            let l:splits .= (l:delim . l:l)
+            let l:delim = " "
+        endfor
+        exe l:splits . " | exe '1wincmd w'"
+    endif
+
 
     let l:sz = ""
     let l:c = 0
@@ -173,11 +190,16 @@ function! LoadSession(...)
             if !( l:l =~ "\"" )
                 if !( l:l == "" )
                     exe l:filecmd . " " . l:l
+                    if (line("'\"") > 0 && line("'\"") <= line("$"))
+                        exe "normal! g'\"" 
+                    endif
                     let l:sz .= l:l . " "
                     let l:c += 1
                 endif
             endif
         endfor
+        call s:DeleteNoNameBuffer()
+
         let l:sz = l:c . "F " . l:sz . "  SL/FORCE/UNFORCE" 
         if (filereadable(l:tfile))
             exe "tabfirst"
@@ -186,59 +208,9 @@ function! LoadSession(...)
         endif
         call s:DeleteNoNameBuffer()
     endif
-"    call s:LoadLastBuffer(".vimbuffer",".vimforcebuffer",l:sfile)
-    autocmd Filetype,BufEnter * call CaptureBuffer()
-endfunction
-
-" ==============================================================================
-"                                     - Global Function
-"                                     ------------------------------------------
-"                                     - LoadSessionT()
-"                                     -      
-"                                     ------------------------------------------
-function! LoadSessionT()
-    let l:sfile = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
-    let l:wfile = ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS
-    let l:splits = ($VIMSPLITCMDS == "") ? "vsplit | split | vertical resize 53" : $VIMSPLITCMDS
-    let l:filecmd = "e"
-    let l:sz = ""
-    let l:szW = ""
-    let l:c = 0
-
-
-    if (filereadable(".vimlayout"))
-        let l:splits = ""
-        let l:delim = ""
-        let l:layout = readfile(".vimlayout")
-        for l:l in l:layout
-            let l:splits .= (l:delim . l:l)
-            let l:delim = " | "
-        endfor
-    endif
-
-    exe l:splits . " | exe '1wincmd w'"
-
-"     if (a:0 == 0)
-"         return
-"     endif
-
-    let l:sz = "No " . l:sfile
-    if (filereadable(l:sfile))
-        let l:sz = ""
-        let l:body = readfile(l:sfile)
-        for l:l in l:body
-            if !( l:l =~ "\"" )
-                if !( l:l == "" )
-                    exe l:filecmd . " " . l:l
-                    let l:sz = l:sz . split(l:l,"/")[-1] . " "
-                    let l:c += 1
-                endif
-            endif
-        endfor
-        let l:sz = l:c . "F: " . l:sz 
 
         let l:c = 1
-        if (1 == 1)
+        if (filereadable(l:splfile))
             if (filereadable(l:wfile))
                 let l:body = readfile(l:wfile)
                 for l:l in l:body
@@ -253,10 +225,10 @@ function! LoadSessionT()
             endif
             exe "1wincmd w"
         endif
-    endif
-    echom "T " . l:sz
-    call s:DeleteNoNameBuffer()
-    call s:LoadLastBuffer(".vimbuffer", ".vimforcebuffer",l:sfile)
+
+        call s:DeleteNoNameBuffer()
+
+"    call s:LoadLastBuffer(".vimbuffer",".vimforcebuffer",l:sfile)
     autocmd Filetype,BufEnter * call CaptureBuffer()
 endfunction
 
@@ -350,7 +322,7 @@ function! CaptureSession()
     endfor
 
     call writefile(l:body,    ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION)
-    call writefile(l:winbody, ($VIMWINDOWS == "") ? ".vimwindows" : $VIMWINDOWS)
+    call writefile(l:winbody, ($VIMWINDOW == "") ? ".vimwindow" : $VIMWINDOW)
 
 echom "session written"
 endfunction

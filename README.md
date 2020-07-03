@@ -165,7 +165,6 @@ function! LoadSession(...)
     let l:sfile   = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
     let l:wfile   = ($VIMWINDOW == "")  ? ".vimwindow"  : $VIMWINDOW
     let l:splfile = ($VIMSPLIT == "")   ? ".vimsplit"   : $VIMSPLIT
-    let l:tfile = ($VIMTAB == "")     ? ".vimtab"     : $VIMTAB
     let l:filecmd = "e"
     let l:splits = ""
 

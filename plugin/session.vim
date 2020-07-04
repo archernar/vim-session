@@ -1,5 +1,6 @@
 "## MD-NONE
 "## Setup
+"## MD-CODE
 " ==============================================================================
 "
 " To capture sessions, add the following command to your .vimrc
@@ -16,6 +17,8 @@
 " VIMWINDOW    .vimwindow
 " VIMSPLIT     .vimsplit
 " ==============================================================================
+"## MD-NONE
+"## Plugin Code
 " MD-CODE
 if exists("g:loaded_plugin_session") || v:version < 700 || &cp
     finish

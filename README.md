@@ -9,6 +9,7 @@
 "
 " export VIMSESSION=.vimsession
 " export VIMWINDOW=.vimwindow
+" export VIMSPLIT=.vimsplit
 "
 " To capture sessions, define a vim command of the form
 "
@@ -138,30 +139,15 @@ endfunction
 "                                     -      
 "                                     ------------------------------------------
 function! g:DeleteAllBuffers()
-    silent exe "0,s:MAXBUFFERSbdelete!"
+    silent exe "0,s:"
 endfunction
 " ==============================================================================
 "                                     - Global Function
 "                                     ------------------------------------------
-"                                     - g:LoadNamedSession()
-"                                     -      
-"                                     ------------------------------------------
-function! g:LoadNamedSession()
-    silent exe "0,s:MAXBUFFERSbdelete!"
-    let l:szIn = input('session name (.vimsession) &gt;&gt; ')
-    if (strlen(l:szIn) &gt; 0)
-        call LoadSession(szIn,'e')
-    else
-        call LoadSession('.vimsession','e')
-    endif
-endfunction
-" ==============================================================================
-"                                     - Global Function
-"                                     ------------------------------------------
-"                                     - LoadSession(...)
+"                                     - LoadSession()
 "                                     -
 "                                     ------------------------------------------
-function! LoadSession(...)
+function! LoadSession()
     let l:sfile   = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
     let l:wfile   = ($VIMWINDOW == "")  ? ".vimwindow"  : $VIMWINDOW
     let l:splfile = ($VIMSPLIT == "")   ? ".vimsplit"   : $VIMSPLIT
@@ -171,6 +157,11 @@ function! LoadSession(...)
     if (filereadable(splfile))
         let l:splits = ""
         let l:splits = readfile(splfile)[0]
+    else
+        let l:body=[]
+        call add(l:body, "none")
+        call writefile(l:body, splfile)
+        let l:splits = "none"
     endif
 
     if (l:splits == "tab")
@@ -205,8 +196,7 @@ function! LoadSession(...)
         endfor
         call s:DeleteNoNameBuffer()
 
-        let l:sz = l:c . "F " . l:sz . "  SL/FORCE/UNFORCE" 
-        if (filereadable(l:tfile))
+        if (l:splits != "tab") 
             exe "tabfirst"
         else
             exe "1wincmd w"
@@ -230,69 +220,6 @@ function! LoadSession(...)
             exe "1wincmd w"
         endif
 
-
-"    call s:LoadLastBuffer(".vimbuffer",".vimforcebuffer",l:sfile)
-    autocmd Filetype,BufEnter * call CaptureBuffer()
-endfunction
-
-":echo @%                def/my.txt      directory/name of file (relative to the current working directory of /abc)
-":echo expand('%:t')     my.txt  name of file ('tail')
-":echo expand('%:p')     /abc/def/my.txt full path
-":echo expand('%:p:h')   /abc/def        directory containing file ('head')
-":echo expand('%:p:h:t') def     First get the full path with :p (/abc/def/my.txt), then get the head of that with :h (/abc/def), then get the tail of that with :t (def)
-":echo expand('%:r')     def/my  name of file less one extension ('root')
-":echo expand('%:e')     txt     name of file's extension ('extension')
-"For more info run :help expand
-
-
-" ==============================================================================
-"                                     - Global Function
-"                                     ------------------------------------------
-"                                     - CaptureBuffer() 
-"                                     -      
-"                                     ------------------------------------------
-function! CaptureBuffer()
-    let l:body=[]
-    if (! (expand('%:t') == ".vimbuffer") )
-        call add(l:body, bufname(expand('%:p')))
-        call writefile(l:body, ".vimbuffer")
-    endif
-endfunction
-" ==============================================================================
-"                                     - Global Function
-"                                     ------------------------------------------
-"                                     - EmptyCaptureBuffer()
-"                                     -      
-"                                     ------------------------------------------
-command! ECB  :call EmptyCaptureBuffer()
-function! EmptyCaptureBuffer()
-    let l:body=[]
-    call writefile(l:body, ".vimbuffer")
-endfunction
-" ==============================================================================
-"                                     - Global Function
-"                                     ------------------------------------------
-"                                     - CaptureForceBuffer()
-"                                     -      
-"                                     ------------------------------------------
-command! FORCE :call CaptureForceBuffer()
-function! CaptureForceBuffer()
-    let l:body=[]
-    if (! (expand('%:t') == ".vimforcebuffer") )
-        call add(l:body, bufname(expand('%:p')))
-        call writefile(l:body, ".vimforcebuffer")
-    endif
-endfunction
-" ==============================================================================
-"                                     - Global Function
-"                                     ------------------------------------------
-"                                     - EmptyForceBuffer()
-"                                     -      
-"                                     ------------------------------------------
-command! UNFORCE :call EmptyForceBuffer()
-function! EmptyForceBuffer()
-    let l:body=[]
-    call writefile(l:body, ".vimforcebuffer")
 endfunction
 
 " ==============================================================================
@@ -329,19 +256,6 @@ function! CaptureSession()
 
 echom "session written"
 endfunction
-" ------------------------------------------
-" ==============================================================================
-"                                     - Script Utility Function
-"                                     ------------------------------------------
-"                                     - 
-"                                     -      
-"                                     ------------------------------------------
-" ==============================================================================
-"                                     - Global Function
-"                                     ------------------------------------------
-"                                     - 
-"                                     -      
-"                                     ------------------------------------------
 </code></pre>
 
 

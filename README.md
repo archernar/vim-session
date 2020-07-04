@@ -4,20 +4,24 @@
 ![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png)
 
 ## session.vim
-<pre><code>" ==============================================================================
-" To capture sessions, define a vim command of the form
+<pre><code>" MD-CODE
+" Setup
+" ==============================================================================
 "
-" command! SESSION :call CaptureSession()
-" 
+" To capture sessions, add the following command to your .vimrc
+
+" command! SESSION   :call CaptureSession()
+
+" To automatically load sessions, add ithe following to your .vimrc
+" if ( argc() == 0 ) 
+"      autocmd VimEnter * :call LoadSession()
+" endif
 " Optional Environment Variables
-"
 " name         default
 " VIMSESSION   .vimsession
 " VIMWINDOW    .vimwindow
 " VIMSPLIT     .vimsplit
-"
 " ==============================================================================
-"
 if exists("g:loaded_plugin_session") || v:version &lt; 700 || &amp;cp
     finish
 endif

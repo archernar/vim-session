@@ -1,14 +1,14 @@
 " ==============================================================================
-" Environment Variables
-"
-" export VIMSESSION=.vimsession
-" export VIMWINDOW=.vimwindow
-" export VIMSPLIT=.vimsplit
-"
 " To capture sessions, define a vim command of the form
 "
-" command! SESSION  :call CaptureSession()
+" command! SESSION :call CaptureSession()
 " 
+" Optional Environment Variables
+"
+" name         default
+" VIMSESSION   .vimsession
+" VIMWINDOW    .vimwindow
+" VIMSPLIT     .vimsplit
 "
 " ==============================================================================
 "

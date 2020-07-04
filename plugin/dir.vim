@@ -18,13 +18,6 @@ command! DIR           :call s:MyDirPwd(1)
 command! DIRC          :call s:MyDirPwd(0)
 command! DDIR          :call s:MyDirPwd(0)
 
-command! SESSIONLIST   :call g:ListBuffers()
-command! SESSIONEDIT   :e .vimsession
-command! SESSIONFILES  :call g:SessionFiles()
-command! SL            :call g:SessionFiles()
-
-command! LOADNAMEDSESSION  :call g:LoadNamedSession()
-command! LOADSESSION       :call g:LoadNamedSession()
 
 " *****************************************************************************************************
                 "  Local/Script Functions

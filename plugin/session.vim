@@ -1,5 +1,5 @@
+"## MD-NONE
 "## Setup
-"## MD-BLOCK
 " ==============================================================================
 "
 " To capture sessions, add the following command to your .vimrc
@@ -255,3 +255,4 @@ function! CaptureSession()
 
 echom "session written"
 endfunction
+"## MD-NONE

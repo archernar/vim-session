@@ -68,6 +68,7 @@ print "## session.vim" >> README.md
 cat plugin/session.vim | gawk '{print "    " $0}' | markdown >> README.md
 print "" >> README.md
 print "" >> README.md
+cp zz.html README.md
 
 
           git add plugin/session.vim

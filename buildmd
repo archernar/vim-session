@@ -17,6 +17,11 @@ BEGIN {
     print trim(sz)
     next
 }
+/^["]###/ {
+    sub(/^["]###/, "", sz)
+    print "### " trim(sz)
+    next
+}
 /^["]##/ {
     sub(/^["]##/, "", sz)
     print "## " trim(sz)

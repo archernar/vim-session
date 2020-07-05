@@ -1,7 +1,8 @@
-# session.vim - a simple vim session management plugin
-## Screen Shot"
+# session.vim
+## a simple vim session management plugin
+### Screen Shot"
 ![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png)
-## Setup
+### Setup
     " ==============================================================================
     "
     " To capture sessions, add the following command to your .vimrc
@@ -257,4 +258,4 @@
     
     echom "session written"
     endfunction
-## MD-NONE
+    "MD-NONE

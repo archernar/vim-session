@@ -1,10 +1,11 @@
 " MD-NONE
-"# session.vim - a simple vim session management plugin
+"# session.vim
+"## a simple vim session management plugin
 " MD-NONE
-"## Screen Shot" 
+"### Screen Shot" 
 " MD-LINK ![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png)
 " MD-NONE
-"## Setup
+"### Setup
 " MD-CODE
 " ==============================================================================
 "
@@ -263,4 +264,4 @@ function! CaptureSession()
 
 echom "session written"
 endfunction
-"## MD-NONE
+"MD-NONE

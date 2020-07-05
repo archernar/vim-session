@@ -56,20 +56,7 @@ if [ "$PUSHITLOCAL" == "LOCAL" ] ; then
 fi
 
 print "Building README.md"
-
-print "# Simple Vim session and split management" > README.md
-print "" >> README.md
-
-print "## Screen Shot" >> README.md
-print  "![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png)" >> README.md
-print "" >> README.md
-
-print "## session.vim" >> README.md
-cat plugin/session.vim | gawk '{print "    " $0}' | markdown >> README.md
-print "" >> README.md
-print "" >> README.md
-cp zz.md README.md
-
+buildmd > README.md
 
           git add plugin/session.vim
           git add plugin/dir.vim
@@ -79,6 +66,7 @@ cp zz.md README.md
           git add images/session.png
           git add images/dirsession.png
           git add pushit
+          git add build.md
           git add README.md
           git commit -m "Update"
 

@@ -14,10 +14,25 @@
 "      autocmd VimEnter * :call LoadSession()
 " endif
 " Optional Environment Variables
-" name         default
-" VIMSESSION   .vimsession
-" VIMWINDOW    .vimwindow
-" VIMSPLIT     .vimsplit
+" name         default        description
+" VIMSESSION   .vimsession    Name of the file that contains the session list
+"                             This is a simple list of files
+"                             This file can be manually edited or auto generated
+"
+" VIMWINDOW    .vimwindow     Name of the file that contains the list of files
+"                             To be viewed in the splits (in order listed)
+"                             This file is typically not manually edited
+"
+" VIMSPLIT     .vimsplit      Name of the file that contains split commands
+"                             This file has one line in it
+"                             Options:
+"                             if the file contains "none":  No Splits of Tabs
+"                             if the file contains "tab":   Use Tabs
+"                             else, the file may contain a single line of "|"
+"                             seperated split commands
+"                             Ex.  split
+"                                  split | split
+"                                  split | vsplit
 " ==============================================================================
 "## Plugin Code
 " MD-CODE

@@ -39,9 +39,6 @@ ANON=`date`
 print $ANON
 print "Local Deployment..."
 cp plugin/session.vim $HOME/.vim/bundle/$REPO/plugin/session.vim
-cp plugin/dir.vim $HOME/.vim/bundle/$REPO/plugin/dir.vim
-cp tools/vit ~/firstbin/vit
-cp tools/vi  ~/firstbin/vi
 cp ~/.vimrc   tools/.vimrc 
 print "Local Deployment Done"
 
@@ -59,12 +56,7 @@ print "Building README.md"
 ./buildmd > README.md
 
           git add plugin/session.vim
-          git add plugin/dir.vim
-          git add tools/vit
-          git add tools/vi
-          git add tools/.vimrc
           git add images/session.png
-          git add images/dirsession.png
           git add pushit
           git add buildmd
           git add README.md

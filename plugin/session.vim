@@ -31,11 +31,10 @@ let s:MAXBUFFERS=32
 "                                     - Script Utility Function
 "                                     ------------------------------------------
 "                                     - s:TabsCount()
-"                                     - 
 "                                     ------------------------------------------
 function s:TabCount()
     let l:ret = 0
-    for i in range(tabpagenr('$'))
+    for l:i in range(tabpagenr('$'))
         let l:ret = l:ret + 1
     endfor
     return l:ret
@@ -74,7 +73,6 @@ endfunction
 "                                     - Script Utility Function
 "                                     ------------------------------------------
 "                                     - s:DeleteNoNameBuffer()
-"                                     -      
 "                                     ------------------------------------------
 function! s:DeleteNoNameBuffer()
     let l:c = 1
@@ -114,7 +112,6 @@ endfunction
 "                                     - Script Utility Function
 "                                     ------------------------------------------
 "                                     - s:LoadLastBuffer(...)
-"                                     -      
 "                                     ------------------------------------------
 function! s:LoadLastBuffer(...)
     if (filereadable(a:1))
@@ -139,7 +136,6 @@ endfunction
 "                                     - Global Function
 "                                     ------------------------------------------
 "                                     - g:DeleteAllBuffers()
-"                                     -      
 "                                     ------------------------------------------
 function! g:DeleteAllBuffers()
     silent exe "0,s:"
@@ -148,7 +144,6 @@ endfunction
 "                                     - Global Function
 "                                     ------------------------------------------
 "                                     - LoadSession()
-"                                     -
 "                                     ------------------------------------------
 function! LoadSession()
     let l:sfile   = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
@@ -229,7 +224,6 @@ endfunction
 "                                     - Global Function
 "                                     ------------------------------------------
 "                                     - CaptureSession()
-"                                     - 
 "                                     ------------------------------------------
 function! CaptureSession()
     let l:c=1

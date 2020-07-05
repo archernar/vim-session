@@ -13,28 +13,27 @@ BEGIN {
     next
 }
 /^["] MD-LINK/ {
+    pre=""
     sub(/^["] MD-LINK/, "", sz)
     print trim(sz)
     next
 }
 /^["]###/ {
+    pre=""
     sub(/^["]###/, "", sz)
     print "### " trim(sz)
     next
 }
 /^["]##/ {
+    pre=""
     sub(/^["]##/, "", sz)
     print "## " trim(sz)
     next
 }
 /^["]#/ {
+    pre=""
     sub(/^["]#/, "", sz)
     print "# " trim(sz)
-    next
-}
-
-/^["] MD-NONE$/ {
-    pre=""
     next
 }
 

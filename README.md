@@ -257,4 +257,3 @@
     
     echom "session written"
     endfunction
-    "MD-NONE

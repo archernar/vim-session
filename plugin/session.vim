@@ -1,9 +1,6 @@
-" MD-NONE
 "# session.vim<br>a simple vim session and split management plugin
-" MD-NONE
 "## Screen Shot
 " MD-LINK ![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png)
-" MD-NONE
 "## Setup
 " MD-CODE
 " ==============================================================================
@@ -22,7 +19,6 @@
 " VIMWINDOW    .vimwindow
 " VIMSPLIT     .vimsplit
 " ==============================================================================
-" MD-NONE
 "## Plugin Code
 " MD-CODE
 if exists("g:loaded_plugin_session") || v:version < 700 || &cp
@@ -263,4 +259,3 @@ function! CaptureSession()
 
 echom "session written"
 endfunction
-"MD-NONE

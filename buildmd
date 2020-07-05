@@ -1,0 +1,42 @@
+rm -f zz.md
+
+cat plugin/session.vim | gawk '
+function ltrim(s) { sub(/^ */, "", s); return s }
+function rtrim(s) { sub(/ *$/, "", s); return s }
+function trim(s) { return rtrim(ltrim(s)) }
+BEGIN {
+    pre = ""
+}
+{
+    sz=$0
+}
+/^["] MD-CODE$/ {
+    pre="    "
+    next
+}
+/^["] MD-LINK/ {
+    sub(/^["] MD-LINK/, "", sz)
+    print trim(sz)
+    next
+}
+/^["]##/ {
+    sub(/^["]##/, "", sz)
+    print "## " trim(sz)
+    next
+}
+/^["]#/ {
+    sub(/^["]#/, "", sz)
+    print "# " trim(sz)
+    next
+}
+
+/^["] MD-NONE$/ {
+    pre=""
+    next
+}
+
+{
+    print pre sz
+}' > zz.md
+ 
+cat zz.md | head -20

@@ -1,7 +1,7 @@
 " MD-NONE
 "# session.vim<br>a simple vim session and split management plugin
 " MD-NONE
-"## Screen Shot" 
+"## Screen Shot
 " MD-LINK ![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png)
 " MD-NONE
 "## Setup

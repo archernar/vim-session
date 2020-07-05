@@ -1,5 +1,3 @@
-rm -f zz.md
-
 cat plugin/session.vim | gawk '
 function ltrim(s) { sub(/^ */, "", s); return s }
 function rtrim(s) { sub(/ *$/, "", s); return s }
@@ -37,6 +35,4 @@ BEGIN {
 
 {
     print pre sz
-}' > zz.md
- 
-cat zz.md | head -20
+}' 

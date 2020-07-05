@@ -1,4 +1,6 @@
 " MD-NONE
+"# session.vim - a simple vim session management plugin
+" MD-NONE
 "## Setup
 " MD-CODE
 " ==============================================================================

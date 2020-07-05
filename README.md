@@ -1,3 +1,4 @@
+# session.vim - a simple vim session management plugin
 ## Setup
     " ==============================================================================
     "

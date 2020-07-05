@@ -56,7 +56,7 @@ if [ "$PUSHITLOCAL" == "LOCAL" ] ; then
 fi
 
 print "Building README.md"
-buildmd > README.md
+./buildmd > README.md
 
           git add plugin/session.vim
           git add plugin/dir.vim

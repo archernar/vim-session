@@ -1,4 +1,6 @@
 # session.vim - a simple vim session management plugin
+## Screen Shot"
+![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png)
 ## Setup
     " ==============================================================================
     "

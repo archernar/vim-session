@@ -4,7 +4,11 @@
 "## Setup
 " MD-CODE
 " ==============================================================================
-"
+" Load the plugin with your plugin manager
+
+" Example: I use Vundle -
+" Plugin 'archernar/vim-session'
+
 " To capture sessions, add the following command to your .vimrc
 
 " command! SESSION   :call CaptureSession()

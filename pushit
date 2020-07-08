@@ -27,8 +27,8 @@ do
                git push -u origin master
                exit 0 
                ;;
-            k) confirm 
-               rm -rf cp $HOME/.vim/bundle/$REPO
+            k)  
+               rm -rf $HOME/.vim/bundle/$REPO
                exit 0 
                ;;
             l) LOCAL="yes" 
@@ -39,7 +39,6 @@ ANON=`date`
 print $ANON
 print "Local Deployment..."
 cp plugin/session.vim $HOME/.vim/bundle/$REPO/plugin/session.vim
-cp ~/.vimrc   tools/.vimrc 
 print "Local Deployment Done"
 
 if [ "$LOCAL" == "yes" ] ; then

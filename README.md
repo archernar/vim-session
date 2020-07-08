@@ -1,4 +1,5 @@
-# session.vim<br>a simple vim session and split management plugin
+# session.vim
+## a simple vim session and split management plugin
 ## Screen Shot
 ![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png)
 ## Setup

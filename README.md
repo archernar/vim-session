@@ -8,19 +8,29 @@
     
     " command! SESSION   :call CaptureSession()
     
-    " To automatically load sessions, add ithe following to your .vimrc
+    " To automatically load sessions, add the following to your .vimrc
     " if ( argc() == 0 ) 
     "      autocmd VimEnter * :call LoadSession()
     " endif
+    
+    " To save you sessions define the following command in your .vimrc
+    
+    " command! SESSION   :call CaptureSession()
+    
     " Optional Environment Variables
     " name         default        description
     " VIMSESSION   .vimsession    Name of the file that contains the session list
     "                             This is a simple list of files
     "                             This file can be manually edited or auto generated
+    "                             CaptureSession() writes the files associated with open
+    "                             buffers ( one per line ) to this file
+    "                             You can manually create this file too
     "
     " VIMWINDOW    .vimwindow     Name of the file that contains the list of files
     "                             To be viewed in the splits (in order listed)
     "                             This file is typically not manually edited
+    "                             CaptureSession() writes the files associated visible
+    "                             splits/tabs to this file
     "
     " VIMSPLIT     .vimsplit      Name of the file that contains split commands
     "                             This file has one line in it

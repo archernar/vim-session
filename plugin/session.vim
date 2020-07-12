@@ -11,32 +11,37 @@
 " Plugin 'archernar/vim-session'
 
 " To capture sessions, add the following command to your .vimrc
+" and run the commandi when you want to save your session. The
+" process is a manual snapshot save by design.
 
 " command! SESSION   :call CaptureSession()
 
-" To automatically load sessions, add the following to your .vimrc
+" To automatically load sessionson vim startup, add the following to your .vimrc
 " if ( argc() == 0 ) 
 "      autocmd VimEnter * :call LoadSession()
 " endif
 
-" To save you sessions define the following command in your .vimrc
 
-" command! SESSION   :call CaptureSession()
-
-" Optional Environment Variables
+" Environment Variables, Session Files and Split Configuration File
 " name         default        description
 " VIMSESSION   .vimsession    Name of the file that contains the session list
 "                             This is a simple list of files
 "                             This file can be manually edited or auto generated
+
 "                             CaptureSession() writes the files associated with open
 "                             buffers ( one per line ) to this file
 "                             You can manually create this file too
 "
 " VIMWINDOW    .vimwindow     Name of the file that contains the list of files
-"                             To be viewed in the splits (in order listed)
-"                             This file is typically not manually edited
+"                             to be viewed in the splits (in the order listed)
+"                             This file is typically not manually edited, but can be
 "                             CaptureSession() writes the files associated visible
-"                             splits/tabs to this file
+"                             splits/tabs to this file.  
+
+"                             If $VIMSPLIT (see below) contains a split command string
+"                             (say "split | split") then the files will be viewed in
+"                             the splits in order.  If there are less splits than files
+"                             then loading stops.
 "
 " VIMSPLIT     .vimsplit      Name of the file that contains split commands
 "                             This file has one line in it

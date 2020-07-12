@@ -16,10 +16,18 @@
 
 " command! SESSION   :call CaptureSession()
 
-" To automatically load sessionson vim startup, add the following to your .vimrc
+" To automatically load sessions on vim startup, add the following to your .vimrc
 " if ( argc() == 0 ) 
 "      autocmd VimEnter * :call LoadSession()
 " endif
+"
+" Once setup you can now use vim this way:
+
+" say vim, by itself, and the specific session config will be loaded
+" say vim <filename> [<filename> ...], just the files are loaded (no session loaded)
+" 
+" at any time issue the command "SESSION" (or you replacement) and the session info
+" is saved.  There is no concept of auto saving session, I dont like that in my workflow.
 
 
 " Environment Variables, Session Files and Split Configuration File

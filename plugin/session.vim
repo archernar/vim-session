@@ -4,7 +4,7 @@
 " MD-LINK ![alt text](https://github.com/archernar/vim-session/blob/master/images/session.png)
 "## Setup
 " MD-CODE
-" ==============================================================================
+" ==========================================================================================
 " Load the plugin with your plugin manager
 
 " Example: I use Vundle -
@@ -53,7 +53,7 @@
 "                             Ex.  split
 "                                  split | split
 "                                  split | vsplit
-" ==============================================================================
+" ==========================================================================================
 "## Plugin Code
 " MD-CODE
 if exists("g:loaded_plugin_session") || v:version < 700 || &cp

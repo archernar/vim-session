@@ -292,5 +292,5 @@
         call writefile(l:body,    ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION)
         call writefile(l:winbody, ($VIMWINDOW == "") ? ".vimwindow" : $VIMWINDOW)
     
-    echom "session written"
+    echom "session written to " . (($VIMSESSION == "") ? ".vimsession" : $VIMSESSION)
     endfunction

@@ -286,7 +286,6 @@ function! CaptureSession()
                 if (getbufvar(l:c, '&buftype') == "")
                     if !(bufname(l:c) == "")
                        call add(l:body, bufname(l:c))
-                       call add(l:global, bufname(l:c))
                     endif
                 endif
             endif
@@ -300,7 +299,11 @@ function! CaptureSession()
 
     call writefile(l:body,    ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION)
     call writefile(l:winbody, ($VIMWINDOW == "") ? ".vimwindow" : $VIMWINDOW)
-
+    " https://stackoverflow.com/questions/7236315/how-can-i-view-the-filepaths-to-all-vims-open-buffers
+    let l:mm=map(filter(range(0,bufnr('$')), 'buflisted(v:val)'), 'fnamemodify(bufname(v:val), ":p")')
+    for l:l in l:mm
+        call add(l:global, l:l)
+    endfor
     call writefile(l:global, l:gfn)
 
 

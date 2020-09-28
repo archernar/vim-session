@@ -67,7 +67,7 @@
     endif
     let g:loaded_plugin_session=1
     
-    let s:MAXBUFFERS=32
+    let s:MAXBUFFERS=255
     " ==============================================================================
     "                                     - Script Utility Function
     "                                     ------------------------------------------

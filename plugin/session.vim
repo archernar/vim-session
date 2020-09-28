@@ -273,7 +273,7 @@ function! CaptureSession()
     let l:global=[]
     let l:body=[]
     let l:winbody=[]
-    let l:gfn = "~/.sessionglobal"
+    let l:gfn = "/home/mestes/.sessionglobal"
 
     if (filereadable(l:gfn)) 
         let l:global = readfile(l:gfn)

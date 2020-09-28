@@ -273,7 +273,7 @@ function! CaptureSession()
     let l:global=[]
     let l:body=[]
     let l:winbody=[]
-    let l:gfn = "/home/mestes/.sessionglobal"
+    let l:gfn = $HOME . "/.vimsessionglobal"
 
     if (filereadable(l:gfn)) 
         let l:global = readfile(l:gfn)

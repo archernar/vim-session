@@ -270,16 +270,23 @@ endfunction
 "                                     ------------------------------------------
 function! CaptureSession()
     let l:c=1
+    let l:global=[]
     let l:body=[]
     let l:winbody=[]
+    let l:gfn = "~/.sessionglobal"
+
+    if (filereadable(l:gfn)) 
+        let l:global = readfile(l:gfn)
+    endif
+
     echom "capturing up to " . s:MAXBUFFERS . " buffers"
     while l:c <= s:MAXBUFFERS 
         if (bufexists(l:c))
-            " if (filereadable(bufname(l:c)))
             if ( 1 == 1 )
                 if (getbufvar(l:c, '&buftype') == "")
                     if !(bufname(l:c) == "")
                        call add(l:body, bufname(l:c))
+                       call add(l:global, bufname(l:c))
                     endif
                 endif
             endif
@@ -293,6 +300,9 @@ function! CaptureSession()
 
     call writefile(l:body,    ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION)
     call writefile(l:winbody, ($VIMWINDOW == "") ? ".vimwindow" : $VIMWINDOW)
+
+    call writefile(l:global, l:gfn)
+
 
 echom "session written to " . (($VIMSESSION == "") ? ".vimsession" : $VIMSESSION)
 endfunction

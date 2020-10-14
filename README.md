@@ -10,7 +10,7 @@
     " Plugin 'archernar/vim-session'
     
     " To capture sessions, add the following command to your .vimrc
-    " and run the commandi when you want to save your session. The
+    " and run the command when you want to save your session. The
     " process is a manual snapshot save by design.
     
     " command! SESSION   :call CaptureSession()
@@ -26,7 +26,8 @@
     " say vim <filename> [<filename> ...], just the files are loaded (no session loaded)
     " 
     " at any time issue the command "SESSION" (or you replacement) and the session info
-    " is saved.  There is no concept of auto saving session, I dont like that in my workflow.
+    " is saved.  There is no concept of auto saving session.  Saving session is manual
+    " by design (I prefer manual saves in my workflow).
     
     
     " Environment Variables, Session Files and Split Configuration File
@@ -268,12 +269,18 @@
     "                                     ------------------------------------------
     function! CaptureSession()
         let l:c=1
+        let l:global=[]
         let l:body=[]
         let l:winbody=[]
+        let l:gfn = $HOME . "/.vimsessionglobal"
+    
+        if (filereadable(l:gfn)) 
+            let l:global = readfile(l:gfn)
+        endif
+    
         echom "capturing up to " . s:MAXBUFFERS . " buffers"
         while l:c <= s:MAXBUFFERS 
             if (bufexists(l:c))
-                " if (filereadable(bufname(l:c)))
                 if ( 1 == 1 )
                     if (getbufvar(l:c, '&buftype') == "")
                         if !(bufname(l:c) == "")
@@ -291,6 +298,13 @@
     
         call writefile(l:body,    ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION)
         call writefile(l:winbody, ($VIMWINDOW == "") ? ".vimwindow" : $VIMWINDOW)
+        " https://stackoverflow.com/questions/7236315/how-can-i-view-the-filepaths-to-all-vims-open-buffers
+        let l:mm=map(filter(range(0,bufnr('$')), 'buflisted(v:val)'), 'fnamemodify(bufname(v:val), ":p")')
+        for l:l in l:mm
+            call add(l:global, l:l)
+        endfor
+        call writefile(l:global, l:gfn)
+    
     
     echom "session written to " . (($VIMSESSION == "") ? ".vimsession" : $VIMSESSION)
     endfunction

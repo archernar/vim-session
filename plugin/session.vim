@@ -11,7 +11,7 @@
 " Plugin 'archernar/vim-session'
 
 " To capture sessions, add the following command to your .vimrc
-" and run the commandi when you want to save your session. The
+" and run the command when you want to save your session. The
 " process is a manual snapshot save by design.
 
 " command! SESSION   :call CaptureSession()
@@ -27,7 +27,8 @@
 " say vim <filename> [<filename> ...], just the files are loaded (no session loaded)
 " 
 " at any time issue the command "SESSION" (or you replacement) and the session info
-" is saved.  There is no concept of auto saving session, I dont like that in my workflow.
+" is saved.  There is no concept of auto saving session.  Saving session is manual
+" by design (I prefer manual saves in my workflow).
 
 
 " Environment Variables, Session Files and Split Configuration File

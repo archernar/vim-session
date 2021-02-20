@@ -60,11 +60,13 @@ fi
 print "Building README.md"
 ./buildmd > README.md
 
+          print "adding..."
           git add plugin/session.vim
           git add images/session.png
           git add pushit
           git add buildmd
           git add README.md
+          print "committing..."
           git commit -m "Update"
 
 if [ "$LOCAL" == "" ] ; then

@@ -9,6 +9,7 @@
 
 " Example: I use Vundle -
 " Plugin 'archernar/vim-session'
+" ==========================================================================================
 
 " To capture sessions, add the following command to your .vimrc and run the
 " command when you want to save your session. 

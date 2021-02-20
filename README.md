@@ -9,11 +9,13 @@
     " Example: I use Vundle -
     " Plugin 'archernar/vim-session'
     
-    " To capture sessions, add the following command to your .vimrc
-    " and run the command when you want to save your session. The
-    " process is a manual snapshot save by design.
-    
+    " To capture sessions, add the following command to your .vimrc and run the
+    " command when you want to save your session. 
+    " 
     " command! SESSION   :call CaptureSession()
+    " 
+    " The command will then perform a manual snapshot of your current sessioni and
+    " save the session in $VIMSESSION.
     
     " To automatically load sessions on vim startup, add the following to your .vimrc
     " if ( argc() == 0 ) 

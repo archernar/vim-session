@@ -197,6 +197,10 @@
         let l:filecmd = "e"
         let l:splits = ""
     
+        let l:messages=[]
+        call add(l:messages, l:sfile)
+        call writefile(l:messages, "/tmp/vimscript.log", "a")
+    
         if (filereadable(splfile))
             let l:splits = ""
             let l:splits = readfile(splfile)[0]

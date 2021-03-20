@@ -40,6 +40,7 @@ do
                print "committing..."
                git commit -m "Update"
                echo "./pushit -p to push origin to master"
+               git push -u origin master
                exit 0 
                ;;
             k) rm -rf $HOME/.vim/bundle/$REPO

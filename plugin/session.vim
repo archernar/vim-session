@@ -199,9 +199,6 @@ function! LoadSession(...)
     let l:filecmd = "e"
     let l:splits = ""
 
-    let l:messages=[]
-    call add(l:messages, l:sfile)
-    call writefile(l:messages, "/tmp/vimscript.log", "a")
 
     if (filereadable(splfile))
         let l:splits = ""
@@ -230,6 +227,9 @@ function! LoadSession(...)
     let l:c = 0
     let l:sz = l:sfile
     if (filereadable(l:sfile))
+            let l:messages=[]
+            call add(l:messages, "Reading " . l:sfile)
+            call writefile(l:messages, "/tmp/vimscript.log", "a")
         let l:body = readfile(l:sfile)
         for l:l in l:body
             if !( l:l =~ "\"" )

@@ -74,6 +74,27 @@ endif
 let g:loaded_plugin_session=1
 
 let s:MAXBUFFERS=255
+
+
+function s:Dump(...)
+return
+    let l:c = 1
+    call g:LogMessage("Dump")
+    while l:c <= s:MAXBUFFERS 
+        call g:LogMessage("    Looking at buffer " . l:c)
+        if (bufexists(l:c))
+                if (getbufvar(l:c, '&buftype') == "")
+                    if !(bufname(l:c) == "")
+                        call g:LogMessage("    " . bufname(l:c) . "  buffer # " . l:c)
+                    endif
+                endif
+        else
+            let l:c = s:MAXBUFFERS +1
+        endif
+        let l:c += 1
+    endwhile 
+    call g:LogMessage("DumpEnd")
+endfunction
 " ==============================================================================
 "                                     - Script Utility Function
 "                                     ------------------------------------------
@@ -193,9 +214,17 @@ endfunction
 "                                     - LoadSession()
 "                                     ------------------------------------------
 function! LoadSession(...)
+    call g:LogMessage("SRT LoadSession()")
+    call s:Dump()
     let l:sfile   = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
+    let l:sfolder = fnamemodify(fnamemodify(l:sfile, ':p'), ':h')
+    call g:LogMessage("VIMSESSION " . l:sfolder )
+
     let l:wfile   = ($VIMWINDOW == "")  ? ".vimwindow"  : $VIMWINDOW
     let l:splfile = ($VIMSPLIT == "")   ? ".vimsplit"   : $VIMSPLIT
+    let l:wfile   = l:sfolder . "/.vimwindow"
+    let l:splfile = l:sfolder . "/.vimsplit"
+
     let l:filecmd = "e"
     let l:splits = ""
 
@@ -227,14 +256,14 @@ function! LoadSession(...)
     let l:c = 0
     let l:sz = l:sfile
     if (filereadable(l:sfile))
-            let l:messages=[]
-            call add(l:messages, "Reading " . l:sfile)
-            call writefile(l:messages, "/tmp/vimscript.log", "a")
+        call g:LogMessage("Reading " . fnamemodify(l:sfile, ':p'))
         let l:body = readfile(l:sfile)
         for l:l in l:body
+            call g:LogMessage("Body Element " . l:l)
             if !( l:l =~ "\"" )
                 if !( l:l == "" )
                     exe l:filecmd . " " . l:l
+                    call s:Dump()
                     if (line("'\"") > 0 && line("'\"") <= line("$"))
                         exe "normal! g'\"" 
                     endif
@@ -251,24 +280,27 @@ function! LoadSession(...)
             exe "1wincmd w"
         endif
     endif
-
-        let l:c = 1
-        if (filereadable(l:splfile))
-            if (filereadable(l:wfile))
-                let l:body = readfile(l:wfile)
-                for l:l in l:body
-                    if !(l:l == "")
-                             if ( s:WindowExists(l:c) == 1 )
-                                 exe l:c . "wincmd w"
-                                 exe "e " . l:l
-                             endif
-                             let l:c += 1
-                    endif
-                endfor
-            endif
-            exe "1wincmd w"
+    " ============
+    " For SPLITS
+    " ============
+    let l:c = 1
+    if (filereadable(l:splfile))
+       if (filereadable(l:wfile))
+            let l:body = readfile(l:wfile)
+            for l:l in l:body
+                if !(l:l == "")
+                         if ( s:WindowExists(l:c) == 1 )
+                             exe l:c . "wincmd w"
+                             exe "e " . l:l
+                         endif
+                         let l:c += 1
+                endif
+            endfor
         endif
+        exe "1wincmd w"
+    endif
 
+call g:LogMessage("END LoadSession()")
 endfunction
 
 " ==============================================================================

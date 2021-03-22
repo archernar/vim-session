@@ -18,7 +18,7 @@ confirm() {
 # #######################################
 REPO=vim-session
 LOCAL=""
-while getopts "amuplkh" arg
+while getopts "zamuplkh" arg
 do
 	case $arg in
             p) print "Force push origin to master"
@@ -41,6 +41,9 @@ do
                git commit -m "Update"
                echo "./pushit -p to push origin to master"
                git push -u origin master
+               exit 0 
+               ;;
+            z) cp plugin/session.vim $HOME/.vim/bundle/$REPO/plugin
                exit 0 
                ;;
             k) rm -rf $HOME/.vim/bundle/$REPO

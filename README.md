@@ -73,17 +73,30 @@
     
     let s:MAXBUFFERS=255
     
+    " ==============================================================================
+    "                                     - Script Utility Function
+    "                                     ------------------------------------------
+    "                                     - s:LogMessage(...)
+    "                                     ------------------------------------------
+    function s:LogMessage(...)
+        let l:ret = 0
+        return l:ret
+        let l:messages=[]
+        call add(l:messages, a:1)
+        call writefile(l:messages, "/tmp/vimscript.log", "a")
+        return l:ret
+    endfunction
     
     function s:Dump(...)
         return
         let l:c = 1
-        call g:LogMessage("Dump")
+        call s:LogMessage("Dump")
         while l:c <= s:MAXBUFFERS 
-            call g:LogMessage("    Looking at buffer " . l:c)
+            call s:LogMessage("    Looking at buffer " . l:c)
             if (bufexists(l:c))
                     if (getbufvar(l:c, '&buftype') == "")
                         if !(bufname(l:c) == "")
-                            call g:LogMessage("    " . bufname(l:c) . "  buffer # " . l:c)
+                            call s:LogMessage("    " . bufname(l:c) . "  buffer # " . l:c)
                         endif
                     endif
             else
@@ -91,7 +104,7 @@
             endif
             let l:c += 1
         endwhile 
-        call g:LogMessage("DumpEnd")
+        call s:LogMessage("DumpEnd")
     endfunction
     " ==============================================================================
     "                                     - Script Utility Function
@@ -212,11 +225,11 @@
     "                                     - LoadSession()
     "                                     ------------------------------------------
     function! LoadSession(...)
-        call g:LogMessage("SRT LoadSession()")
+        call s:LogMessage("SRT LoadSession()")
         call s:Dump()
         let l:sfile   = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
         let l:sfolder = fnamemodify(fnamemodify(l:sfile, ':p'), ':h')
-        call g:LogMessage("VIMSESSION " . l:sfolder )
+        call s:LogMessage("VIMSESSION " . l:sfolder )
     
         let l:wfile   = ($VIMWINDOW == "")  ? ".vimwindow"  : $VIMWINDOW
         let l:splfile = ($VIMSPLIT == "")   ? ".vimsplit"   : $VIMSPLIT
@@ -254,10 +267,10 @@
         let l:c = 0
         let l:sz = l:sfile
         if (filereadable(l:sfile))
-            call g:LogMessage("Reading " . fnamemodify(l:sfile, ':p'))
+            call s:LogMessage("Reading " . fnamemodify(l:sfile, ':p'))
             let l:body = readfile(l:sfile)
             for l:l in l:body
-                call g:LogMessage("Body Element " . l:l)
+                call s:LogMessage("Body Element " . l:l)
                 if !( l:l =~ "\"" )
                     if !( l:l == "" )
                         exe l:filecmd . " " . l:l
@@ -298,7 +311,7 @@
             exe "1wincmd w"
         endif
     
-    call g:LogMessage("END LoadSession()")
+    call s:LogMessage("END LoadSession()")
     endfunction
     
     " ==============================================================================

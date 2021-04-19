@@ -262,6 +262,7 @@
                   if (l:splits != "")
                       exe l:splits . " | exe '1wincmd w'"
                   endif
+                endif
             endif
         endif
     

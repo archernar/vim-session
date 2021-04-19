@@ -258,9 +258,12 @@ function! LoadSession(...)
 
     if (l:splits != "tab") 
         if (l:splits != "none")
-            if (l:splits != "")
-                exe l:splits . " | exe '1wincmd w'"
-            endif
+            if (l:splits == "four")
+              execute "split | vsplit | wincmd w | vsplit | wincmd w | wincmd w | wincmd w"
+            else
+              if (l:splits != "")
+                  exe l:splits . " | exe '1wincmd w'"
+              endif
         endif
     endif
 

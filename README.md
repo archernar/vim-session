@@ -224,6 +224,9 @@
     "                                     ------------------------------------------
     "                                     - LoadSession()
     "                                     ------------------------------------------
+    function! g:LoadSessionGlobal(...)
+        call g:LoadSession(a:1)
+    endfunction
     function! LoadSession(...)
     
         if exists("g:session_loaded")

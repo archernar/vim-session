@@ -289,7 +289,7 @@ function! LoadSession(...)
         call s:LogMessage("Reading " . fnamemodify(l:sfile, ':p'))
         let l:body = readfile(l:sfile)
         for l:l in l:body
-            call s:LogMessage("Body Element " . l:l)
+            call s:LogMessage("Body Element " . l:l . " from " . l:sfile)
             if !( l:l =~ "\"" )
                 if !( l:l == "" )
                     exe l:filecmd . " " . l:l

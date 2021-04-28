@@ -5,96 +5,29 @@ trap 'rm -f "$Tmp" >/dev/null 2>&1' 0
 trap "exit 2" 1 2 3 13 15
 rm $Tmp  >/dev/null 2>&1
 
-# #######################################
-# #######################################
-confirm() {
-      print -n "Enter '10111' to confirm >> "
-      read STRIN
-      if [ "$STRIN" != "10111" ] ; then
-           print "   Exiting - No Match"
-           exit 1
-      fi
-}
-# #######################################
-REPO=vim-session
-LOCAL=""
-while getopts "zamuplkh" arg
-do
-	case $arg in
-            p) print "Force push origin to master"
-               git push -u origin master
-               exit 0 
-               ;;
-            u) rm -rf $HOME/.vim/bundle/$REPO
-               vim  -c ":PluginUpdate vim-session" -c ":qa!"
-               exit 0 
-               ;;
-            a) print "Building README.md"
-               ./buildmd > README.md
-               print "adding..."
-               git add plugin/session.vim
-               git add images/session.png
-               git add pushit
-               git add buildmd
-               git add README.md
-               print "committing..."
-               git commit -m "Update"
-               echo "./pushit -p to push origin to master"
-               git push -u origin master
-               exit 0 
-               ;;
-            z) cp plugin/session.vim $HOME/.vim/bundle/$REPO/plugin
-               exit 0 
-               ;;
-            k) rm -rf $HOME/.vim/bundle/$REPO
-               exit 0 
-               ;;
-            m) vim  -c ":PluginUpdate vim-session" -c ":qa!"
-               exit 0 
-               ;;
-            l) LOCAL="yes" 
-               ;;
-            h) echo " -p     push origin to master"
-               echo " -u     update local plugin"
-               echo " -a     add files too an dupdate local repo"
-               exit 0 
-               ;;
-        esac
-done
-ANON=`date`
-print $ANON
-print "Local Deployment..."
-cp plugin/session.vim $HOME/.vim/bundle/$REPO/plugin/session.vim
-print "Local Deployment Done"
-
-if [ "$LOCAL" == "yes" ] ; then
-    print "Local Deployment Only"
-    exit 0
-fi
 
 
-if [ "$PUSHITLOCAL" == "LOCAL" ] ; then
-     LOCAL="LOCAL"
-fi
+#cp plugin/session.vim   /home/mestes/.vim/bundle/vim-dir/plugin/session.vim
+#exit 0
 
-print "Building README.md"
+
+
+#-------------------------------------------------------------------------------------
 ./buildmd > README.md
+git add plugin/session.vim
+git add images/session.png
+git add pushit
+git add buildmd
+git add README.md
+git commit -m "Update"
+git push -u origin master
 
-          print "adding..."
-          git add plugin/session.vim
-          git add images/session.png
-          git add pushit
-          git add buildmd
-          git add README.md
-          print "committing..."
-          git commit -m "Update"
-          git push -u origin master
 
-if [ "$LOCAL" == "" ] ; then
-     IP=192.168.1.1
-     fping -c1 -t300 $IP 2>/dev/null 1>/dev/null
-     if [ $? -eq 0 ] ; then
-          git push -u origin master
-     fi
-fi
+
+git commit -m "Update"
+git push -u origin master
+REPO=vim-session
+rm -rf $HOME/.vim/bundle/$REPO
+vim  -c ":PluginInstall! $REPO" -c ":qa!"
+#-------------------------------------------------------------------------------------
 

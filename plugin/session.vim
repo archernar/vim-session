@@ -227,6 +227,12 @@ endfunction
 "                                     - LoadSession()
 "                                     ------------------------------------------
 function! LoadSession(...)
+
+    if exists("g:session_loaded")
+        return
+    endif
+    let g:session_loaded=1 
+
     call s:LogMessage("SRT LoadSession()")
     call s:Dump()
     let l:sfile   = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION

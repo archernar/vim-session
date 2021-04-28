@@ -235,22 +235,24 @@
             let l:sfile   = a:1
             let g:session_loaded=1 
             call s:LogMessage("Loading explicit session file ". l:sfile)
+            let l:sfolder = fnamemodify(fnamemodify(l:sfile, ':p'), ':h')
+            let l:wfile   = ""
+            let l:splfile = ""
+            let l:filecmd = "e"
+            let l:splits = ""
         else
             let l:sfile   = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
             call s:LogMessage("Loading implicit session file ". l:sfile)
+            let l:sfolder = fnamemodify(fnamemodify(l:sfile, ':p'), ':h')
+            let l:wfile   = ($VIMWINDOW == "")  ? ".vimwindow"  : $VIMWINDOW
+            let l:splfile = ($VIMSPLIT == "")   ? ".vimsplit"   : $VIMSPLIT
+            let l:wfile   = l:sfolder . "/.vimwindow"
+            let l:splfile = l:sfolder . "/.vimsplit"
+            let l:filecmd = "e"
+            let l:splits = ""
             let g:session_loaded=1 
         endif
     
-        let l:sfolder = fnamemodify(fnamemodify(l:sfile, ':p'), ':h')
-        call s:LogMessage("VIMSESSION " . l:sfolder )
-    
-        let l:wfile   = ($VIMWINDOW == "")  ? ".vimwindow"  : $VIMWINDOW
-        let l:splfile = ($VIMSPLIT == "")   ? ".vimsplit"   : $VIMSPLIT
-        let l:wfile   = l:sfolder . "/.vimwindow"
-        let l:splfile = l:sfolder . "/.vimsplit"
-    
-        let l:filecmd = "e"
-        let l:splits = ""
     
     
         if (filereadable(splfile))

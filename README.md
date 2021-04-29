@@ -229,7 +229,6 @@
     
     function! LoadSession(...)
     
-           return
     "   if exists("g:session_loaded")
     "       return
     "   endif
@@ -326,6 +325,7 @@
             exe "1wincmd w"
         endif
     
+    call s:Dump()
     call s:LogMessage("END LoadSession()")
     endfunction
     

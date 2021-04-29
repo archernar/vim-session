@@ -231,6 +231,7 @@ endfunction
 
 function! LoadSession(...)
 
+       return
 "   if exists("g:session_loaded")
 "       return
 "   endif

@@ -321,9 +321,6 @@
                 endif
             endfor
             call s:DeleteNoNameBuffer()
-            if (l:ses == 1)
-                exe "bd " . l:sfile
-            endif
     
             if (l:splits != "tab") 
                 exe "tabfirst"
@@ -331,6 +328,9 @@
                 exe "1wincmd w"
             endif
         endif
+            if (l:ses == 1)
+                exe "bd " . l:sfile
+            endif
         " ============
         " For SPLITS
         " ============

@@ -80,7 +80,7 @@
     "                                     ------------------------------------------
     function s:LogMessage(...)
         let l:ret = 0
-        " return l:ret
+        return l:ret
         let l:messages=[]
         call add(l:messages, a:1)
         call writefile(l:messages, "/tmp/vimscript.log", "a")
@@ -230,20 +230,26 @@
     
     function! LoadSession(...)
     
-        if exists("g:session_loaded")
-            return
-        endif
+    "   if exists("g:session_loaded")
+    "       return
+    "   endif
     
         call s:Dump()
         if ( a:0 == 1)
             let l:sfile   = a:1
-            let g:session_loaded=1 
             call s:LogMessage("Loading explicit session file ". l:sfile)
             let l:sfolder = fnamemodify(fnamemodify(l:sfile, ':p'), ':h')
-            let l:wfile   = ""
-            let l:splfile = ""
+            let l:wfile   = l:sfolder . "/.vimwindow"
+            let l:splfile = l:sfolder . "/.vimsplit"
+            call writefile([], wfile)
+    
+            let l:body=[]
+            call add(l:body, "none")
+            call writefile(l:body, splfile)
+            let l:splits = "none"
+    
             let l:filecmd = "e"
-            let l:splits = ""
+            let g:session_loaded=1 
         else
             let l:sfile   = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
             call s:LogMessage("Loading implicit session file ". l:sfile)

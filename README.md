@@ -329,6 +329,7 @@
             endif
         endif
             if (l:ses == 1)
+                echom "bd " . l:sfile
                 exe "bd " . l:sfile
             endif
         " ============

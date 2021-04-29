@@ -233,10 +233,13 @@
     "   if exists("g:session_loaded")
     "       return
     "   endif
+                        exe "bd " . l:c
     
+        let l:ses = 0
         call s:Dump()
         if ( a:0 == 1)
             let l:sfile   = a:1
+            let l:ses = 1
             call s:LogMessage("Loading explicit session file ". l:sfile)
             let l:sfolder = fnamemodify(fnamemodify(l:sfile, ':p'), ':h')
             let l:wfile   = l:sfolder . "/.vimwindow"
@@ -318,6 +321,9 @@
                 endif
             endfor
             call s:DeleteNoNameBuffer()
+            if (l:ses == 1)
+                exe "bd 1"
+            endif
     
             if (l:splits != "tab") 
                 exe "tabfirst"

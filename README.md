@@ -87,7 +87,6 @@
     endfunction
     
     function s:Dump(...)
-        return
         let l:c = 1
         call s:LogMessage("Dump")
         while l:c <= s:MAXBUFFERS 

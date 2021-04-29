@@ -330,10 +330,8 @@ function! LoadSession(...)
             exe "1wincmd w"
         endif
     endif
-        if (l:ses == 1)
             echom "bd " . l:sfile
             exe "bd " . l:sfile
-        endif
     " ============
     " For SPLITS
     " ============

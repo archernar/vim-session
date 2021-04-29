@@ -266,6 +266,11 @@
     
     
         if (filereadable(splfile))
+            if ( len(readfile(splfile)) == 0)
+                let l:body=[]
+                call add(l:body, "none")
+                call writefile(l:body, splfile)
+            endif
             let l:splits = ""
             let l:splits = readfile(splfile)[0]
         else

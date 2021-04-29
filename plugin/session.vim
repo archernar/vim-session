@@ -237,22 +237,6 @@ function! LoadSession(...)
 "   endif
 
     call s:Dump()
-    if ( a:0 == 1)
-        let l:sfile   = a:1
-        call s:LogMessage("Loading explicit session file ". l:sfile)
-        let l:sfolder = fnamemodify(fnamemodify(l:sfile, ':p'), ':h')
-        let l:wfile   = l:sfolder . "/.vimwindow"
-        let l:splfile = l:sfolder . "/.vimsplit"
-        call writefile([], wfile)
-
-        let l:body=[]
-        call add(l:body, "none")
-        call writefile(l:body, splfile)
-        let l:splits = "none"
-
-        let l:filecmd = "e"
-        let g:session_loaded=1 
-    else
         let l:sfile   = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
         call s:LogMessage("Loading implicit session file ". l:sfile)
         let l:sfolder = fnamemodify(fnamemodify(l:sfile, ':p'), ':h')
@@ -263,41 +247,40 @@ function! LoadSession(...)
         let l:filecmd = "e"
         let l:splits = ""
         let g:session_loaded=1 
-    endif
 
 
 
-    if (filereadable(splfile))
-        if ( len(readfile(splfile)) == 0)
+
+        if (filereadable(splfile))
+            if ( len(readfile(splfile)) == 0)
+                let l:body=[]
+                call add(l:body, "none")
+                call writefile(l:body, splfile)
+            endif
+            let l:splits = ""
+            let l:splits = readfile(splfile)[0]
+        else
             let l:body=[]
             call add(l:body, "none")
             call writefile(l:body, splfile)
+            let l:splits = "none"
         endif
-        let l:splits = ""
-        let l:splits = readfile(splfile)[0]
-    else
-        let l:body=[]
-        call add(l:body, "none")
-        call writefile(l:body, splfile)
-        let l:splits = "none"
-    endif
 
-    if (l:splits == "tab")
-        let l:filecmd = "tabedit"
-    endif
+        if (l:splits == "tab")
+            let l:filecmd = "tabedit"
+        endif
 
-    if (l:splits != "tab") 
-        if (l:splits != "none")
-            if (l:splits == "four")
-              execute "split | vsplit | wincmd w | vsplit | wincmd w | wincmd w | wincmd w"
-            else
-              if (l:splits != "")
-                  exe l:splits . " | exe '1wincmd w'"
-              endif
+        if (l:splits != "tab") 
+            if (l:splits != "none")
+                if (l:splits == "four")
+                  execute "split | vsplit | wincmd w | vsplit | wincmd w | wincmd w | wincmd w"
+                else
+                  if (l:splits != "")
+                      exe l:splits . " | exe '1wincmd w'"
+                  endif
+                endif
             endif
         endif
-    endif
-
 
     let l:sz = ""
     let l:c = 0

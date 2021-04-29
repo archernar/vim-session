@@ -245,9 +245,6 @@
             let l:splits = ""
             let g:session_loaded=1 
     
-    
-    
-    
             if (filereadable(splfile))
                 if ( len(readfile(splfile)) == 0)
                     let l:body=[]
@@ -286,10 +283,10 @@
             call s:LogMessage("Reading " . fnamemodify(l:sfile, ':p'))
             let l:body = readfile(l:sfile)
             for l:l in l:body
-                call s:LogMessage("Body Element " . l:l . " from " . l:sfile)
                 if !( l:l =~ "\"" )
                     if !( l:l == "" )
                         exe l:filecmd . " " . l:l
+                        call s:LogMessage("Loading Body Element " . l:l . " from " . l:sfile)
                         call s:Dump()
                         if (line("'\"") > 0 && line("'\"") <= line("$"))
                             exe "normal! g'\"" 
@@ -300,6 +297,7 @@
                 endif
             endfor
             call s:DeleteNoNameBuffer()
+            call s:LogMessage("Loading Complete")
     
             if (l:splits != "tab") 
                 exe "tabfirst"

@@ -234,7 +234,6 @@ function! LoadSession(...)
 "       return
 "   endif
 
-    call s:Dump()
         let l:sfile   = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
         call s:LogMessage("Loading implicit session file ". l:sfile)
         let l:sfolder = fnamemodify(fnamemodify(l:sfile, ':p'), ':h')
@@ -288,7 +287,6 @@ function! LoadSession(...)
                 if !( l:l == "" )
                     exe l:filecmd . " " . l:l
                     call s:LogMessage("Loading Body Element " . l:l . " from " . l:sfile)
-                    call s:Dump()
                     if (line("'\"") > 0 && line("'\"") <= line("$"))
                         exe "normal! g'\"" 
                     endif

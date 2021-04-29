@@ -238,6 +238,8 @@
             let l:splfile = ($VIMSPLIT == "")   ? ".vimsplit"   : $VIMSPLIT
             let l:wfile   = l:sfolder . "/.vimwindow"
             let l:splfile = l:sfolder . "/.vimsplit"
+            let l:wfile   = ($VIMWINDOW == "NIL")  ? "NIL" : l:sfolder . "/.vimwindow"
+            let l:splfile = ($VIMSPLIT == "NIL")   ? "NIL" : l:sfolder . "/.vimsplit"
             let l:filecmd = "e"
             let l:splits = ""
             let g:session_loaded=1 

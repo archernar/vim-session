@@ -92,7 +92,6 @@ function s:Dump(...)
     let l:c = 1
     call s:LogMessage("Dump")
     while l:c <= s:MAXBUFFERS 
-        call s:LogMessage("    Looking at buffer " . l:c)
         if (bufexists(l:c))
                 if (getbufvar(l:c, '&buftype') == "")
                     if !(bufname(l:c) == "")
@@ -318,6 +317,7 @@ function! LoadSession(...)
                 if !(l:l == "")
                          if ( s:WindowExists(l:c) == 1 )
                              exe l:c . "wincmd w"
+                             call s:LogMessage("Loading " . l:l)
                              exe "e " . l:l
                          endif
                          let l:c += 1

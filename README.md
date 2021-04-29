@@ -322,7 +322,7 @@
             endfor
             call s:DeleteNoNameBuffer()
             if (l:ses == 1)
-                exe "bd 1"
+                exe "bd " . l:sfile
             endif
     
             if (l:splits != "tab") 

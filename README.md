@@ -277,6 +277,8 @@
         let l:sz = ""
         let l:c = 0
         let l:sz = l:sfile
+        call s:LogMessage("Loading Begin")
+        call s:Dump()
         if (filereadable(l:sfile))
             call s:LogMessage("Reading " . fnamemodify(l:sfile, ':p'))
             let l:body = readfile(l:sfile)
@@ -294,6 +296,7 @@
                 endif
             endfor
             call s:DeleteNoNameBuffer()
+            call s:Dump()
             call s:LogMessage("Loading Complete")
     
             if (l:splits != "tab") 

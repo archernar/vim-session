@@ -328,6 +328,10 @@
             exe "1wincmd w"
         endif
     
+    if (!( $VIMFIRSTFILE == ""))
+        exe "bwipeout! " . $VIMFIRSTFILE
+    endif
+    
     call s:Dump()
     call s:LogMessage("END LoadSession()")
     endfunction

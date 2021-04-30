@@ -233,18 +233,19 @@ function! LoadSession(...)
 "       return
 "   endif
 
-        let l:sfile   = ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION
+        let l:sfile   = ($VIMSESSION == "") ? ".vim.vimsession" : $VIMSESSION . ".vimsession"
+        let l:wfile   = ($VIMWINDOW == "")  ? ".vim.vimwindow"  : $VIMWINDOW .  ".vimwindow"
+        let l:splfile = ($VIMSPLIT == "")   ? ".vim.vimsplit"   : $VIMSPLIT .   ".vimsplit"
         call s:LogMessage("Loading implicit session file ". l:sfile)
         let l:sfolder = fnamemodify(fnamemodify(l:sfile, ':p'), ':h')
-        let l:wfile   = ($VIMWINDOW == "")  ? ".vimwindow"  : $VIMWINDOW
-        let l:splfile = ($VIMSPLIT == "")   ? ".vimsplit"   : $VIMSPLIT
-        let l:wfile   = l:sfolder . "/.vimwindow"
-        let l:splfile = l:sfolder . "/.vimsplit"
-        let l:wfile   = ($VIMWINDOW == "NIL")  ? "NIL" : l:sfolder . "/.vimwindow"
-        let l:splfile = ($VIMSPLIT == "NIL")   ? "NIL" : l:sfolder . "/.vimsplit"
+
         let l:filecmd = "e"
         let l:splits = ""
         let g:session_loaded=1 
+        call s:LogMessage($VIMSESSION . " " . l:sfile)
+        call s:LogMessage($VIMWINDOW  . " " . l:wfile)
+        call s:LogMessage($VIMSPLIT   . " " . l:splfile)
+        call s:LogMessage(l:sfolder)
 
         if (filereadable(splfile))
             if ( len(readfile(splfile)) == 0)
@@ -376,8 +377,8 @@ function! CaptureSession()
                 call add(l:winbody, FullPathFileName(bufname(winbufnr(l:l))))
     endfor
 
-    call writefile(l:body,    ($VIMSESSION == "") ? ".vimsession" : $VIMSESSION)
-    call writefile(l:winbody, ($VIMWINDOW == "") ? ".vimwindow" : $VIMWINDOW)
+    call writefile(l:body,    ($VIMSESSION == "") ? "vim.vimsession" : $VIMSESSION . ".vimsession")
+    call writefile(l:winbody, ($VIMWINDOW == "") ? "vim.vimwindow" : $VIMWINDOW   . ".vimwindow")
     " https://stackoverflow.com/questions/7236315/how-can-i-view-the-filepaths-to-all-vims-open-buffers
     let l:mm=map(filter(range(0,bufnr('$')), 'buflisted(v:val)'), 'fnamemodify(bufname(v:val), ":p")')
     for l:l in l:mm
@@ -386,5 +387,5 @@ function! CaptureSession()
     call writefile(l:global, l:gfn)
 
 
-echom "session written to " . (($VIMSESSION == "") ? ".vimsession" : $VIMSESSION)
+echom "session written to " . (($VIMSESSION == "") ? "vim.vimsession" : $VIMSESSION . ".vimsession")
 endfunction

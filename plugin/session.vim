@@ -36,7 +36,7 @@
 
 " Environment Variables, Session Files and Split Configuration File
 " name         default        description
-" VIMSESSION   .vimsession    Name of the file that contains the session list
+" VIMSESSION   vim.vimsession Name of the file that contains the session list
 "                             This is a simple list of files
 "                             This file can be manually edited or auto generated
 
@@ -44,7 +44,7 @@
 "                             buffers ( one per line ) to this file
 "                             You can manually create this file too
 "
-" VIMWINDOW    .vimwindow     Name of the file that contains the list of files
+" VIMWINDOW    vim.vimwindow  Name of the file that contains the list of files
 "                             to be viewed in the splits (in the order listed)
 "                             This file is typically not manually edited, but can be
 "                             CaptureSession() writes the files associated visible
@@ -55,7 +55,7 @@
 "                             the splits in order.  If there are less splits than files
 "                             then loading stops.
 "
-" VIMSPLIT     .vimsplit      Name of the file that contains split commands
+" VIMSPLIT     vim.vimsplit   Name of the file that contains split commands
 "                             This file has one line in it
 "                             Options:
 "                             if the file contains "none":  No Splits of Tabs

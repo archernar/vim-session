@@ -345,6 +345,18 @@
          return fnamemodify(a:1, ':p')
     endfunction
     
+    function! SetSession()
+         let l:sz = input('Session Name>> ')
+         let $VIMSESSION=l:sz
+         let $VIMWINDOW=l:sz
+         let $VIMSPLIT=l:sz
+    endfunction
+    function! ReSetSession()
+         let l:sz = ".vim"
+         let $VIMSESSION=l:sz
+         let $VIMWINDOW=l:sz
+         let $VIMSPLIT=l:sz
+    endfunction
     " ==============================================================================
     "                                     - Global Function
     "                                     ------------------------------------------

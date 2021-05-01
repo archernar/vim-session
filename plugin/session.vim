@@ -368,6 +368,7 @@ function! ReSetSession(...)
     let $VIMSESSION=l:sz
     let $VIMWINDOW=l:sz
     let $VIMSPLIT=l:sz
+    call ShowSession()
 endfunction
 function! ShowSession(...)
     echom "[" . $VIMSESSION . "/" . $VIMWINDOW . "/" . $VIMSPLIT . "]"

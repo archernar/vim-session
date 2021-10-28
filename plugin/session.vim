@@ -169,6 +169,34 @@ function! s:DeleteNoNameBuffer()
     endwhile 
 endfunction
 " ==============================================================================
+"                                     - Read Master Index
+"                                     ------------------------------------------
+"                                     ------------------------------------------
+let s:master = []
+let s:masterindex = "~/.vimsession.masterone"
+function! s:readMasterIndex()
+    if (filereadable(s:masterindex))
+        let s:master = readfile(s:masterindex)
+    endif
+    return s:master
+endfunction
+" ==============================================================================
+"                                     - Write Master Index
+"                                     ------------------------------------------
+"                                     ------------------------------------------
+function! s:writeMasterIndex()
+    call writefile(s:master, masterindex)
+    return s:master
+endfunction
+" ==============================================================================
+"                                     - Add To Master Index
+"                                     ------------------------------------------
+"                                     ------------------------------------------
+function! s:addToMasterIndex(...)
+    call add(s:master, a:1)
+    return s:master
+endfunction
+" ==============================================================================
 "                                     - Script Utility Function
 "                                     ------------------------------------------
 "                                     - s:FileInSession(...)

@@ -277,6 +277,12 @@
         call LoadSession(a:1)
     endfunction
     
+    function! s:BuildTags(...)
+            silent execute "!ctags -L " . (($VIMSESSION == "") ? ".vim.vimsession" : $VIMSESSION . ".vimsession")
+            redraw!
+    endfunction
+    
+    
     function! LoadSession(...)
     
     "   if exists("g:session_loaded")
@@ -288,10 +294,11 @@
             let l:splfile = ($VIMSPLIT == "")   ? ".vim.vimsplit"   : $VIMSPLIT .   ".vimsplit"
             call s:LogMessage("Loading implicit session file ". l:sfile)
             let l:sfolder = fnamemodify(fnamemodify(l:sfile, ':p'), ':h')
+    
             " Tags Support
-            " ctags -L  .vim.vimsession
-            " silent execute "!javac -version"
-            silent execute "!ctags -L " l:sfile
+            call s:BuildTags()
+    
+    
     
             let l:filecmd = "e"
             let l:splits = ""

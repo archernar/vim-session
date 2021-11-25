@@ -288,6 +288,10 @@
             let l:splfile = ($VIMSPLIT == "")   ? ".vim.vimsplit"   : $VIMSPLIT .   ".vimsplit"
             call s:LogMessage("Loading implicit session file ". l:sfile)
             let l:sfolder = fnamemodify(fnamemodify(l:sfile, ':p'), ':h')
+            " Tags Support
+            " ctags -L  .vim.vimsession
+            " silent execute "!javac -version"
+            silent execute "!ctags -L " l:sfile
     
             let l:filecmd = "e"
             let l:splits = ""

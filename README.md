@@ -297,7 +297,8 @@
     
             " Tags Support
             call s:BuildTags()
-    
+            command! TAGS call s:BuildTags()
+            
     
     
             let l:filecmd = "e"

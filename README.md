@@ -73,6 +73,18 @@
     
     let s:MAXBUFFERS=255
     
+    
+    
+    " ==============================================================================
+    "                                     - Notes
+    "                                     ------------------------------------------
+    
+    " gawk to set first and second row in a text file and leave rest the same
+    " gawk -v s=E -v f=P 'BEGIN {d="";n="\n";} (f==$0) {ff=$0; next;} (s==$0) {sf=$0; next;} {l=l d $0; d=n; next;} END {print ((ff!="") ? ff n:ff) ((sf!="") ? sf n:sf) l}'
+    " gawk to set first row in a text file and leave rest the same
+    " gawk -v f=P 'BEGIN {d="";n="\n";} (f==$0) {ff=$0; next;} {l=l d $0; d=n; next;} END {print ((ff!="") ? ff n:ff) l}'
+    
+    
     " ==============================================================================
     "                                     - Script Utility Function
     "                                     ------------------------------------------
@@ -345,9 +357,24 @@
         let l:sz = l:sfile
         call s:LogMessage("Loading Begin")
         call s:Dump()
+        let l:tlist=[]
+        let l:body = []
         if (filereadable(l:sfile))
             call s:LogMessage("Reading " . fnamemodify(l:sfile, ':p'))
-            let l:body = readfile(l:sfile)
+            let l:tlist = readfile(l:sfile)
+            let l:readmore = 1
+            for l:l in l:tlist
+                if ( l:l == "STOP")
+                    let l:readmore = 0
+                endif
+                if ( l:readmore == 1 )
+                    call add(l:body, l:l)
+                endif
+            endfor
+    
+            "let l:body = readfile(l:sfile)
+    
+    
             for l:l in l:body
                 if !( l:l =~ "\"" )
                     if !( l:l == "" )

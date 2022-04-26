@@ -18,6 +18,7 @@ git add plugin/session.vim
 git add images/session.png
 git add pushit
 git add buildmd
+git add classmethodlist
 git add README.md
 git commit -m "Update"
 git push -u origin master
